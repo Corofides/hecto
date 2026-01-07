@@ -1,4 +1,4 @@
-#![warnall, clippy::pedantic] // Enable linter in pedantic mode.
+#![warn(clippy::all,clippy::pedantic)] // Enable linter in pedantic mode.
 mod editor;
 
 use editor::Editor;
