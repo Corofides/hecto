@@ -28,27 +28,20 @@ impl Editor {
     }
     fn clear_screen() -> Result<(), std::io::Error> {
         Terminal::clear_screen()
-        //Ok(())
-        // let mut stdout = stdout();
-        // execute!(stdout, Clear(ClearType::All))
     }
     fn draw_rows() -> Result<(), std::io::Error> {
         let size = size(); // Get the size of the terminal.
         let height = &size.unwrap().1;
         let mut index = 0;
         while index < *height {
-            // execute!(stdout(), MoveTo(0, index))?;
             Terminal::move_to(0, index)?;
             print!("~");
             index += 1;
         }
         Terminal::move_to(2, 0)?;
         Ok(())
-        //execute!(stdout(), MoveTo(2, 0))
     }
     pub fn repl(&mut self) -> Result<(), std::io::Error> {
-        // use crossterm for input instead of stdin,
-        // Editor::draw_rows()?;
         loop {
             let event = read()?;
             self.evaluate_event(&event);
