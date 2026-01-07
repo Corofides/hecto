@@ -10,26 +10,23 @@ impl Editor {
     pub fn default() -> Self {
         Editor{} // default constructor, returns an editor. I guess we can skip this if we want.
     }
-    pub fn run(self: &Self) {
+    pub fn run(&self) {
         let _ = enable_raw_mode();
 
         // use crossterm for input instead of stdin,
         loop {
             match read() {
                 Ok(Key(event)) => {
-                    println!("{:?} \r", event);
+                    println!("{event:?} \r");
 
-                    match event.code {
-                        Char(c) => {
-                            if c == 'q' {
-                                break;
-                            }
-                        },
-                        _ => (),
+                    if let Char(c) = event.code {
+                        if c == 'q' {
+                            break;
+                        }
                     }
                 },
                 Err(err) => {
-                    println!("Error: {}", err);
+                    println!("Error: {err}");
                 },
                 _ => ()
             }
