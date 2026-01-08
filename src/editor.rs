@@ -32,11 +32,10 @@ impl Editor {
     fn draw_rows() -> Result<(), std::io::Error> {
         let size = size(); // Get the size of the terminal.
         let height = &size.unwrap().1;
-        let mut index = 0;
-        while index < *height {
+        for index in 0..*height {
             Terminal::move_to(0, index)?;
             print!("~");
-            index += 1;
+            //index += 1;
         }
         Terminal::move_to(2, 0)?;
         Ok(())
