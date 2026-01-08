@@ -1,6 +1,5 @@
 #![warn(clippy::all,clippy::pedantic)] // Enable linter in pedantic mode.
 mod editor;
-mod terminal;
 
 use editor::Editor;
 //use std::io::{self, Read};
