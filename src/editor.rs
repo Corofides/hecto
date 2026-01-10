@@ -63,7 +63,12 @@ impl Editor {
 
         let width = Terminal::size()?.width as usize;
         let len = welcome_message.len();
-        let padding = (width - len) / 2;
+        let mut padding = 1;
+
+        if len < width { // check the length is less than the width
+            padding = (width - len) / 2;
+        }
+
         let spaces = " ".repeat(padding - 1);
 
         welcome_message = format!("~{spaces}{welcome_message}");
