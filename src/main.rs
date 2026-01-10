@@ -1,4 +1,4 @@
-#![warn(clippy::all,clippy::pedantic,clippy::print_stdout)] // Enable linter in pedantic mode.
+#![warn(clippy::all,clippy::pedantic,clippy::print_stdout,clippy::arithmetic_side_effects,clippy::as_conversion,clippy::integer_division)] // Enable linter in pedantic mode.
 mod editor;
 
 use editor::Editor;

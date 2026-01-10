@@ -9,14 +9,14 @@ pub struct Terminal;
 
 #[derive(Copy, Clone)]
 pub struct Size {
-    pub width: u16,
-    pub height: u16,
+    pub width: usize,
+    pub height: usize,
 }
 
 #[derive(Copy, Clone)]
 pub struct Position {
-    pub x: u16,
-    pub y: u16,
+    pub x: usize,
+    pub y: usize,
 }
 
 impl Terminal {
@@ -49,14 +49,22 @@ impl Terminal {
         Ok(())
     }
     pub fn move_cursor_to(position: Position) -> Result<(), Error> {
-        Self::queue_command(MoveTo(position.x, position.y))
+        #[allow(clippy::as_conversions,clippy::cast_possible_truncation)]
+        Self::queue_command(MoveTo(position.x as u16, position.y as u16))
     }
     pub fn print<T: Display>(string: T) -> Result<(), Error> {
         Self::queue_command(Print(string))
     }
     pub fn size() -> Result<Size, Error> {
-        let size = size()?;
-        Ok(Size { width: size.0, height: size.1 })
+        let (width_u16, height_u16) = size()?;
+
+        #[allow(clippy::as_conversion)]
+        let height = height_u16 as usize;
+
+        #[allow(clippy::as_conversion)]
+        let width = width_u16 as usize;
+
+        Ok(Size { width: width, height: height })
     }
     pub fn execute() -> Result<(), Error> {
         stdout().flush()?;
