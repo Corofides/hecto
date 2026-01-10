@@ -5,6 +5,9 @@ mod terminal;
 
 use terminal::{Terminal, Size, Position};
 
+const NAME: &str = env!("CARGO_PKG_NAME");
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub struct Editor {
     should_quit: bool,
 }
@@ -31,12 +34,21 @@ impl Editor {
         Ok(())
 
     }
+    fn draw_empty_row() -> Result<(), Error> {
+        Terminal::print("~")?;
+        Ok(())
+    }
     fn draw_rows() -> Result<(), Error> {
         let Size { height, .. } = Terminal::size()?;
         
         for current_row in 0..height {
             Terminal::clear_line()?;
-            Terminal::print("~")?;
+
+            if current_row == height / 3 {
+                Self::draw_welcome_message()?;
+            } else {
+                Self::draw_empty_row()?;
+            }
             
             if current_row + 1 < height {
                 Terminal::print("\r\n")?; //print!("\r\n");
@@ -45,29 +57,19 @@ impl Editor {
         Terminal::flush()?;
         Ok(())
     }
-    fn draw_welcome() -> Result<(), Error> {
+    fn draw_welcome_message() -> Result<(), Error> {
 
-        let Size { height, width } = Terminal::size()?;
-        let welcome_message = String::from("Welcome to Hecto");
-        let version = String::from("Version: 0.0.0");
+        let mut welcome_message = format!("{NAME} editor -- version {VERSION}");
 
-        #[allow(clippy::cast_possible_truncation)]
-        let welcome_length = welcome_message.len() as u16;
-        #[allow(clippy::cast_possible_truncation)]
-        let version_length = version.len() as u16;
+        let width = Terminal::size()?.width as usize;
+        let len = welcome_message.len();
+        let padding = (width - len) / 2;
+        let spaces = " ".repeat(padding - 1);
 
-        let half_width = width / 2;
-        let half_height = height / 2;
+        welcome_message = format!("~{spaces}{welcome_message}");
+        welcome_message.truncate(width);
 
-        let rows = 3;
-
-        Terminal::move_cursor_to(Position {x: half_width - (welcome_length / 2), y: half_height - (rows / 2)})?;
-        Terminal::print(&welcome_message[..])?; // print slice of welcome message.
-        
-        Terminal::move_cursor_to(Position {x: half_width - (version_length / 2), y: half_height + (rows / 2)})?;
-        Terminal::print(&version[..])?; // print slice of version number.
-
-        Terminal::flush()?;
+        Terminal::print(&welcome_message)?;
         Ok(())
     }
     pub fn evaluate_event(&mut self, event: &Event) {
@@ -89,7 +91,6 @@ impl Editor {
             Terminal::print("Goodbye.\r\n")?;
         } else {
             Self::draw_rows()?;
-            Self::draw_welcome()?;
             Terminal::move_cursor_to(Position {x: 0, y: 0})?;
         }
         Terminal::show_cursor()?;
