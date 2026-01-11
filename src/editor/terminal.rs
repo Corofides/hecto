@@ -3,7 +3,6 @@ use crossterm::terminal::{disable_raw_mode, enable_raw_mode, size, Clear, ClearT
 use crossterm::cursor::{MoveTo, Hide, Show};
 use crossterm::style::Print;
 use crossterm::{queue, Command};
-use core::fmt::Display;
 
 pub struct Terminal;
 
@@ -52,7 +51,7 @@ impl Terminal {
         #[allow(clippy::as_conversions,clippy::cast_possible_truncation)]
         Self::queue_command(MoveTo(position.x as u16, position.y as u16))
     }
-    pub fn print<T: Display>(string: T) -> Result<(), Error> {
+    pub fn print(string: &str) -> Result<(), Error> {
         Self::queue_command(Print(string))
     }
     pub fn size() -> Result<Size, Error> {
