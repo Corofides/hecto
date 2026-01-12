@@ -36,6 +36,13 @@ pub struct Location {
 
 impl Editor {
     pub fn run(&mut self) {
+
+        /* Process args and pass filename to view */
+        let args: Vec<String> = std::env::args().collect();
+
+        if let Some(first_arg) = args.get(1) {
+            let _ = self.view.load(first_arg);
+        }
         Terminal::initialize().unwrap();
         let result = self.repl();
         Terminal::terminate().unwrap();
