@@ -7,7 +7,6 @@ use std::cmp::{ min };
 
 mod terminal;
 mod view;
-mod buffer;
 
 use terminal::{Terminal, Size, Position};
 use view::{View};
@@ -15,6 +14,7 @@ use view::{View};
 // const NAME: &str = env!("CARGO_PKG_NAME");
 // const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+#[derive(Default)]
 pub struct Editor {
     view: View,
     should_quit: bool,
@@ -35,17 +35,6 @@ pub struct Location {
     
 
 impl Editor {
-    pub const fn default() -> Self {
-
-        let view = View::default();
-
-        Self {
-            view,
-            should_quit: false,
-            position: Position{ x: 0, y: 0},
-            location: Location { column: 0, row: 0 },
-        }
-    }
     pub fn run(&mut self) {
         Terminal::initialize().unwrap();
         let result = self.repl();

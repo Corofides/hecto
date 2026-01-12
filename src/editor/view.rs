@@ -1,8 +1,10 @@
 use std::io::Error;
 use super::terminal::{Terminal, Size, Position};
 
-use super::buffer::Buffer;
+mod buffer;
+use buffer::Buffer;
 
+#[derive(Default)]
 pub struct View {
     buffer: Buffer
 }
@@ -11,11 +13,6 @@ const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 impl View {
-    pub const fn default() -> Self {
-        Self {
-            buffer: Buffer::default(),
-        }
-    }
     fn draw_empty_row() -> Result<(), Error> {
         Terminal::print("~")?;
         Ok(())
@@ -47,31 +44,22 @@ impl View {
        
         for current_row in 0..height {
             Terminal::clear_line()?;
+            if let Some(line) = self.buffer.lines.get(current_row) {
+                Terminal::print(line)?;
+                Terminal::print("\r\n")?;
+                continue;
+            }
 
             #[allow(clippy::integer_division)]
             if current_row == height / 3 {
                 Self::draw_welcome_message()?;
             } else {
-                let current_row = self.buffer.get_row(current_row);
-
-                match current_row {
-                    Some(text) => {
-                        Terminal::print(text)?;
-                    }
-                    None => {
-                        Self::draw_empty_row()?;
-                    }
-                }
-                /*if current_row < rows_in_buffer {
-                    Self::draw_row_from_buffer(current_row)?;
-                } else {
-                    Self::draw_empty_row()?;
-                }*/
+                Self::draw_empty_row()?;
             }
 
-            if current_row == 0 {
+            /* if current_row == 0 {
                 Terminal::print("Hello, world!")?;
-            }
+            } */
             
             if current_row.saturating_add(1) < height {
                 Terminal::print("\r\n")?; //print!("\r\n")?;
