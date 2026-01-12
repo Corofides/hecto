@@ -57,13 +57,13 @@ impl Terminal {
     pub fn size() -> Result<Size, Error> {
         let (width_u16, height_u16) = size()?;
 
-        #[allow(clippy::as_conversion)]
+        #[allow(clippy::as_conversions)]
         let height = height_u16 as usize;
 
-        #[allow(clippy::as_conversion)]
+        #[allow(clippy::as_conversions)]
         let width = width_u16 as usize;
 
-        Ok(Size { width: width, height: height })
+        Ok(Size { width, height })
     }
     pub fn execute() -> Result<(), Error> {
         stdout().flush()?;

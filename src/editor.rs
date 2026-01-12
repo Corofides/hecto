@@ -1,12 +1,13 @@
 use crossterm::event::{read, 
     Event::{self, Key}, 
-    KeyCode, KeyCode::*, KeyEvent, KeyModifiers
+    KeyCode, KeyCode::Char, KeyEvent, KeyModifiers
 };
 use std::io::Error;
 use std::cmp::{ min };
 
 mod terminal;
 mod view;
+mod buffer;
 
 use terminal::{Terminal, Size, Position};
 use view::{View};
@@ -15,6 +16,7 @@ use view::{View};
 // const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub struct Editor {
+    view: View,
     should_quit: bool,
     position: Position,
     location: Location,
@@ -34,7 +36,11 @@ pub struct Location {
 
 impl Editor {
     pub const fn default() -> Self {
+
+        let view = View::default();
+
         Self {
+            view,
             should_quit: false,
             position: Position{ x: 0, y: 0},
             location: Location { column: 0, row: 0 },
@@ -103,49 +109,6 @@ impl Editor {
         Ok(())
 
     }
-    // fn draw_empty_row() -> Result<(), Error> {
-    //     Terminal::print("~")?;
-    //     Ok(())
-    // }
-    // fn draw_rows() -> Result<(), Error> {
-    //     let Size { height, .. } = Terminal::size()?;
-    //     Terminal::move_caret_to(Position {x: 0, y: 0})?;
-    //     
-    //     for current_row in 0..height {
-    //         Terminal::clear_line()?;
-
-    //         #[allow(clippy::integer_division)]
-    //         if current_row == height / 3 {
-    //             Self::draw_welcome_message()?;
-    //         } else {
-    //             Self::draw_empty_row()?;
-    //         }
-    //         
-    //         if current_row.saturating_add(1) < height {
-    //             Terminal::print("\r\n")?; //print!("\r\n");
-    //         }
-    //     }
-    //     Terminal::flush()?;
-    //     Ok(())
-    // }
-    // fn draw_welcome_message() -> Result<(), Error> {
-
-    //     let mut welcome_message = format!("{NAME} editor -- version {VERSION}");
-
-    //     let width = Terminal::size()?.width;
-    //     let len = welcome_message.len();
-
-    //     #[allow(clippy::integer_division)]
-    //     let padding = (width.saturating_sub(len)) / 2;
-
-    //     let spaces = " ".repeat(padding.saturating_sub(1));
-
-    //     welcome_message = format!("~{spaces}{welcome_message}");
-    //     welcome_message.truncate(width);
-
-    //     Terminal::print(welcome_message)?;
-    //     Ok(())
-    // }
     pub fn evaluate_event(&mut self, event: &Event) -> Result<(), Error> {
         if let Key(KeyEvent {
             code, modifiers, .. 
@@ -166,7 +129,7 @@ impl Editor {
                 },
                 _ => (),
             }
-        };
+        }
 
         Ok(())
     }
@@ -177,8 +140,7 @@ impl Editor {
             Terminal::clear_screen()?;
             Terminal::print("Goodbye.\r\n")?;
         } else {
-            //Self::draw_rows()?;
-            View::render()?;
+            self.view.render()?;
             Terminal::move_caret_to(Position {
                 x: self.position.x, 
                 y: self.position.y
