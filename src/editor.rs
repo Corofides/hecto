@@ -2,7 +2,7 @@ use crossterm::event::{read,
     Event::{self, Key}, 
     KeyCode, KeyCode::Char, KeyEvent, KeyModifiers
 };
-use std::io::Error;
+use std::{env, io::Error};
 use std::cmp::{ min };
 
 mod terminal;
@@ -37,16 +37,17 @@ pub struct Location {
 impl Editor {
     pub fn run(&mut self) {
 
-        /* Process args and pass filename to view */
-        let args: Vec<String> = std::env::args().collect();
-
-        if let Some(first_arg) = args.get(1) {
-            let _ = self.view.load(first_arg);
-        }
         Terminal::initialize().unwrap();
+        self.handle_args();
         let result = self.repl();
         Terminal::terminate().unwrap();
         result.unwrap();
+    }
+    fn handle_args(&mut self) {
+        let args: Vec<String> = env::args().collect();
+        if let Some(file_name) = args.get(1) {
+            self.view.load(file_name);
+        }
     }
     fn move_point(&mut self, key_code: KeyCode) -> Result< (), Error> {
         let Position { mut x, mut y } = self.position;

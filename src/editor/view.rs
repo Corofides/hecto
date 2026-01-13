@@ -1,5 +1,4 @@
 use std::io::Error;
-use std::fs::read_to_string;
 use super::terminal::{Terminal, Size, Position};
 
 mod buffer;
@@ -7,7 +6,7 @@ use buffer::Buffer;
 
 #[derive(Default)]
 pub struct View {
-    buffer: Buffer
+    buffer: Buffer,
 }
 
 const NAME: &str = env!("CARGO_PKG_NAME");
@@ -39,33 +38,20 @@ impl View {
         Terminal::print(&welcome_message)?;
         Ok(())
     }
-    pub fn render(&self) -> Result<(), Error> {
+    pub fn render_welcome_screen(&self) -> Result<(), Error> {
         let Size { height, .. } = Terminal::size()?;
         Terminal::move_caret_to(Position {x: 0, y: 0})?;
        
         for current_row in 0..height {
             Terminal::clear_line()?;
-            if let Some(line) = self.buffer.lines.get(current_row) {
-                Terminal::print(line)?;
-                Terminal::print("\r\n")?;
-                continue;
-            }
 
             #[allow(clippy::integer_division)]
             if current_row == height / 3 {
-                if self.buffer.is_empty() {
-                    Self::draw_welcome_message()?;
-                } else {
-                    Self::draw_empty_row()?;
-                }
+                Self::draw_welcome_message()?;
             } else {
                 Self::draw_empty_row()?;
             }
 
-            /* if current_row == 0 {
-                Terminal::print("Hello, world!")?;
-            } */
-            
             if current_row.saturating_add(1) < height {
                 Terminal::print("\r\n")?; //print!("\r\n")?;
             }
@@ -73,11 +59,36 @@ impl View {
         Terminal::flush()?;
         Ok(())
     }
-    pub fn load(&mut self, filename: &String) -> Result<(), Error> {
-        let file_contents = read_to_string(filename)?;
-        for line in file_contents.lines() {
-            self.buffer.lines.push(String::from(line));
+    pub fn render_buffer(&self) -> Result<(), Error> {
+        let Size {height, ..} = Terminal::size()?;
+
+        for current_row in 0..height {
+            Terminal::clear_line()?;
+
+            if let Some(line) = self.buffer.lines.get(current_row) {
+                Terminal::print(line)?;
+            } else {
+                Self::draw_empty_row()?;
+            }
+
+            if current_row.saturating_add(1) < height {
+                Terminal::print("\r\n")?;
+            }
+
         }
         Ok(())
+    }
+    pub fn render(&self) -> Result<(), Error> {
+        if self.buffer.is_empty() {
+            self.render_welcome_screen()?;
+        } else {
+            self.render_buffer()?;
+        }
+        Ok(())
+    }
+    pub fn load(&mut self, filename: &String) {
+        if let Ok(buffer) = Buffer::load(filename) {
+            self.buffer = buffer;
+        }
     }
 }
