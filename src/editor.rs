@@ -11,7 +11,7 @@ use view::{View};
 // const NAME: &str = env!("CARGO_PKG_NAME");
 // const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-#[derive(Default)]
+//#[derive(Default)]
 pub struct Editor {
     view: View,
     should_quit: bool,
@@ -29,11 +29,23 @@ pub struct Location {
     column: usize,
     row: usize,
 }
-    
+   
+impl Default for Editor {
+    fn default() -> Self {
+        Self {
+            view: View::default(),
+            should_quit: false,
+            position: Position::default(),
+            location: Location::default(),
+        }
+    }
+}
 
 impl Editor {
+    pub fn terminate() {
+        Terminal::terminate().unwrap();
+    }
     pub fn run(&mut self) {
-
         Terminal::initialize().unwrap();
         self.handle_args();
         let result = self.repl();

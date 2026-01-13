@@ -8,10 +8,16 @@
 mod editor;
 
 use editor::Editor;
-//use std::io::{self, Read};
-//use crossterm::terminal::enable_raw_mode;
-//use crossterm::terminal::disable_raw_mode;
 
 fn main() {
+    /* Add a panic hook to handle terminal reset */
+    let current_hook = std::panic::take_hook();
+
+    std::panic::set_hook(Box::new(move |panic_info| {
+        Editor::terminate(); // Terminate the terminal.
+        current_hook(panic_info);
+    }));
     Editor::default().run();
 }
+
+
