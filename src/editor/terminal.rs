@@ -6,7 +6,7 @@ use crossterm::{queue, Command};
 
 pub struct Terminal;
 
-#[derive(Copy, Clone)]
+#[derive(Default, Copy, Clone)]
 pub struct Size {
     pub width: usize,
     pub height: usize,
@@ -19,9 +19,6 @@ pub struct Position {
 }
 
 impl Terminal {
-    pub fn flush() -> Result<(), Error> {
-        stdout().flush()
-    }
     pub fn terminate() -> Result<(), Error> {
         disable_raw_mode()?;
         Ok(())

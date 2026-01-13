@@ -1,7 +1,4 @@
-use crossterm::event::{read, 
-    Event::{self, Key, Resize}, 
-    KeyCode, KeyCode::Char, KeyEvent, KeyModifiers
-};
+use crossterm::event::{read, Event, KeyCode, KeyEvent, KeyModifiers};
 use std::{env, io::Error};
 use std::cmp::{ min };
 
@@ -48,7 +45,6 @@ impl Editor {
         if let Some(file_name) = args.get(1) {
             self.view.load(file_name);
         }
-        self.view.needs_redraw = true;
     }
     fn move_point(&mut self, key_code: KeyCode) -> Result< (), Error> {
         let Position { mut x, mut y } = self.position;
@@ -102,37 +98,54 @@ impl Editor {
                 break;
             }
             let event = read()?;
-            self.evaluate_event(&event)?;
+            self.evaluate_event(event)?;
         }
         Ok(())
 
     }
-    pub fn evaluate_event(&mut self, event: &Event) -> Result<(), Error> {
-        if let Key(KeyEvent {
-            code, modifiers, .. 
-        }) = event {
-            match code {
-                Char('q') if *modifiers == KeyModifiers::CONTROL => {
+    #[allow(clippy::needless_pass_by_value)]
+    pub fn evaluate_event(&mut self, event: Event) -> Result<(), Error> {
+        match event {
+            Event::Key(KeyEvent {
+                code,
+                modifiers,
+                ..
+            }) => match (code, modifiers) {
+                (KeyCode::Char('q'), KeyModifiers::CONTROL) => {
                     self.should_quit = true;
                 },
-                KeyCode::Up |
-                KeyCode::Down |
-                KeyCode::Left |
-                KeyCode::Right |
-                KeyCode::PageDown |
-                KeyCode::PageUp |
-                KeyCode::Home |
-                KeyCode::End => {
-                    self.move_point(*code)?;
+                (
+                    KeyCode::Up |
+                    KeyCode::Down |
+                    KeyCode::Left |
+                    KeyCode::Right |
+                    KeyCode::PageDown |
+                    KeyCode::PageUp |
+                    KeyCode::Home |
+                    KeyCode::End,
+                    _,
+                ) => {
+                    self.move_point(code)?;
                 },
                 _ => (),
+
+            },
+            Event::Resize(width_u16, height_u16) => {
+
+                #[allow(clippy::as_conversion)]
+                let width = width_u16 as usize;
+                
+                #[allow(clippy::as_conversion)]
+                let height = height_u16 as usize;
+
+                self.view.resize(Size {
+                    width,
+                    height,
+                });
             }
+            _ => {}
         }
-
-        if let Resize(_width, _height) = event {
-            self.view.needs_redraw = true;
-        }
-
+        
         Ok(())
     }
     fn refresh_screen(&mut self) -> Result<(), Error> {
