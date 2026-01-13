@@ -7,6 +7,7 @@ use buffer::Buffer;
 #[derive(Default)]
 pub struct View {
     buffer: Buffer,
+    pub needs_redraw: bool
 }
 
 const NAME: &str = env!("CARGO_PKG_NAME");
@@ -40,9 +41,9 @@ impl View {
     }
     pub fn render_welcome_screen(&self) -> Result<(), Error> {
         let Size { height, .. } = Terminal::size()?;
-        Terminal::move_caret_to(Position {x: 0, y: 0})?;
        
         for current_row in 0..height {
+            Terminal::move_caret_to(Position {x: 0, y: current_row})?;
             Terminal::clear_line()?;
 
             #[allow(clippy::integer_division)]
@@ -51,39 +52,38 @@ impl View {
             } else {
                 Self::draw_empty_row()?;
             }
-
-            if current_row.saturating_add(1) < height {
-                Terminal::print("\r\n")?; //print!("\r\n")?;
-            }
         }
         Terminal::flush()?;
         Ok(())
     }
     pub fn render_buffer(&self) -> Result<(), Error> {
-        let Size {height, ..} = Terminal::size()?;
+        let Size {height, width} = Terminal::size()?;
 
         for current_row in 0..height {
+            Terminal::move_caret_to(Position {x: 0, y: current_row})?;
             Terminal::clear_line()?;
 
             if let Some(line) = self.buffer.lines.get(current_row) {
-                Terminal::print(line)?;
+                let mut display_line = String::from(line);
+                display_line.truncate(width);
+                Terminal::print(&display_line)?;
             } else {
                 Self::draw_empty_row()?;
             }
-
-            if current_row.saturating_add(1) < height {
-                Terminal::print("\r\n")?;
-            }
-
         }
+        Terminal::flush()?;
         Ok(())
     }
-    pub fn render(&self) -> Result<(), Error> {
+    pub fn render(&mut self) -> Result<(), Error> {
+        if !self.needs_redraw {
+            return Ok(());
+        }
         if self.buffer.is_empty() {
             self.render_welcome_screen()?;
         } else {
             self.render_buffer()?;
         }
+        self.needs_redraw = true;
         Ok(())
     }
     pub fn load(&mut self, filename: &String) {

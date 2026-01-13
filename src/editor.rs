@@ -1,5 +1,5 @@
 use crossterm::event::{read, 
-    Event::{self, Key}, 
+    Event::{self, Key, Resize}, 
     KeyCode, KeyCode::Char, KeyEvent, KeyModifiers
 };
 use std::{env, io::Error};
@@ -48,6 +48,7 @@ impl Editor {
         if let Some(file_name) = args.get(1) {
             self.view.load(file_name);
         }
+        self.view.needs_redraw = true;
     }
     fn move_point(&mut self, key_code: KeyCode) -> Result< (), Error> {
         let Position { mut x, mut y } = self.position;
@@ -128,9 +129,13 @@ impl Editor {
             }
         }
 
+        if let Resize(_width, _height) = event {
+            self.view.needs_redraw = true;
+        }
+
         Ok(())
     }
-    fn refresh_screen(&self) -> Result<(), Error> {
+    fn refresh_screen(&mut self) -> Result<(), Error> {
         Terminal::hide_caret()?;
         Terminal::move_caret_to(Position::default())?;
         if self.should_quit {
