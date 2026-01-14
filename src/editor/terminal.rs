@@ -20,15 +20,16 @@ pub struct Position {
 
 impl Terminal {
     pub fn terminate() -> Result<(), Error> {
-        Self::queue_command(LeaveAlternateScreen)?;
+        Self::leave_alternate_screen()?;
+        Self::show_caret()?;
         Self::execute()?;
         disable_raw_mode()?;
         Ok(())
     }
     pub fn initialize() -> Result<(), Error> {
         // Move to the alternate screen first.
-        Self::move_to_alternate_screen()?;
         enable_raw_mode()?;
+        Self::enter_alternate_screen()?;
         Self::clear_screen()?;
         Self::move_caret_to(Position {x: 0, y: 0})?;
         Self::execute()?;
@@ -44,8 +45,12 @@ impl Terminal {
     pub fn show_caret() -> Result<(), Error> {
         Self::queue_command(Show)
     }
-    pub fn move_to_alternate_screen() -> Result<(), Error> {
+    pub fn enter_alternate_screen() -> Result<(), Error> {
         Self::queue_command(EnterAlternateScreen)?;
+        Ok(())
+    }
+    pub fn leave_alternate_screen() -> Result<(), Error> {
+        Self::queue_command(LeaveAlternateScreen)?;
         Ok(())
     }
     pub fn clear_screen() -> Result<(), Error> {
@@ -58,6 +63,12 @@ impl Terminal {
     }
     pub fn print(string: &str) -> Result<(), Error> {
         Self::queue_command(Print(string))
+    }
+    pub fn print_row(row: usize, line_text: &str) -> Result<(), Error> {
+        Self::move_caret_to(Position { y: row, x: 0 })?;
+        Self::clear_line()?;
+        Self::print(line_text)?;
+        Ok(())
     }
     pub fn size() -> Result<Size, Error> {
         let (width_u16, height_u16) = size()?;

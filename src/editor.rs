@@ -1,5 +1,9 @@
 use crossterm::event::{read, Event, KeyCode, KeyEvent, KeyModifiers};
-use std::{env, io::Error};
+use std::{
+    env, 
+    io::Error,
+    panic::{set_hook, take_hook}
+};
 use std::cmp::{ min };
 
 mod terminal;
@@ -42,27 +46,47 @@ impl Default for Editor {
 }
 
 impl Editor {
-    pub fn terminate() {
-        Terminal::terminate().unwrap();
-    }
-    pub fn run(&mut self) {
-        Terminal::initialize().unwrap();
-        self.handle_args();
-        let result = self.repl();
-        Terminal::terminate().unwrap();
-        result.unwrap();
-    }
-    fn handle_args(&mut self) {
+    pub fn new() -> Result<Self, Error> {
+        let current_hook = take_hook();
+        set_hook(Box::new(move | panic_info | {
+            let _ = Terminal::terminate();
+            current_hook(panic_info);
+        }));
+        Terminal::initialize()?;
+        let mut view = View::default();
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
-            self.view.load(file_name);
+            view.load(file_name);
+        }
+        Ok(Self {
+            should_quit: false,
+            location: Location::default(),
+            position: Position::default(),
+            view
+        })
+    }
+    pub fn run(&mut self) {
+        loop {
+            self.refresh_screen();
+            if self.should_quit {
+                break;
+            }
+            match read() {
+                Ok(event) => self.evaluate_event(event),
+                Err(err) => {
+                    #[cfg(debug_assertions)]
+                    {
+                        panic!("Could not read event: {err:?}");
+                    }
+                }
+            }
         }
     }
-    fn move_point(&mut self, key_code: KeyCode) -> Result< (), Error> {
+    fn move_point(&mut self, key_code: KeyCode) {
         let Position { mut x, mut y } = self.position;
         let Location { mut column, mut row } = self.location;
 
-        let Size { height, width } = Terminal::size()?;
+        let Size { height, width } = Terminal::size().unwrap_or_default();
 
         match key_code {
             KeyCode::Up => {
@@ -101,22 +125,9 @@ impl Editor {
         }
         self.location = Location { column, row };
         self.position = Position { x, y };
-        Ok(())
-    }
-    pub fn repl(&mut self) -> Result<(), Error> {
-        loop {
-            self.refresh_screen()?;
-            if self.should_quit {
-                break;
-            }
-            let event = read()?;
-            self.evaluate_event(event)?;
-        }
-        Ok(())
-
     }
     #[allow(clippy::needless_pass_by_value)]
-    pub fn evaluate_event(&mut self, event: Event) -> Result<(), Error> {
+    pub fn evaluate_event(&mut self, event: Event) {
         match event {
             Event::Key(KeyEvent {
                 code,
@@ -137,7 +148,7 @@ impl Editor {
                     KeyCode::End,
                     _,
                 ) => {
-                    self.move_point(code)?;
+                    self.move_point(code);
                 },
                 _ => (),
 
@@ -157,25 +168,24 @@ impl Editor {
             }
             _ => {}
         }
-        
-        Ok(())
     }
-    fn refresh_screen(&mut self) -> Result<(), Error> {
-        Terminal::hide_caret()?;
-        Terminal::move_caret_to(Position::default())?;
-        if self.should_quit {
-            Terminal::clear_screen()?;
-            Terminal::print("Goodbye.\r\n")?;
-        } else {
-            self.view.render()?;
-            Terminal::move_caret_to(Position {
-                x: self.position.x, 
-                y: self.position.y
-            })?;
-        }
-        Terminal::show_caret()?;
-        Terminal::execute()?;
-        Ok(())
+    fn refresh_screen(&mut self) {
+        let _ = Terminal::hide_caret();
+        self.view.render();
+        let _ = Terminal::move_caret_to(Position {
+            x: self.position.x,
+            y: self.position.y,
+        });
+        let _ = Terminal::show_caret();
+        let _ = Terminal::execute();
     }
 }
 
+impl Drop for Editor {
+    fn drop(&mut self) {
+        let _ = Terminal::terminate();
+        if self.should_quit {
+            let _ = Terminal::print("Goodbye.\r\n");
+        }
+    }
+}
