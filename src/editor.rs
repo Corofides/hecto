@@ -20,7 +20,6 @@ pub struct Editor {
     view: View,
     should_quit: bool,
     position: Position,
-    location: Location,
 }
 
 /* pub struct Position {
@@ -28,11 +27,11 @@ pub struct Editor {
     row: usize,
 } */
 
-#[derive(Copy, Clone, Default)]
+/*#[derive(Copy, Clone, Default)]
 pub struct Location {
     column: usize,
     row: usize,
-}
+}*/
    
 impl Default for Editor {
     fn default() -> Self {
@@ -40,7 +39,6 @@ impl Default for Editor {
             view: View::default(),
             should_quit: false,
             position: Position::default(),
-            location: Location::default(),
         }
     }
 }
@@ -60,7 +58,6 @@ impl Editor {
         }
         Ok(Self {
             should_quit: false,
-            location: Location::default(),
             position: Position::default(),
             view
         })
@@ -83,48 +80,38 @@ impl Editor {
         }
     }
     fn move_point(&mut self, key_code: KeyCode) {
-        let Position { mut x, mut y } = self.position;
-        let Location { mut column, mut row } = self.location;
+        let Position { mut col, mut row } = self.position;
 
         let Size { height, width } = Terminal::size().unwrap_or_default();
 
         match key_code {
             KeyCode::Up => {
-                y = y.saturating_sub(1);
-                row = row.saturating_sub(1);
+                row = col.saturating_sub(1);
             }
             KeyCode::Down => {
-                y = min(height.saturating_sub(1), y.saturating_add(1));
                 row = min(height.saturating_sub(1), row.saturating_add(1));
             },
             KeyCode::Left => {
-                x = x.saturating_sub(1);
-                column = column.saturating_sub(1);
+                row = row.saturating_sub(1);
             }
             KeyCode::Right => {
-                x = min(width.saturating_sub(1), x.saturating_add(1));
-                column = min(width.saturating_sub(1), column.saturating_add(1));
+                col = min(width.saturating_sub(1), col.saturating_add(1));
             }
             KeyCode::PageUp => {
-                y = 0;
                 row = 0;
             }
             KeyCode::PageDown => {
-                y = height.saturating_sub(1);
                 row = height.saturating_sub(1);
             }
             KeyCode::Home => {
-                x = 0;
-                column = 0;
+                col = 0;
             }
             KeyCode::End => {
-                x = width.saturating_sub(1);
-                column = width.saturating_sub(1);
+                col = width.saturating_sub(1);
             }
             _ => (),
         }
-        self.location = Location { column, row };
-        self.position = Position { x, y };
+        self.position = Position { col, row };
     }
     #[allow(clippy::needless_pass_by_value)]
     pub fn evaluate_event(&mut self, event: Event) {
@@ -173,8 +160,8 @@ impl Editor {
         let _ = Terminal::hide_caret();
         self.view.render();
         let _ = Terminal::move_caret_to(Position {
-            x: self.position.x,
-            y: self.position.y,
+            col: self.position.col,
+            row: self.position.row,
         });
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
