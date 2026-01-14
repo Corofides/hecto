@@ -10,7 +10,7 @@ mod terminal;
 mod view;
 
 use terminal::{Terminal, Size, Position};
-use view::{View};
+use view::{View, Move};
 
 // const NAME: &str = env!("CARGO_PKG_NAME");
 // const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -86,27 +86,35 @@ impl Editor {
 
         match key_code {
             KeyCode::Up => {
+                self.view.move_view(Move::Up);
                 row = col.saturating_sub(1);
             }
             KeyCode::Down => {
+                self.view.move_view(Move::Down);
                 row = min(height.saturating_sub(1), row.saturating_add(1));
             },
             KeyCode::Left => {
+                self.view.move_view(Move::Left);
                 row = row.saturating_sub(1);
             }
             KeyCode::Right => {
+                self.view.move_view(Move::Right);
                 col = min(width.saturating_sub(1), col.saturating_add(1));
             }
             KeyCode::PageUp => {
+                self.view.move_view(Move::PageUp);
                 row = 0;
             }
             KeyCode::PageDown => {
+                self.view.move_view(Move::PageDown);
                 row = height.saturating_sub(1);
             }
             KeyCode::Home => {
+                self.view.move_view(Move::StartOfRow);
                 col = 0;
             }
             KeyCode::End => {
+                self.view.move_view(Move::EndOfRow);
                 col = width.saturating_sub(1);
             }
             _ => (),
@@ -158,10 +166,11 @@ impl Editor {
     }
     fn refresh_screen(&mut self) {
         let _ = Terminal::hide_caret();
+        let view_position = self.view.get_position();
         self.view.render();
         let _ = Terminal::move_caret_to(Position {
-            col: self.position.col,
-            row: self.position.row,
+            col: view_position.col,
+            row: view_position.row,
         });
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
