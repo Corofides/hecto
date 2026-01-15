@@ -167,10 +167,11 @@ impl Editor {
     fn refresh_screen(&mut self) {
         let _ = Terminal::hide_caret();
         let view_position = self.view.get_position();
+        let scroll_offset = self.view.get_scroll_offset();
         self.view.render();
         let _ = Terminal::move_caret_to(Position {
-            col: view_position.col,
-            row: view_position.row,
+            col: view_position.col - scroll_offset.col,
+            row: view_position.row - scroll_offset.row,
         });
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();

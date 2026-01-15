@@ -1,6 +1,6 @@
 use super::terminal::{Terminal, Size};
 use crate::editor::{Position};
-use std::cmp::min;
+use std::cmp::{min, max};
 
 mod buffer;
 use buffer::Buffer;
@@ -19,6 +19,11 @@ pub enum Move {
     EndOfRow,
 }
 
+pub struct MoveCursor {
+    x: isize,
+    y: isize,
+}
+
 pub struct View {
     buffer: Buffer,
     needs_redraw: bool,
@@ -30,12 +35,19 @@ pub struct View {
 impl View {
     pub fn resize(&mut self, to: Size) {
         self.size = to;
+        self.adjust_scroll_offset();
         self.needs_redraw = true;
     }
     pub fn get_position(&mut self) -> Position {
         Position {
             col: self.position.col,
             row: self.position.row,
+        }
+    }
+    pub fn get_scroll_offset(&mut self) -> Position {
+        Position {
+            col: self.scroll_offset.col,
+            row: self.scroll_offset.row,
         }
     }
     pub fn render_line(at: usize, line_text: &str) {
@@ -109,68 +121,90 @@ impl View {
             self.buffer = buffer;
         }
     }
+    pub fn adjust_scroll_offset(&mut self) {
+       
+        let mut needs_redraw = false;
+        let Position {mut col, mut row} = self.position;
+        let Size { height, width } = Terminal::size().unwrap_or_default();
+
+        let mut offset_row = self.scroll_offset.row;
+        let mut offset_col = self.scroll_offset.col;
+
+        let row_diff = row.saturating_sub(self.scroll_offset.row);
+
+        if row < offset_row {
+            offset_row = row;
+            needs_redraw = true;
+        }
+        
+        if row_diff > height.saturating_sub(1) {
+            // Move the offset down by 1.
+            offset_row = offset_row.saturating_add(
+                row_diff - height.saturating_sub(1)
+            );
+            needs_redraw = true;
+        }
+
+        let col_diff = col.saturating_sub(self.scroll_offset.col);
+
+        if col < offset_col {
+            offset_col = col;
+            needs_redraw = true;
+        }
+
+        if col_diff > width.saturating_sub(1) {
+            offset_col = offset_col.saturating_add(
+                col_diff - width.saturating_sub(1)
+            );
+            needs_redraw = true;
+        }
+
+        self.scroll_offset = Position {
+            col: offset_col,
+            row: offset_row,
+        };
+        self.needs_redraw = needs_redraw;
+
+    }
     /* Assignment functions */
     pub fn move_view(&mut self, direction: Move) {
         let Position {mut col, mut row} = self.position;
         //let Position {mut col as offset_col, mut row as offset_row} = self.scroll_offset;
         let mut offset_col = self.scroll_offset.col;
         let mut offset_row = self.scroll_offset.row;
-        
+       
+        let mut move_by = MoveCursor { x: 0, y: 0 };
         let Size { height, width } = Terminal::size().unwrap_or_default();
 
         match direction {
             Move::Up => {
-                let prev_row = row;
                 row = row.saturating_sub(1);
-                if (prev_row == 0) && offset_row > 0 {
-                    offset_row = offset_row - 1;
-                    self.needs_redraw = true;
-                }
             }
             Move::Down => {
-                let add_offset = row.saturating_add(1) > height.saturating_sub(1);
-                row = min(row.saturating_add(1), height.saturating_sub(1));
-                if add_offset {
-                    offset_row = offset_row + 1;
-                    self.needs_redraw = true;
-                }
+                row = row.saturating_add(1);
             }
             Move::Left => {
-                let prev_col = col;
                 col = col.saturating_sub(1);
-                if (prev_col == 0) && offset_col > 0 {
-                    offset_col = offset_col - 1;
-                    self.needs_redraw = true;
-                }
             }
             Move::Right => {
-                let add_offset = col.saturating_add(1) > width.saturating_sub(1);
-                col = min(width.saturating_sub(1), col.saturating_add(1));
-                if add_offset {
-                    offset_col = offset_col + 1;
-                    self.needs_redraw = true;
-                }
+                col = col.saturating_add(1);
             }
             Move::PageUp => {
-                row = col.saturating_sub(height);
+                row = row.saturating_sub(height);
             }
             Move::PageDown => {
-                row = row + height;
+                row = row.saturating_add(height.saturating_sub(1));
             }
             Move::StartOfRow => {
                 col = 0;
             }
             Move::EndOfRow => {
-                col = col + width;
+                col = col.saturating_add(width.saturating_sub(1));
             }
         }
-
-        self.scroll_offset = Position {
-            col: offset_col, // sets the offset to the col, row minus our view port.
-            row: offset_row,
-        };
-
+                
         self.position = Position { col, row }; 
+        self.adjust_scroll_offset();
         self.render();
     }
 }
