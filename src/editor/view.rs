@@ -2,6 +2,7 @@ use super::{
     editorcommand::{Direction, EditorCommand},
     terminal::{Position, Terminal, Size},
 };
+use std::cmp::min;
 mod buffer;
 use buffer::Buffer;
 mod location;
@@ -16,6 +17,7 @@ pub struct View {
     size: Size,
     location: Location,
     scroll_offset: Location,
+    last_x_position: usize,
 }
 
 impl View {
@@ -63,33 +65,83 @@ impl View {
     pub fn get_position(&mut self) -> Position {
         self.location.subtract(&self.scroll_offset).into()
     }
+    fn get_x_position(&self, x: usize, line: usize) -> usize {
+        let top = self.scroll_offset.y;
+        let mut max = 0;
+
+        if let Some(line) = self.buffer.lines.get(line.saturating_add(top)) {
+            max = line.len().saturating_sub(1)
+        }
+
+        if x > max {
+            return max;
+        }
+
+        if x < self.last_x_position {
+            return min(self.last_x_position, max);
+        }
+
+        x
+    }
     pub fn move_text_location(&mut self, direction: &Direction) {
         let Location { mut x, mut y } = self.location;
         let Size { height, width } = self.size;
+        let top = self.scroll_offset.y;
+        let left = self.scroll_offset.x;
+        let mut current_line_length = 0;
+
+        // Get the current line length
+        if let Some(line) = self.buffer.lines.get(y.saturating_add(top)) {
+            current_line_length = line.len();
+        }
+
         match direction {
             Direction::Up => {
                 y = y.saturating_sub(1);
+                x = self.get_x_position(x, y);
             },
             Direction::Down => {
-                y = y.saturating_add(1);
+                if y < self.buffer.lines.len().saturating_sub(1) {
+                    y = y.saturating_add(1);
+                }
+
+                x = self.get_x_position(x, y);
             },
             Direction::Left => {
-                x = x.saturating_sub(1);
+                
+                if x == 0 && y > 0 {
+                    y = y.saturating_sub(1); 
+                    //x = std::usize::MAX;
+                    x = self.get_x_position(std::usize::MAX, y)
+                } else if x > 0 {
+                    x = x.saturating_sub(1);
+                }
+
+                self.last_x_position = x;
             },
             Direction::Right => {
-                x = x.saturating_add(1);
+                let x_at_end = x == current_line_length.saturating_sub(1);
+
+                if x < current_line_length.saturating_sub(1) {
+                    x = x.saturating_add(1);
+                } else if y < self.buffer.lines.len() {
+                    x = 0;
+                    y = y.saturating_add(1);
+                }
+
+                self.last_x_position = x;
             }
             Direction::PageUp => {
-                y = 0;
+                y = y.saturating_sub(height);
             },
             Direction::PageDown => {
-                y = height.saturating_sub(1);
+                y = min(self.buffer.lines.len(), y.saturating_add(height));
             },
             Direction::Home => {
                 x = 0;
             },
             Direction::End => {
-                x = width.saturating_sub(1);
+                x = current_line_length
             },
         }
 
@@ -159,6 +211,7 @@ impl Default for View {
             size: Terminal::size().unwrap_or_default(),
             location: Location::default(),
             scroll_offset: Location::default(),
+            last_x_position: 0,
         }
     }
 }
