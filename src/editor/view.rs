@@ -8,6 +8,8 @@ use buffer::Buffer;
 mod location;
 use location::Location;
 mod line;
+use self::line::Line;
+
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -17,7 +19,7 @@ pub struct View {
     size: Size,
     location: Location,
     scroll_offset: Location,
-    last_x_position: usize,
+    // last_x_position: usize,
 }
 
 impl View {
@@ -65,7 +67,7 @@ impl View {
     pub fn get_position(&mut self) -> Position {
         self.location.subtract(&self.scroll_offset).into()
     }
-    fn get_x_position(&self, x: usize, line: usize) -> usize {
+    /* fn get_x_position(&self, x: usize, line: usize) -> usize {
         let top = self.scroll_offset.y;
         let mut max = 0;
 
@@ -82,34 +84,40 @@ impl View {
         }
 
         x
-    }
+    } */
     pub fn move_text_location(&mut self, direction: &Direction) {
         let Location { mut x, mut y } = self.location;
-        let Size { height, width } = self.size;
-        let top = self.scroll_offset.y;
-        let left = self.scroll_offset.x;
-        let mut current_line_length = 0;
-
-        // Get the current line length
-        if let Some(line) = self.buffer.lines.get(y.saturating_add(top)) {
-            current_line_length = line.len();
-        }
+        let Size { height, .. } = self.size;
+        // let top = self.scroll_offset.y;
+        
 
         match direction {
             Direction::Up => {
                 y = y.saturating_sub(1);
-                x = self.get_x_position(x, y);
+                // x = self.get_x_position(x, y);
             },
             Direction::Down => {
-                if y < self.buffer.lines.len().saturating_sub(1) {
+                
+                y = y.saturating_add(1);
+
+                /*if y < self.buffer.lines.len().saturating_sub(1) {
                     y = y.saturating_add(1);
                 }
 
-                x = self.get_x_position(x, y);
+                x = self.get_x_position(x, y); */
             },
             Direction::Left => {
-                
-                if x == 0 && y > 0 {
+               
+                x = x.saturating_sub(1);
+
+                if x > 0 {
+                    x -= 1;
+                } else if y > 0 {
+                    y -= 1;
+                    x = self.buffer.lines.get(y).map_or(0, Line::len);
+                }
+
+                /* if x == 0 && y > 0 {
                     y = y.saturating_sub(1); 
                     //x = std::usize::MAX;
                     x = self.get_x_position(std::usize::MAX, y)
@@ -117,10 +125,19 @@ impl View {
                     x = x.saturating_sub(1);
                 }
 
-                self.last_x_position = x;
+                self.last_x_position = x; */
             },
             Direction::Right => {
-                let x_at_end = x == current_line_length.saturating_sub(1);
+
+                let width = self.buffer.lines.get(y).map_or(0, Line::len);
+
+                if x < width {
+                    x += 1;
+                } else {
+                    y = y.saturating_add(1);
+                    x = 0;
+                }
+                /* let x_at_end = x == current_line_length.saturating_sub(1);
 
                 if x < current_line_length.saturating_sub(1) {
                     x = x.saturating_add(1);
@@ -129,21 +146,24 @@ impl View {
                     y = y.saturating_add(1);
                 }
 
-                self.last_x_position = x;
+                self.last_x_position = x; */
             }
             Direction::PageUp => {
-                y = y.saturating_sub(height);
+                y = y.saturating_sub(height).saturating_sub(1);
             },
             Direction::PageDown => {
-                y = min(self.buffer.lines.len(), y.saturating_add(height));
+                y = y.saturating_add(height).saturating_sub(1);            
             },
             Direction::Home => {
                 x = 0;
             },
             Direction::End => {
-                x = current_line_length
+                x = self.buffer.lines.get(y).map_or(0, Line::len);
             },
         }
+
+        x = self.buffer.lines.get(y).map_or(0, | line | min(line.len(), x));
+        y = min(y, self.buffer.lines.len());
 
         self.location = Location { x, y };
         self.scroll_location_into_view();
@@ -211,7 +231,7 @@ impl Default for View {
             size: Terminal::size().unwrap_or_default(),
             location: Location::default(),
             scroll_offset: Location::default(),
-            last_x_position: 0,
+            // last_x_position: 0,
         }
     }
 }
