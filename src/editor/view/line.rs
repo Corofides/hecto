@@ -19,7 +19,7 @@ impl Line {
             let fragment = TextFragment::new(character.to_string());
             length = length + fragment.len();
             text_fragments.push(fragment);
-            println!("{character}");
+
         }
 
         Line {
