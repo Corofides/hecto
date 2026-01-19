@@ -9,6 +9,7 @@ mod location;
 use location::Location;
 mod line;
 use self::line::Line;
+mod textfragment;
 
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -108,7 +109,7 @@ impl View {
             },
             Direction::Left => {
                
-                x = x.saturating_sub(1);
+                //x = x.saturating_sub(1);
 
                 if x > 0 {
                     x -= 1;
@@ -205,7 +206,8 @@ impl View {
             return " ".to_string();
         }
         
-        let welcome_message = format!("{NAME} editor -- version {VERSION}");
+        
+        let welcome_message = Line::from(&format!("{NAME} editor -- version {VERSION}"));
 
         let len = welcome_message.len();
 
@@ -216,7 +218,7 @@ impl View {
         #[allow(clippy::integer_division)]
         let padding = (width.saturating_sub(len).saturating_sub(1)) / 2;
         
-        let mut full_message = format!("~{}{}", " ".repeat(padding), welcome_message);
+        let mut full_message = format!("~{}{}", " ".repeat(padding), welcome_message.get(0..welcome_message.len()));
         full_message.truncate(width);
         full_message
 
