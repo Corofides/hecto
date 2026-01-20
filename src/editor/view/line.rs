@@ -31,12 +31,67 @@ impl Line {
     fn get_graphemes(&self) -> Vec<&str> {
         return self.string.graphemes(true).collect::<Vec<&str>>();
     }
+    pub fn get_width_to(&self, grapheme: usize) -> usize {
+
+        if grapheme >= self.len {
+            return self.len;
+        }
+
+        let mut index = 0;
+        let mut width = 0;
+
+        while index < grapheme && index < self.text_fragments.len() {
+            width = width + self.text_fragments[index].len();
+            index = index + 1;
+        }
+
+        return width;
+    }
     pub fn get(&self, range: Range<usize>) -> String {
+
+        // graphemes.
         let start = range.start;
-        let graphemes = self.get_graphemes();
-        let end = cmp::min(range.end, self.len());
-        graphemes[start..end].concat()
-        //self.string.get(start..end).unwrap_or_default().to_string()
+        let end = range.end;
+        let position = 0;
+
+        let end_of_graphemes = self.text_fragments.len();
+        
+        let mut position = 0;
+        let mut index = 0;
+        let mut count = 0;
+
+        let mut line_part_string = String::new();
+
+        while position < end && index < self.text_fragments.len() {
+            
+            let text_fragment = &self.text_fragments[index];
+
+            if position < start {
+                position = position + text_fragment.len();
+
+                if position > start {
+                    line_part_string = String::from("⋯");
+                    count = count + 1;
+                }
+
+                index = index + 1;
+                continue;
+            }
+            
+            line_part_string = format!("{line_part_string}{}", text_fragment.get_character());
+            position = position + text_fragment.len();
+            index = index + 1;
+            count = count + 1;
+
+        }
+
+        //Todo{James Lendrem} Work out how to deal with a trailing grapheme.
+
+        return line_part_string;
+
+    }
+    pub fn fragments_len(&self) -> usize {
+        self.text_fragments.len()
     }
     pub fn len(&self) -> usize {
         self.len
@@ -46,6 +101,31 @@ impl Line {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn get_partial_string_ascii() {
+        let line = Line::from("Nailed it");
+
+        let part = line.get(0..6);
+
+        assert_eq!(part, "Nailed");
+    }
+
+    #[test]
+    fn get_partial_string_other() {
+
+        let line = Line::from("ＡＡＡＡ");
+
+        let get_one_char = line.get(0..2);
+        let get_partial_start = line.get(1..2);
+        let get_partial_end = line.get(6..6);
+
+        println!("{get_partial_end}");
+        assert_eq!(get_one_char, "Ａ");
+        assert_eq!(get_partial_start, "⋯");
+        assert_eq!(get_partial_end, "⋯");
+    
+    }
 
     #[test]
     fn check_line_with_multiple_widths() {

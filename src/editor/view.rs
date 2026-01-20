@@ -19,7 +19,7 @@ pub struct View {
     needs_redraw: bool,
     size: Size,
     location: Location,
-    scroll_offset: Location,
+    scroll_offset: Position,
     // last_x_position: usize,
 }
 
@@ -37,12 +37,12 @@ impl View {
 
         #[allow(clippy::integer_division)]
         let vertical_center = height / 3;
-        let top = self.scroll_offset.y;
+        let top = self.scroll_offset.row;
 
         for current_row in 0..height {
             if let Some(line) = self.buffer.lines.get(current_row.saturating_add(top)) {
-                let left = self.scroll_offset.x;
-                let right = self.scroll_offset.x.saturating_add(width);
+                let left = self.scroll_offset.col;
+                let right = self.scroll_offset.col.saturating_add(width);
                 Self::render_line(current_row, &line.get(left..right));
             } else if current_row == vertical_center && self.buffer.is_empty() {
                 Self::render_line(current_row, &Self::build_welcome_message(width));
@@ -66,7 +66,22 @@ impl View {
         }
     }
     pub fn get_position(&mut self) -> Position {
-        self.location.subtract(&self.scroll_offset).into()
+
+        let Location {x, y} = self.location;
+
+        let current_line = &self.buffer.lines[y];
+
+        let position_in_grid = Position {
+            col: current_line.get_width_to(x),
+            row: y,
+        };
+        /*let position_in_grid = Position {
+            col: self.location.x,
+            row: self.location.y,
+        };*/
+
+        //self.location.subtract(&self.scroll_offset).into()
+        position_in_grid.subtract(&self.scroll_offset)
     }
     /* fn get_x_position(&self, x: usize, line: usize) -> usize {
         let top = self.scroll_offset.y;
@@ -95,17 +110,9 @@ impl View {
         match direction {
             Direction::Up => {
                 y = y.saturating_sub(1);
-                // x = self.get_x_position(x, y);
             },
             Direction::Down => {
-                
                 y = y.saturating_add(1);
-
-                /*if y < self.buffer.lines.len().saturating_sub(1) {
-                    y = y.saturating_add(1);
-                }
-
-                x = self.get_x_position(x, y); */
             },
             Direction::Left => {
                
@@ -130,7 +137,7 @@ impl View {
             },
             Direction::Right => {
 
-                let width = self.buffer.lines.get(y).map_or(0, Line::len);
+                let width = self.buffer.lines.get(y).map_or(0, Line::fragments_len);
 
                 if x < width {
                     x += 1;
@@ -138,16 +145,6 @@ impl View {
                     y = y.saturating_add(1);
                     x = 0;
                 }
-                /* let x_at_end = x == current_line_length.saturating_sub(1);
-
-                if x < current_line_length.saturating_sub(1) {
-                    x = x.saturating_add(1);
-                } else if y < self.buffer.lines.len() {
-                    x = 0;
-                    y = y.saturating_add(1);
-                }
-
-                self.last_x_position = x; */
             }
             Direction::PageUp => {
                 y = y.saturating_sub(height).saturating_sub(1);
@@ -176,22 +173,30 @@ impl View {
     }
     fn scroll_location_into_view(&mut self) {
         let Location { x, y } = self.location;
+
+        let current_line = &self.buffer.lines[y];
+
+        let position_in_text = Position {
+            col: current_line.get_width_to(x),
+            row: y,
+        };
+
         let Size { width, height } = self.size;
         let mut offset_changed = false;
 
-        if y < self.scroll_offset.y {
-            self.scroll_offset.y = y;
+        if position_in_text.row < self.scroll_offset.row {
+            self.scroll_offset.row = position_in_text.row;
             offset_changed = true;
-        } else if y >= self.scroll_offset.y.saturating_add(height) {
-            self.scroll_offset.y = y.saturating_sub(height).saturating_add(1);
+        } else if position_in_text.row >= self.scroll_offset.row.saturating_add(height) {
+            self.scroll_offset.row = position_in_text.row.saturating_sub(height).saturating_add(1);
             offset_changed = true;
         }
 
-        if x < self.scroll_offset.x {
-            self.scroll_offset.x = x;
+        if position_in_text.col < self.scroll_offset.col {
+            self.scroll_offset.col = position_in_text.col;
             offset_changed = true;
-        } else if x >= self.scroll_offset.x.saturating_add(width) {
-            self.scroll_offset.x = x.saturating_sub(width).saturating_add(1);
+        } else if position_in_text.col >= self.scroll_offset.col.saturating_add(width) {
+            self.scroll_offset.col = position_in_text.col.saturating_sub(width).saturating_add(1);
             offset_changed = true;
         }
 
@@ -231,8 +236,8 @@ impl Default for View {
             buffer: Buffer::default(),
             needs_redraw: true,
             size: Terminal::size().unwrap_or_default(),
-            location: Location::default(),
-            scroll_offset: Location::default(),
+            location: Location::default(), 
+            scroll_offset: Position::default(), //Location::default(),
             // last_x_position: 0,
         }
     }
