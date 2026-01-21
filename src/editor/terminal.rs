@@ -19,10 +19,10 @@ pub struct Position {
 }
 
 impl Position {
-    pub const fn subtract(&self, other: &Self) -> Self {
+    pub const fn saturating_sub(self, other: Self) -> Self {
         Self {
-            col: self.col.saturating_sub(other.col),
             row: self.row.saturating_sub(other.row),
+            col: self.col.saturating_sub(other.col),
         }
     }
 }

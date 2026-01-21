@@ -1,151 +1,105 @@
-use std::{cmp, ops::Range};
+use std::ops::Range;
 use unicode_segmentation::UnicodeSegmentation;
-use super::textfragment::TextFragment;
+use unicode_width::UnicodeWidthStr;
+
+#[derive(Copy, Clone)]
+pub enum GraphemeWidth {
+    Half,
+    Full,
+}
+
+impl GraphemeWidth {
+    const fn saturating_add(self, other: usize) -> usize {
+        match self {
+            GraphemeWidth::Half => other.saturating_add(1),
+            GraphemeWidth::Full => other.saturating_add(2),
+        }
+    }
+}
+
+pub struct TextFragment {
+    grapheme: String,
+    rendered_width: GraphemeWidth,
+    replacement: Option<char>,
+}
 
 pub struct Line {
-    string: String,
-    text_fragments: Vec<TextFragment>,
-    len: usize,
+    fragments: Vec<TextFragment>,
 }
 
 impl Line {
     pub fn from(line_str: &str) -> Self {
 
-        let mut text_fragments: Vec<TextFragment> = Vec::new();
-        let mut length = 0;
+        let fragments = line_str
+            .graphemes(true)
+            .map(|grapheme| {
+                let unicode_width = grapheme.width();
+                let rendered_width = match unicode_width {
+                    0 | 1 => GraphemeWidth::Half,
+                    _ => GraphemeWidth::Full,
+                };
 
-        for character in line_str.chars() {
-            
-            let fragment = TextFragment::new(character.to_string());
-            length = length + fragment.len();
-            text_fragments.push(fragment);
+                let replacement = match unicode_width {
+                    0 => Some('.'),
+                    _ => None,
+                };
 
-        }
-
-        Line {
-            string: String::from(line_str),
-            text_fragments: text_fragments,
-            len: length,
-        }
-    }
-    fn get_graphemes(&self) -> Vec<&str> {
-        return self.string.graphemes(true).collect::<Vec<&str>>();
-    }
-    pub fn get_width_to(&self, grapheme: usize) -> usize {
-
-        if grapheme >= self.len {
-            return self.len;
-        }
-
-        let mut index = 0;
-        let mut width = 0;
-
-        while index < grapheme && index < self.text_fragments.len() {
-            width = width + self.text_fragments[index].len();
-            index = index + 1;
-        }
-
-        return width;
-    }
-    pub fn get(&self, range: Range<usize>) -> String {
-
-        let start = range.start;
-        let end = range.end;
-        let position = 0;
-
-        let end_of_graphemes = self.text_fragments.len();
-        
-        let mut position = 0;
-        let mut index = 0;
-        let mut count = 0;
-
-        let mut line_part_string = String::new();
-
-        while position < end && index < self.text_fragments.len() {
-            
-            let text_fragment = &self.text_fragments[index];
-
-            if position < start {
-                position = position + text_fragment.len();
-
-                if position > start {
-                    line_part_string = String::from("⋯");
-                    count = count + 1;
+                TextFragment {
+                    grapheme: grapheme.to_string(),
+                    rendered_width,
+                    replacement,
                 }
 
-                index = index + 1;
-                continue;
-            }
-           
-            position = position + text_fragment.len();
+            })
+            .collect();
+        
+        Self {
+            fragments
+        }
 
-            if position <= end {
-                line_part_string = format!("{line_part_string}{}", text_fragment.get_character());
-            } else {
-                line_part_string = format!("{line_part_string}⋯");
+    }
+    pub fn get_visible_graphemes(&self, range: Range<usize>) -> String {
+        if range.start >= range.end {
+            return String::new();
+        }
+
+        let mut result = String::new();
+        let mut current_pos = 0;
+
+        for fragment in &self.fragments {
+            let fragment_end = fragment.rendered_width.saturating_add(current_pos);
+
+            if current_pos >= range.end {
+                break
             }
-            index = index + 1;
-            count = count + 1;
+
+            if fragment_end > range.end || current_pos < range.start {
+                result.push('⋯');
+            } else if let Some(char) = fragment.replacement {
+                result.push(char);
+            } else {
+                result.push_str(&fragment.grapheme);
+            }
+
+            current_pos = fragment_end;
 
         }
-        
-        return line_part_string;
+
+        result
 
     }
-    pub fn fragments_len(&self) -> usize {
-        self.text_fragments.len()
+    pub fn grapheme_count(&self) -> usize {
+        self.fragments.len()
     }
-    pub fn len(&self) -> usize {
-        self.len
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn get_partial_string_ascii() {
-        let line = Line::from("Nailed it");
-
-        let part = line.get(0..6);
-
-        assert_eq!(part, "Nailed");
-    }
-
-    #[test]
-    fn get_partial_string_other() {
-
-        let line = Line::from("ＡＡＡＡＡ");
-
-        let get_one_char = line.get(0..2);
-        let get_partial_start = line.get(1..2);
-        let get_partial_end = line.get(6..7);
-
-        assert_eq!(get_one_char, "Ａ");
-        assert_eq!(get_partial_start, "⋯");
-        assert_eq!(get_partial_end, "⋯");
-    
-    }
-
-    #[test]
-    fn check_line_with_multiple_widths() {
-        let line = Line::from("AaBb\u{200b}Ａ");
-
-        let length = line.text_fragments.len();
-        let first_char = &line.text_fragments[0];
-        let last_char = &line.text_fragments[length - 1];
-
-        assert_eq!(length, 6);
-        assert_eq!(first_char.get_character(), "A");
-        assert_eq!(last_char.get_character(), "Ａ");
-    }
-
-    #[test]
-    fn line_length() {
-        let line = Line::from("AaBb\u{200b}Ａ");
-        let len = line.len();
-
-        assert_eq!(len, 7);
+    pub fn width_until(&self, grapheme_index: usize) -> usize {
+        self.fragments
+            .iter()
+            .take(grapheme_index)
+            .map(|fragment| match fragment.rendered_width {
+                GraphemeWidth::Half => 1,
+                GraphemeWidth::Full => 2,
+            })
+            .sum()
     }
 }
+
