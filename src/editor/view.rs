@@ -69,10 +69,15 @@ impl View {
 
         let Location {x, y} = self.location;
 
-        let current_line = &self.buffer.lines[y];
+        let mut x_position = 0;
+        let current_line = &self.buffer.lines.get(y); //.unwrap_or(0);
+
+        if let Some(line) = current_line {
+            x_position = line.get_width_to(x);
+        }
 
         let position_in_grid = Position {
-            col: current_line.get_width_to(x),
+            col: x_position,
             row: y,
         };
         /*let position_in_grid = Position {
@@ -173,11 +178,16 @@ impl View {
     }
     fn scroll_location_into_view(&mut self) {
         let Location { x, y } = self.location;
+        let current_line = &self.buffer.lines.get(y);
+        
+        let mut col_position = 0;
 
-        let current_line = &self.buffer.lines[y];
+        if let Some(line) = current_line {
+            col_position = line.get_width_to(x);
+        }
 
         let position_in_text = Position {
-            col: current_line.get_width_to(x),
+            col: col_position,
             row: y,
         };
 
