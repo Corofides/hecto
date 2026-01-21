@@ -49,7 +49,6 @@ impl Line {
     }
     pub fn get(&self, range: Range<usize>) -> String {
 
-        // graphemes.
         let start = range.start;
         let end = range.end;
         let position = 0;
@@ -77,16 +76,19 @@ impl Line {
                 index = index + 1;
                 continue;
             }
-            
-            line_part_string = format!("{line_part_string}{}", text_fragment.get_character());
+           
             position = position + text_fragment.len();
+
+            if position <= end {
+                line_part_string = format!("{line_part_string}{}", text_fragment.get_character());
+            } else {
+                line_part_string = format!("{line_part_string}⋯");
+            }
             index = index + 1;
             count = count + 1;
 
         }
-
-        //Todo{James Lendrem} Work out how to deal with a trailing grapheme.
-
+        
         return line_part_string;
 
     }
@@ -114,13 +116,12 @@ mod tests {
     #[test]
     fn get_partial_string_other() {
 
-        let line = Line::from("ＡＡＡＡ");
+        let line = Line::from("ＡＡＡＡＡ");
 
         let get_one_char = line.get(0..2);
         let get_partial_start = line.get(1..2);
-        let get_partial_end = line.get(6..6);
+        let get_partial_end = line.get(6..7);
 
-        println!("{get_partial_end}");
         assert_eq!(get_one_char, "Ａ");
         assert_eq!(get_partial_start, "⋯");
         assert_eq!(get_partial_end, "⋯");

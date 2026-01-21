@@ -88,29 +88,9 @@ impl View {
         //self.location.subtract(&self.scroll_offset).into()
         position_in_grid.subtract(&self.scroll_offset)
     }
-    /* fn get_x_position(&self, x: usize, line: usize) -> usize {
-        let top = self.scroll_offset.y;
-        let mut max = 0;
-
-        if let Some(line) = self.buffer.lines.get(line.saturating_add(top)) {
-            max = line.len().saturating_sub(1)
-        }
-
-        if x > max {
-            return max;
-        }
-
-        if x < self.last_x_position {
-            return min(self.last_x_position, max);
-        }
-
-        x
-    } */
     pub fn move_text_location(&mut self, direction: &Direction) {
         let Location { mut x, mut y } = self.location;
         let Size { height, .. } = self.size;
-        // let top = self.scroll_offset.y;
-        
 
         match direction {
             Direction::Up => {
@@ -127,7 +107,7 @@ impl View {
                     x -= 1;
                 } else if y > 0 {
                     y -= 1;
-                    x = self.buffer.lines.get(y).map_or(0, Line::len);
+                    x = self.buffer.lines.get(y).map_or(0, Line::fragments_len);
                 }
 
                 /* if x == 0 && y > 0 {
@@ -161,7 +141,7 @@ impl View {
                 x = 0;
             },
             Direction::End => {
-                x = self.buffer.lines.get(y).map_or(0, Line::len);
+                x = self.buffer.lines.get(y).map_or(0, Line::fragments_len);
             },
         }
 
