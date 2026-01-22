@@ -1,12 +1,13 @@
+use std::cmp::min;
+use self::line::Line;
+
 use super::{
     editorcommand::{Direction, EditorCommand},
     terminal::{Position, Terminal, Size},
 };
-use std::cmp::min;
 mod buffer;
 use buffer::Buffer;
 mod line;
-use self::line::Line;
 
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -125,7 +126,6 @@ impl View {
         } else {
             false
         };
-
         self.needs_redraw = self.needs_redraw || offset_changed;
     }
     fn scroll_text_location_into_view(&mut self) {

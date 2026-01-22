@@ -1,5 +1,6 @@
 use std::fs::read_to_string;
 use std::io::Error;
+
 use super::line::Line;
 
 #[derive(Default)]
@@ -17,7 +18,7 @@ impl Buffer {
         Ok(Self { lines })
     }
     pub fn is_empty(&self) -> bool {
-        self.lines.len() == 0
+        self.lines.is_empty()
     }
     pub fn height(&self) -> usize {
         self.lines.len()

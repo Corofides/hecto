@@ -1,4 +1,5 @@
 use std::ops::Range;
+
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 
@@ -11,8 +12,8 @@ pub enum GraphemeWidth {
 impl GraphemeWidth {
     const fn saturating_add(self, other: usize) -> usize {
         match self {
-            GraphemeWidth::Half => other.saturating_add(1),
-            GraphemeWidth::Full => other.saturating_add(2),
+            Self::Half => other.saturating_add(1),
+            Self::Full => other.saturating_add(2),
         }
     }
 }
@@ -29,7 +30,6 @@ pub struct Line {
 
 impl Line {
     pub fn from(line_str: &str) -> Self {
-
         let fragments = line_str
             .graphemes(true)
             .map(|grapheme| {
@@ -53,9 +53,7 @@ impl Line {
             })
             .collect();
         
-        Self {
-            fragments
-        }
+        Self { fragments }
 
     }
     pub fn get_visible_graphemes(&self, range: Range<usize>) -> String {
@@ -68,17 +66,17 @@ impl Line {
 
         for fragment in &self.fragments {
             let fragment_end = fragment.rendered_width.saturating_add(current_pos);
-
             if current_pos >= range.end {
                 break
             }
-
-            if fragment_end > range.end || current_pos < range.start {
-                result.push('⋯');
-            } else if let Some(char) = fragment.replacement {
-                result.push(char);
-            } else {
-                result.push_str(&fragment.grapheme);
+            if fragment_end > range.start {
+                if fragment_end > range.end || current_pos < range.start {
+                    result.push('⋯');
+                } else if let Some(char) = fragment.replacement {
+                    result.push(char);
+                } else {
+                    result.push_str(&fragment.grapheme);
+                }
             }
 
             current_pos = fragment_end;
