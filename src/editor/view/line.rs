@@ -39,11 +39,24 @@ impl Line {
                     _ => GraphemeWidth::Full,
                 };
 
-                let replacement = match unicode_width {
+                let mut replacement = match unicode_width {
                     0 => Some('.'),
                     _ => None,
                 };
 
+                for char in grapheme.chars() {
+
+                    if char.is_whitespace() && char != ' ' {
+                        if grapheme == "\t" {
+                            replacement = Some(' ');
+                        } else {
+                            replacement = Some('\u{2423}');
+                        }
+                    } else if char.is_control() {
+                        replacement = Some('\u{25AF}');
+                    } 
+                }
+                
                 TextFragment {
                     grapheme: grapheme.to_string(),
                     rendered_width,
