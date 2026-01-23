@@ -31,7 +31,12 @@ pub struct Line {
 
 impl Line {
     pub fn from(line_str: &str) -> Self {
-        let fragments = line_str
+        let fragments = Self::str_to_fragment(line_str);
+        Self { fragments }
+        
+    }
+    fn str_to_fragment(line_str: &str) -> Vec<TextFragment> {
+        line_str
             .graphemes(true)
             .map(|grapheme| {
                 let (replacement, rendered_width) = Self::replacement_character(grapheme)
@@ -54,10 +59,7 @@ impl Line {
                 }
 
             })
-            .collect();
-        
-        Self { fragments }
-
+            .collect()
     }
     fn replacement_character(for_str: &str) -> Option<char> {
         let width = for_str.width();
@@ -84,6 +86,22 @@ impl Line {
                 None
             }
         }
+    }
+    pub fn insert_char(&mut self, character: char, grapheme_index: usize) {
+        let mut result = String::new();
+
+        for (index, fragment) in self.fragments.iter().enumerate() {
+            if index == grapheme_index {
+                result.push(character);
+            }
+            result.push_str(&fragment.grapheme);
+        }
+
+        if grapheme_index >= self.fragments.len() {
+            result.push(character);
+        }
+
+        self.fragments = Self::str_to_fragment(&result);
     }
     pub fn get_visible_graphemes(&self, range: Range<usize>) -> String {
         if range.start >= range.end {
@@ -114,14 +132,6 @@ impl Line {
 
         result
 
-    }
-    pub fn add_grapheme(&mut self, position: usize, char: char) -> Self {
-        let to_position = self.get_visible_graphemes(0..position);
-        let from_position = self.get_visible_graphemes(position..self.fragments.len());
-        
-        let string = format!("{to_position}{char}{from_position}");
-        Self::from(&string)
-        
     }
     pub fn grapheme_count(&self) -> usize {
         self.fragments.len()
