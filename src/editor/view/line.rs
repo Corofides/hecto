@@ -18,6 +18,7 @@ impl GraphemeWidth {
     }
 }
 
+#[derive(Clone)]
 pub struct TextFragment {
     grapheme: String,
     rendered_width: GraphemeWidth,
@@ -33,29 +34,18 @@ impl Line {
         let fragments = line_str
             .graphemes(true)
             .map(|grapheme| {
-                let unicode_width = grapheme.width();
-                let rendered_width = match unicode_width {
-                    0 | 1 => GraphemeWidth::Half,
-                    _ => GraphemeWidth::Full,
-                };
-
-                let mut replacement = match unicode_width {
-                    0 => Some('.'),
-                    _ => None,
-                };
-
-                for char in grapheme.chars() {
-
-                    if char.is_whitespace() && char != ' ' {
-                        if grapheme == "\t" {
-                            replacement = Some(' ');
-                        } else {
-                            replacement = Some('\u{2423}');
-                        }
-                    } else if char.is_control() {
-                        replacement = Some('\u{25AF}');
-                    } 
-                }
+                let (replacement, rendered_width) = Self::replacement_character(grapheme)
+                    .map_or_else(
+                        || {
+                            let unicode_width = grapheme.width();
+                            let rendered_width = match unicode_width {
+                                0 | 1 => GraphemeWidth::Half,
+                                _ => GraphemeWidth::Full,
+                            };
+                            (None, rendered_width)
+                        },
+                        |replacement| (Some(replacement), GraphemeWidth::Half),
+                    );
                 
                 TextFragment {
                     grapheme: grapheme.to_string(),
@@ -68,6 +58,32 @@ impl Line {
         
         Self { fragments }
 
+    }
+    fn replacement_character(for_str: &str) -> Option<char> {
+        let width = for_str.width();
+        match for_str {
+            " " => None,
+            "\t" => Some(' '),
+            _ if width > 0 && for_str.trim().is_empty() => Some('␣'),
+            _ if width == 0 => {
+                let mut chars = for_str.chars();
+                if let Some(ch) = chars.next() {
+                    if ch.is_control() && chars.next().is_none() {
+                        return Some('▯');
+                    }
+                }
+                Some('·')
+            },
+            _ => {
+                let mut chars = for_str.chars();
+                if let Some(ch) = chars.next() {
+                    if ch.is_control() && chars.next().is_none() {
+                        return Some('▯');
+                    }
+                }
+                None
+            }
+        }
     }
     pub fn get_visible_graphemes(&self, range: Range<usize>) -> String {
         if range.start >= range.end {
@@ -98,6 +114,14 @@ impl Line {
 
         result
 
+    }
+    pub fn add_grapheme(&mut self, position: usize, char: char) -> Self {
+        let to_position = self.get_visible_graphemes(0..position);
+        let from_position = self.get_visible_graphemes(position..self.fragments.len());
+        
+        let string = format!("{to_position}{char}{from_position}");
+        Self::from(&string)
+        
     }
     pub fn grapheme_count(&self) -> usize {
         self.fragments.len()

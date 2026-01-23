@@ -31,8 +31,23 @@ impl View {
         match command {
             EditorCommand::Resize(size) => self.resize(size),
             EditorCommand::Move(direction) => self.move_text_location(&direction),
+            EditorCommand::KeyPress(char) => self.handle_key_press(char),
             EditorCommand::Quit => {},
         }
+    }
+    fn handle_key_press(&mut self, char: char) {
+        let Location { grapheme_index, line_index } = self.text_location;
+        let line = self.buffer.lines.get_mut(line_index);
+
+        if let Some(line) = line {
+            let line = line.add_grapheme(grapheme_index, char);
+            self.buffer.lines[line_index] = line;
+        } else {
+            self.buffer.lines.push(Line::from(&char.to_string()));
+        }
+
+        self.needs_redraw = true;
+        self.move_right();
     }
     pub fn load(&mut self, filename: &String) {
         if let Ok(buffer) = Buffer::load(filename) {

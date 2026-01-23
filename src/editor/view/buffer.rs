@@ -23,4 +23,7 @@ impl Buffer {
     pub fn height(&self) -> usize {
         self.lines.len()
     }
+    pub fn replace(&mut self, line_index: usize, line: Line) {
+        self.lines[line_index] = line;
+    }
 }

@@ -81,10 +81,10 @@ impl Editor {
                     }
                 },
                 Err(err) => {
-                    #[cfg(debug_assertions)]
+                    /*#[cfg(debug_assertions)]
                     {
-                        panic!("Could not handle command: {err}");
-                    }
+                        // panic!("Could not handle command: {err}");
+                    }*/
                 }
             }
         }
