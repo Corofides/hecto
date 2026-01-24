@@ -50,10 +50,20 @@ impl View {
     }
     // region: Editing
     fn backspace(&mut self) {
+
+        if self.buffer.is_first(self.text_location) {
+            return;
+        }
         self.move_left();
         self.delete();
     }
     fn delete(&mut self) {
+
+        // If we are the last line, do nothing.
+        if self.buffer.is_last(self.text_location) {
+            return;
+        }
+        
         self.buffer.delete(self.text_location);
         self.needs_redraw = true;
     }

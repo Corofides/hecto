@@ -34,6 +34,22 @@ impl Buffer {
             line.insert_char(character, at.grapheme_index);
         }
     }
+    pub fn is_first(&self, at: Location) -> bool {
+        at.line_index == 0 && at.grapheme_index == 0
+    }
+    pub fn is_last(&self, at: Location) -> bool {
+
+        if at.line_index < self.lines.len() - 1 {
+            return false;
+        }
+
+        if let Some(line) = self.lines.get(at.line_index) {
+            return at.grapheme_index >= line.grapheme_count();
+        }
+
+        true
+        
+    }
     pub fn is_empty(&self) -> bool {
         self.lines.is_empty()
     }
