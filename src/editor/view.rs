@@ -33,7 +33,8 @@ impl View {
             EditorCommand::Move(direction) => self.move_text_location(&direction),
             EditorCommand::Quit => {},
             EditorCommand::Insert(character) => self.insert_char(character),
-            EditorCommand::Delete(back) => self.delete_char(back),
+            EditorCommand::Delete => self.delete(),
+            EditorCommand::Backspace => self.backspace(),
         }
     }
     pub fn load(&mut self, filename: &String) {
@@ -48,11 +49,12 @@ impl View {
         self.needs_redraw = true;
     }
     // region: Editing
-    fn delete_char(&mut self, back: bool) {
-        if back {
-            self.move_left();
-        }
-        self.buffer.delete_char(self.text_location);
+    fn backspace(&mut self) {
+        self.move_left();
+        self.delete();
+    }
+    fn delete(&mut self) {
+        self.buffer.delete(self.text_location);
         self.needs_redraw = true;
     }
     fn insert_char(&mut self, character: char) {
@@ -224,7 +226,7 @@ impl View {
     pub fn move_left(&mut self) {
         if self.text_location.grapheme_index > 0 {
             self.text_location.grapheme_index -= 1;
-        } else {
+        } else if self.text_location.line_index > 0 {
             self.move_up(1);
             self.move_to_end_of_line();
         }

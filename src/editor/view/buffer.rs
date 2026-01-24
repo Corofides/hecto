@@ -18,13 +18,9 @@ impl Buffer {
         }
         Ok(Self { lines })
     }
-    pub fn delete_char(&mut self, at: Location) {
-        if at.line_index > self.lines.len() {
-            return;
-        }
-
+    pub fn delete(&mut self, at: Location) {
         if let Some(line) = self.lines.get_mut(at.line_index) {
-            line.delete_char(at.grapheme_index);
+            line.delete(at.grapheme_index);
         }
     }
     pub fn insert_char(&mut self, character: char, at: Location) {
