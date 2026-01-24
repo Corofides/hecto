@@ -19,29 +19,17 @@ impl Buffer {
         Ok(Self { lines })
     }
     pub fn delete(&mut self, at: Location) {
+        if let Some(line) = self.lines.get(at.line_index) {
+            if at.grapheme_index >= line.grapheme_count() && self.lines.len() > at.line_index.saturating_add(1) {
+                let next_line = self.lines.remove(at.line_index.saturating_add(1));
 
-        let mut current_line = &mut self.lines;
-        let mut remove_next = false;
-
-        let mut next_line_string = String::new();
-
-        if let Some(next_line) = current_line.get_mut(at.line_index + 1) {
-            next_line_string = next_line.to_string();
-        }
-
-        if let Some(line) = current_line.get_mut(at.line_index) {
-            if at.grapheme_index < line.grapheme_count() {
-                line.delete(at.grapheme_index);
-            } else {
-                remove_next = true;
-                line.append_string(next_line_string);
+                #[allow(clippy::indexing_slicing)]
+                self.lines[at.line_index].append(&next_line);
+            } else if at.grapheme_index < line.grapheme_count() {
+                #[allow(clippy::indexing_slicing)]
+                self.lines[at.line_index].delete(at.grapheme_index);
             }
         }
-
-        if remove_next {
-            current_line.remove(at.line_index + 1);
-        }
-
     }
     pub fn insert_char(&mut self, character: char, at: Location) {
         if at.line_index > self.lines.len() {
@@ -53,22 +41,6 @@ impl Buffer {
         } else if let Some(line) = self.lines.get_mut(at.line_index) {
             line.insert_char(character, at.grapheme_index);
         }
-    }
-    pub fn is_first(&self, at: Location) -> bool {
-        at.line_index == 0 && at.grapheme_index == 0
-    }
-    pub fn is_last(&self, at: Location) -> bool {
-
-        if at.line_index < self.lines.len() - 1 {
-            return false;
-        }
-
-        if let Some(line) = self.lines.get(at.line_index) {
-            return at.grapheme_index >= line.grapheme_count();
-        }
-
-        true
-        
     }
     pub fn is_empty(&self) -> bool {
         self.lines.is_empty()

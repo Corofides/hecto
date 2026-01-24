@@ -1,4 +1,4 @@
-use std::ops::Range;
+use std::{fmt, ops::Range};
 
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
@@ -98,19 +98,10 @@ impl Line {
 
         self.fragments = Self::str_to_fragment(&result);
     }
-    pub fn append_string(&mut self, string: String) {
-        let mut current_string = self.to_string();
-        let result = format!("{current_string}{string}");
-        self.fragments = Self::str_to_fragment(&result);
-    }
-    pub fn to_string(&self) -> String {
-        let mut result = String::new();
-
-        for fragment in self.fragments.iter() {
-            result.push_str(&fragment.grapheme);
-        }
-
-        result
+    pub fn append(&mut self, other: &Self) {
+        let mut concat = self.to_string();
+        concat.push_str(&other.to_string());
+        self.fragments = Self::str_to_fragment(&concat);
     }
     pub fn insert_char(&mut self, character: char, grapheme_index: usize) {
         let mut result = String::new();
@@ -170,6 +161,19 @@ impl Line {
                 GraphemeWidth::Full => 2,
             })
             .sum()
+    }
+}
+
+impl fmt::Display for Line {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        let result: String = self
+            .fragments
+            .iter()
+            .map(|fragment|
+                 fragment.grapheme.clone()
+            )
+            .collect();
+        write!(formatter, "{result}")
     }
 }
 

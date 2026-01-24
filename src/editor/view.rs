@@ -50,21 +50,12 @@ impl View {
     }
     // region: Editing
     fn backspace(&mut self) {
-
-        if self.buffer.is_first(self.text_location) {
-            return;
+        if self.text_location.line_index != 0 || self.text_location.grapheme_index != 0 {
+            self.move_text_location(&Direction::Left);
+            self.delete();
         }
-
-        self.move_left();
-        self.delete();
     }
     fn delete(&mut self) {
-
-        // If we are the last line, do nothing.
-        if self.buffer.is_last(self.text_location) {
-            return;
-        }
-        
         self.buffer.delete(self.text_location);
         self.needs_redraw = true;
     }
@@ -84,7 +75,7 @@ impl View {
 
         let grapheme_delta = new_len.saturating_sub(old_len);
         if grapheme_delta > 0 {
-            self.move_right();
+            self.move_text_location(&Direction::Right);
         }
         self.needs_redraw = true;
     }
