@@ -19,9 +19,29 @@ impl Buffer {
         Ok(Self { lines })
     }
     pub fn delete(&mut self, at: Location) {
-        if let Some(line) = self.lines.get_mut(at.line_index) {
-            line.delete(at.grapheme_index);
+
+        let mut current_line = &mut self.lines;
+        let mut remove_next = true;
+
+        let mut next_line_string = String::new();
+
+        if let Some(next_line) = current_line.get_mut(at.line_index + 1) {
+            next_line_string = next_line.to_string();
         }
+
+        if let Some(line) = current_line.get_mut(at.line_index) {
+            if at.grapheme_index < line.grapheme_count() {
+                line.delete(at.grapheme_index);
+            } else {
+                remove_next = true;
+                line.append_string(next_line_string);
+            }
+        }
+
+        if remove_next {
+            current_line.remove(at.line_index + 1);
+        }
+
     }
     pub fn insert_char(&mut self, character: char, at: Location) {
         if at.line_index > self.lines.len() {

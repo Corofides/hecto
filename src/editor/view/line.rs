@@ -98,6 +98,20 @@ impl Line {
 
         self.fragments = Self::str_to_fragment(&result);
     }
+    pub fn append_string(&mut self, string: String) {
+        let mut current_string = self.to_string();
+        let result = format!("{current_string}{string}");
+        self.fragments = Self::str_to_fragment(&result);
+    }
+    pub fn to_string(&self) -> String {
+        let mut result = String::new();
+
+        for fragment in self.fragments.iter() {
+            result.push_str(&fragment.grapheme);
+        }
+
+        result
+    }
     pub fn insert_char(&mut self, character: char, grapheme_index: usize) {
         let mut result = String::new();
 
