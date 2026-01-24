@@ -33,6 +33,7 @@ impl View {
             EditorCommand::Move(direction) => self.move_text_location(&direction),
             EditorCommand::Quit => {},
             EditorCommand::Insert(character) => self.insert_char(character),
+            EditorCommand::Delete(back) => self.delete_char(back),
         }
     }
     pub fn load(&mut self, filename: &String) {
@@ -47,6 +48,13 @@ impl View {
         self.needs_redraw = true;
     }
     // region: Editing
+    fn delete_char(&mut self, back: bool) {
+        if back {
+            self.move_left();
+        }
+        self.buffer.delete_char(self.text_location);
+        self.needs_redraw = true;
+    }
     fn insert_char(&mut self, character: char) {
         let old_len = self
             .buffer

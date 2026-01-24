@@ -87,6 +87,18 @@ impl Line {
             }
         }
     }
+    pub fn delete_char(&mut self, grapheme_index: usize) {
+        let mut result = String::new();
+
+        for (index, fragment) in self.fragments.iter().enumerate() {
+            if index == grapheme_index {
+                continue;
+            }
+            result.push_str(&fragment.grapheme);
+        }
+
+        self.fragments = Self::str_to_fragment(&result);
+    }
     pub fn insert_char(&mut self, character: char, grapheme_index: usize) {
         let mut result = String::new();
 
