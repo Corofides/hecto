@@ -21,7 +21,7 @@ impl Buffer {
     pub fn delete(&mut self, at: Location) {
 
         let mut current_line = &mut self.lines;
-        let mut remove_next = true;
+        let mut remove_next = false;
 
         let mut next_line_string = String::new();
 

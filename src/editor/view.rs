@@ -54,6 +54,7 @@ impl View {
         if self.buffer.is_first(self.text_location) {
             return;
         }
+
         self.move_left();
         self.delete();
     }
