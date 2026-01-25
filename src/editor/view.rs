@@ -34,9 +34,8 @@ impl View {
             EditorCommand::Quit => {},
             EditorCommand::Insert(character) => self.insert_char(character),
             EditorCommand::Delete => self.delete(),
-            EditorCommand::Backspace => self.backspace(),
-            EditorCommand::Tab => self.insert_char('\t'),
-            EditorCommand::Enter => self.insert_line(),
+            EditorCommand::Backspace => self.delete_backward(),
+            EditorCommand::Enter => self.insert_newline(),
         }
     }
     pub fn load(&mut self, filename: &String) {
@@ -51,7 +50,7 @@ impl View {
         self.needs_redraw = true;
     }
     // region: Editing
-    fn backspace(&mut self) {
+    fn delete_backward(&mut self) {
         if self.text_location.line_index != 0 || self.text_location.grapheme_index != 0 {
             self.move_text_location(&Direction::Left);
             self.delete();
@@ -61,20 +60,11 @@ impl View {
         self.buffer.delete(self.text_location);
         self.needs_redraw = true;
     }
-    fn insert_line(&mut self) {
-        // Just assume we are in the document somewhere.
+    fn insert_newline(&mut self) {
         self.buffer.insert_newline(self.text_location);
-        self.move_text_location(&Direction::Down);
-        self.move_text_location(&Direction::Home);
+        self.move_text_location(&Direction::Right);
         self.needs_redraw = true;
     }
-    // fn insert_char(&mut self) {
-    //     let mut line = self
-    //         .buffer
-    //         .lines
-    //         .get(self.text_location.line_index);
-    //     self.needs_redraw = true;
-    // }
     fn insert_char(&mut self, character: char) {
         let old_len = self
             .buffer
