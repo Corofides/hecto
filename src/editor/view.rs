@@ -39,6 +39,12 @@ impl View {
             EditorCommand::Save => self.save(),
         }
     }
+    fn resize(&mut self, to: Size) {
+        self.size = to;
+        self.scroll_text_location_into_view();
+        self.needs_redraw = true;
+    }
+    // region: file i/o
     pub fn load(&mut self, filename: &String) {
         if let Ok(buffer) = Buffer::load(filename) {
             self.buffer = buffer;
@@ -46,13 +52,9 @@ impl View {
         }
     }
     pub fn save(&self) {
-        self.buffer.save().expect("Could not save file");
+        let _ = self.buffer.save();
     }
-    fn resize(&mut self, to: Size) {
-        self.size = to;
-        self.scroll_text_location_into_view();
-        self.needs_redraw = true;
-    }
+    // endregion
     // region: Editing
     fn delete_backward(&mut self) {
         if self.text_location.line_index != 0 || self.text_location.grapheme_index != 0 {

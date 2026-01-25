@@ -6,7 +6,7 @@ use super::Location;
 
 #[derive(Default)]
 pub struct Buffer {
-    file_name: String,
+    file_name: Option<String>,
     pub lines: Vec<Line>,
 }
 
@@ -18,14 +18,16 @@ impl Buffer {
             lines.push(Line::from(value));
         }
         Ok(Self { 
-            file_name: file_name.to_string(),
+            file_name: Some(file_name.to_string()),
             lines 
         })
     }
     pub fn save(&self) -> Result<(), Error> {
-        let mut file = File::create(&self.file_name)?;
-        for line in &self.lines {
-            writeln!(file, "{}", line.to_string())?;
+        if let Some(file_name) = &self.file_name {
+            let mut file = File::create(file_name)?;
+            for line in &self.lines {
+                writeln!(file, "{}", line.to_string())?;
+            }
         }
         Ok(())
     }

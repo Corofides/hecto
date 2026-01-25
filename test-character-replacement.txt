@@ -2,6 +2,7 @@
 Hello, world! This is a test.
 
 This should now be in the file!
+And this.
 
 # Testing tabs
 Here	is	a	tab	separated	line.
