@@ -36,6 +36,7 @@ impl View {
             EditorCommand::Delete => self.delete(),
             EditorCommand::Backspace => self.delete_backward(),
             EditorCommand::Enter => self.insert_newline(),
+            EditorCommand::Save => self.save(),
         }
     }
     pub fn load(&mut self, filename: &String) {
@@ -43,6 +44,9 @@ impl View {
             self.buffer = buffer;
             self.needs_redraw = true;
         }
+    }
+    pub fn save(&self) {
+        self.buffer.save().expect("Could not save file");
     }
     fn resize(&mut self, to: Size) {
         self.size = to;
