@@ -119,6 +119,12 @@ impl Line {
 
         self.fragments = Self::str_to_fragment(&result);
     }
+    pub fn split_line(&mut self, grapheme_index: usize) -> String {
+        let mut line_string = self.to_string();
+        let new_line = line_string.split_off(grapheme_index);
+        self.fragments = Self::str_to_fragment(&line_string);
+        new_line
+    }
     pub fn get_visible_graphemes(&self, range: Range<usize>) -> String {
         if range.start >= range.end {
             return String::new();

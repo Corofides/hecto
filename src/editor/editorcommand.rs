@@ -21,6 +21,8 @@ pub enum EditorCommand {
     Insert(char),
     Delete,
     Backspace,
+    Tab,
+    Enter,
 }
 
 #[allow(clippy::as_conversions)]
@@ -46,6 +48,8 @@ impl TryFrom<Event> for EditorCommand {
                 (KeyCode::End, _) => Ok(Self::Move(Direction::End)),
                 (KeyCode::Backspace, _) => Ok(Self::Backspace),
                 (KeyCode::Delete, _) => Ok(Self::Delete),
+                (KeyCode::Tab, _) => Ok(Self::Tab),
+                (KeyCode::Enter, _) => Ok(Self::Enter),
 
                 _ => Err(format!("Key Code not supported: {code:?}")),
             },

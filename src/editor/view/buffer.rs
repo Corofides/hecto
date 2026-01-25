@@ -42,6 +42,37 @@ impl Buffer {
             line.insert_char(character, at.grapheme_index);
         }
     }
+    pub fn insert_newline(&mut self, at: Location) {
+        /* let mut op_line = self.lines.get_mut(at.line_index);
+        let line = op_line.get_or_insert_with(|| {
+            self.lines.insert(at.line_index, Line::from(""));
+            let position = self.lines.len() - 1;
+            &mut self.lines[position]
+        });*/
+
+        let Some(line) = self.lines.get_mut(at.line_index) else {
+            self.lines.insert(at.line_index, Line::from(""));
+            let line_length = self.lines.len() - 1;
+            let line = &mut self.lines[line_length];
+
+            let grapheme_index = at.grapheme_index;
+            
+            line.insert_char('\n', grapheme_index);
+            line.insert_char('\r', grapheme_index);
+            let new_line_string = line.split_line(grapheme_index.saturating_add(2));
+            self.lines.insert(at.line_index.saturating_add(1), Line::from(&new_line_string));
+            return;
+
+        };
+
+        let grapheme_index = at.grapheme_index;
+        
+        line.insert_char('\n', grapheme_index);
+        line.insert_char('\r', grapheme_index);
+        let new_line_string = line.split_line(grapheme_index.saturating_add(2));
+        self.lines.insert(at.line_index.saturating_add(1), Line::from(&new_line_string));
+
+    }
     pub fn is_empty(&self) -> bool {
         self.lines.is_empty()
     }

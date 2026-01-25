@@ -35,6 +35,8 @@ impl View {
             EditorCommand::Insert(character) => self.insert_char(character),
             EditorCommand::Delete => self.delete(),
             EditorCommand::Backspace => self.backspace(),
+            EditorCommand::Tab => self.insert_char('\t'),
+            EditorCommand::Enter => self.insert_line(),
         }
     }
     pub fn load(&mut self, filename: &String) {
@@ -59,6 +61,20 @@ impl View {
         self.buffer.delete(self.text_location);
         self.needs_redraw = true;
     }
+    fn insert_line(&mut self) {
+        // Just assume we are in the document somewhere.
+        self.buffer.insert_newline(self.text_location);
+        self.move_text_location(&Direction::Down);
+        self.move_text_location(&Direction::Home);
+        self.needs_redraw = true;
+    }
+    // fn insert_char(&mut self) {
+    //     let mut line = self
+    //         .buffer
+    //         .lines
+    //         .get(self.text_location.line_index);
+    //     self.needs_redraw = true;
+    // }
     fn insert_char(&mut self, character: char) {
         let old_len = self
             .buffer
