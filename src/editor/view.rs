@@ -271,10 +271,15 @@ impl View {
 
 impl Default for View {
     fn default() -> Self {
+        
+        let mut size = Terminal::size().unwrap_or_default();
+
+        size.height = size.height.saturating_sub(2);
+
         Self {
             buffer: Buffer::default(),
             needs_redraw: true,
-            size: Terminal::size().unwrap_or_default(),
+            size: size, // Terminal::size().unwrap_or_default(),
             text_location: Location::default(), 
             scroll_offset: Position::default(),        
         }

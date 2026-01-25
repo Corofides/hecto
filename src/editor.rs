@@ -7,15 +7,18 @@ use std::{
 mod editorcommand;
 mod terminal;
 mod view;
+mod statusbar;
 
-use terminal::{Terminal};
+use terminal::{Terminal, Size};
 use view::{View};
+use statusbar::{StatusBar};
 
 use editorcommand::EditorCommand;
 
 //#[derive(Default)]
 pub struct Editor {
     view: View,
+    status_bar: StatusBar,
     should_quit: bool,
 }
    
@@ -23,6 +26,7 @@ impl Default for Editor {
     fn default() -> Self {
         Self {
             view: View::default(),
+            status_bar: StatusBar::default(),
             should_quit: false,
         }
     }
@@ -37,13 +41,15 @@ impl Editor {
         }));
         Terminal::initialize()?;
         let mut view = View::default();
+        let mut status_bar = StatusBar::default();
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
             view.load(file_name);
         }
         Ok(Self {
             should_quit: false,
-            view
+            view,
+            status_bar,
         })
     }
     pub fn run(&mut self) {
@@ -82,8 +88,11 @@ impl Editor {
         }
     }
     fn refresh_screen(&mut self) {
+        let Size { height, .. } = Terminal::size().expect("Size not found");
+
         let _ = Terminal::hide_caret();
         self.view.render();
+        self.status_bar.render(height - 2);
         let _ = Terminal::move_caret_to(self.view.caret_position());
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
