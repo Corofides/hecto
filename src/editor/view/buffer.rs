@@ -6,7 +6,7 @@ use super::Location;
 
 #[derive(Default)]
 pub struct Buffer {
-    file_name: Option<String>,
+    pub file_name: Option<String>,
     pub lines: Vec<Line>,
 }
 

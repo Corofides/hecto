@@ -39,6 +39,18 @@ impl View {
             EditorCommand::Save => self.save(),
         }
     }
+    pub fn get_title(&self) -> &str {
+        if let Some(title) = &self.buffer.file_name {
+            return &title;
+        }
+        "New file"
+    }
+    pub fn get_line(&self) -> usize {
+        self.text_location.line_index
+    }
+    pub fn get_line_count(&self) -> usize {
+        self.buffer.lines.len()
+    }
     fn resize(&mut self, to: Size) {
         self.size = to;
         self.scroll_text_location_into_view();

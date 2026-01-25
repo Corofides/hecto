@@ -41,7 +41,7 @@ impl Editor {
         }));
         Terminal::initialize()?;
         let mut view = View::default();
-        let mut status_bar = StatusBar::default();
+        let status_bar = StatusBar::default();
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
             view.load(file_name);
@@ -51,6 +51,13 @@ impl Editor {
             view,
             status_bar,
         })
+    }
+    pub fn update_status_bar(&mut self) {
+        self.status_bar.update_data(
+            String::from(self.view.get_title()), 
+            self.view.get_line(), 
+            self.view.get_line_count()
+        );
     }
     pub fn run(&mut self) {
         loop {
@@ -67,6 +74,7 @@ impl Editor {
                     }
                 }
             }
+            self.update_status_bar();
         }
     }
     #[allow(clippy::needless_pass_by_value)]
