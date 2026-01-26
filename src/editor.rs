@@ -44,10 +44,21 @@ impl Editor {
         if let Some(file_name) = args.get(1) {
             view.load(file_name);
         }
+        let mut status_bar = StatusBar::new(1);
+        let status = view.get_status();
+
+        if let Some(file_name) = &status.file_name {
+            Terminal::set_title(&file_name)?;
+        } else {
+            Terminal::set_title("New Document")?;
+        }
+
+        status_bar.update_status(status);
+
         Ok(Self {
             should_quit: false,
             view,
-            status_bar: StatusBar::new(1),
+            status_bar,
         })
     }
     pub fn run(&mut self) {

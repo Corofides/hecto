@@ -2,6 +2,7 @@ use super::{
     terminal::{Size, Terminal},
     DocumentStatus,
 };
+use crossterm::style::Attribute;
 
 pub struct StatusBar {
     current_status: DocumentStatus,
@@ -37,8 +38,26 @@ impl StatusBar {
         if !self.needs_redraw {
             return;
         }
-        let mut status = format!("{:?}", self.current_status);
-        status.truncate(self.width);
+
+        let file_name = match &self.current_status.file_name {
+            Some(file_name) => String::from(file_name),
+            None => String::from("New Document"),
+        };
+
+        let line_count = format!("{} lines", self.current_status.total_lines);
+        let mut modified_line = String::from("");
+
+        if self.current_status.is_modified {
+            modified_line = String::from("(modified)");
+        }
+
+        let position_string = format!("{}/{}", self.current_status.current_line_index, self.current_status.total_lines);
+        let screen_width = self.width;
+        let left_status = format!("{file_name} - {line_count} {modified_line}");
+        let right_status = format!("{position_string}");
+        let padding = screen_width - left_status.len(); // - right_status.len();
+
+        let status = format!("{}{left_status}{right_status:>padding$}{}", Attribute::Reverse, Attribute::Reset, padding = padding);
         let result = Terminal::print_row(self.position_y, &status);
         debug_assert!(result.is_ok(), "Failed to render status bar");
         self.needs_redraw = false;

@@ -1,5 +1,9 @@
 use std::io::{stdout, Write, Error};
-use crossterm::terminal::{disable_raw_mode, enable_raw_mode, size, Clear, ClearType, EnterAlternateScreen, LeaveAlternateScreen};
+use crossterm::terminal::{
+    disable_raw_mode, enable_raw_mode, size, Clear, ClearType, 
+    EnterAlternateScreen, LeaveAlternateScreen, 
+    EnableLineWrap, DisableLineWrap, SetTitle
+};
 use crossterm::cursor::{MoveTo, Hide, Show};
 use crossterm::style::Print;
 use crossterm::{queue, Command};
@@ -30,6 +34,7 @@ impl Position {
 impl Terminal {
     pub fn terminate() -> Result<(), Error> {
         Self::leave_alternate_screen()?;
+        Self::enable_line_wrap()?;
         Self::show_caret()?;
         Self::execute()?;
         disable_raw_mode()?;
@@ -39,6 +44,7 @@ impl Terminal {
         // Move to the alternate screen first.
         enable_raw_mode()?;
         Self::enter_alternate_screen()?;
+        Self::disable_line_wrap()?;
         Self::clear_screen()?;
         Self::move_caret_to(Position {col: 0, row: 0})?;
         Self::execute()?;
@@ -53,6 +59,18 @@ impl Terminal {
     }
     pub fn show_caret() -> Result<(), Error> {
         Self::queue_command(Show)
+    }
+    pub fn set_title(title: &str) -> Result<(), Error> {
+        Self::queue_command(SetTitle(title))?;
+        Ok(())
+    }
+    pub fn enable_line_wrap() -> Result<(), Error> {
+        Self::queue_command(EnableLineWrap)?;
+        Ok(())
+    }
+    pub fn disable_line_wrap() -> Result<(), Error> {
+        Self::queue_command(DisableLineWrap)?;
+        Ok(())
     }
     pub fn enter_alternate_screen() -> Result<(), Error> {
         Self::queue_command(EnterAlternateScreen)?;
