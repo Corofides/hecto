@@ -24,6 +24,7 @@ pub struct View {
     size: Size,
     text_location: Location,
     scroll_offset: Position,
+    edited: bool,
 }
 
 impl View {
@@ -46,7 +47,10 @@ impl View {
         "New file"
     }
     pub fn get_line(&self) -> usize {
-        self.text_location.line_index
+        self.text_location.line_index + 1
+    }
+    pub fn has_edited(&self) -> bool {
+        self.edited
     }
     pub fn get_line_count(&self) -> usize {
         self.buffer.lines.len()
@@ -71,16 +75,19 @@ impl View {
     fn delete_backward(&mut self) {
         if self.text_location.line_index != 0 || self.text_location.grapheme_index != 0 {
             self.move_text_location(&Direction::Left);
+            self.edited = true;
             self.delete();
         }
     }
     fn delete(&mut self) {
         self.buffer.delete(self.text_location);
+        self.edited = true;
         self.needs_redraw = true;
     }
     fn insert_newline(&mut self) {
         self.buffer.insert_newline(self.text_location);
         self.move_text_location(&Direction::Right);
+        self.edited = true;
         self.needs_redraw = true;
     }
     fn insert_char(&mut self, character: char) {
@@ -101,6 +108,7 @@ impl View {
         if grapheme_delta > 0 {
             self.move_text_location(&Direction::Right);
         }
+        self.edited = true;
         self.needs_redraw = true;
     }
     // region: Rendering
@@ -294,6 +302,7 @@ impl Default for View {
             size: size, // Terminal::size().unwrap_or_default(),
             text_location: Location::default(), 
             scroll_offset: Position::default(),        
+            edited: false,
         }
     }
 }

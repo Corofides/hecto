@@ -41,11 +41,17 @@ impl Editor {
         }));
         Terminal::initialize()?;
         let mut view = View::default();
-        let status_bar = StatusBar::default();
+        let mut status_bar = StatusBar::default();
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
             view.load(file_name);
         }
+        status_bar.update_data(
+            String::from(view.get_title()),
+            view.get_line(),
+            view.get_line_count(),
+            false,
+        );
         Ok(Self {
             should_quit: false,
             view,
@@ -56,7 +62,8 @@ impl Editor {
         self.status_bar.update_data(
             String::from(self.view.get_title()), 
             self.view.get_line(), 
-            self.view.get_line_count()
+            self.view.get_line_count(),
+            self.view.has_edited(),
         );
     }
     pub fn run(&mut self) {

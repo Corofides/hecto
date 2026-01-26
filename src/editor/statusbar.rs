@@ -5,6 +5,7 @@ pub struct Data {
     pub title: String,
     pub line_count: usize,
     pub position: usize,
+    pub edited: bool,
 }
 
 pub struct StatusBar {
@@ -20,13 +21,19 @@ impl StatusBar {
             //return;
         }
 
-        let status = format!("Title {}, Line Count {}/{}", self.data.title, self.data.position, self.data.line_count);
+        let mut edited_string = String::from("");
+
+        if self.data.edited {
+            edited_string = String::from("[+]");
+        }
+
+        let status = format!("Title {}{}, Line Count {}/{}", self.data.title, edited_string, self.data.position, self.data.line_count);
             //String::from("Title: {} Line:  {}/{}", self.title, sself.line_count);
         let _ = Terminal::print_row(at, &status);
 
         self.needs_redraw = false;
     }
-    pub fn update_data(&mut self, title: String, position: usize, line_count: usize) {
+    pub fn update_data(&mut self, title: String, position: usize, line_count: usize, edited: bool) {
         let mut has_changed = false;
 
         if title != self.data.title {
@@ -43,6 +50,8 @@ impl StatusBar {
             self.data.position = position;
             has_changed = true;
         }
+
+        self.data.edited = edited;
 
         self.needs_redraw = has_changed;
     }
