@@ -4,6 +4,7 @@ use self::line::Line;
 use super::{
     editorcommand::{Direction, EditorCommand},
     terminal::{Position, Terminal, Size},
+    DocumentStatus,
 };
 mod buffer;
 use buffer::Buffer;
@@ -24,14 +25,28 @@ pub struct View {
     size: Size,
     text_location: Location,
     scroll_offset: Position,
-    edited: bool,
 }
 
 impl View {
+    pub fn new(margin_bottom: usize) -> Self {
+
+        let terminal_size = Terminal::size().unwrap_or_default();
+
+        Self {
+            buffer: Buffer::default(),
+            needs_redraw: true,
+            size: Size {
+                width: terminal_size.width,
+                height: terminal_size.height.saturating_sub(margin_bottom),
+            }, // Terminal::size().unwrap_or_default(),
+            text_location: Location::default(), 
+            scroll_offset: Position::default(),        
+        }
+    }
     pub fn handle_command(&mut self, command: EditorCommand) {
         match command {
             EditorCommand::Resize(size) => self.resize(size),
-            EditorCommand::Move(direction) => self.move_text_location(&direction),
+            EditorCommand::Move(direction) => self.move_text_location(direction),
             EditorCommand::Quit => {},
             EditorCommand::Insert(character) => self.insert_char(character),
             EditorCommand::Delete => self.delete(),
@@ -40,20 +55,13 @@ impl View {
             EditorCommand::Save => self.save(),
         }
     }
-    pub fn get_title(&self) -> &str {
-        if let Some(title) = &self.buffer.file_name {
-            return &title;
+    pub fn get_status(&self) -> DocumentStatus {
+        DocumentStatus {
+            total_lines: self.buffer.height(),
+            current_line_index: self.text_location.line_index,
+            file_name: self.buffer.file_name.clone(),
+            is_modified: self.buffer.dirty,
         }
-        "New file"
-    }
-    pub fn get_line(&self) -> usize {
-        self.text_location.line_index + 1
-    }
-    pub fn has_edited(&self) -> bool {
-        self.edited
-    }
-    pub fn get_line_count(&self) -> usize {
-        self.buffer.lines.len()
     }
     fn resize(&mut self, to: Size) {
         self.size = to;
@@ -67,27 +75,24 @@ impl View {
             self.needs_redraw = true;
         }
     }
-    pub fn save(&self) {
+    pub fn save(&mut self) {
         let _ = self.buffer.save();
     }
     // endregion
     // region: Editing
     fn delete_backward(&mut self) {
         if self.text_location.line_index != 0 || self.text_location.grapheme_index != 0 {
-            self.move_text_location(&Direction::Left);
-            self.edited = true;
+            self.move_text_location(Direction::Left);
             self.delete();
         }
     }
     fn delete(&mut self) {
         self.buffer.delete(self.text_location);
-        self.edited = true;
         self.needs_redraw = true;
     }
     fn insert_newline(&mut self) {
         self.buffer.insert_newline(self.text_location);
-        self.move_text_location(&Direction::Right);
-        self.edited = true;
+        self.move_text_location(Direction::Right);
         self.needs_redraw = true;
     }
     fn insert_char(&mut self, character: char) {
@@ -106,9 +111,8 @@ impl View {
 
         let grapheme_delta = new_len.saturating_sub(old_len);
         if grapheme_delta > 0 {
-            self.move_text_location(&Direction::Right);
+            self.move_text_location(Direction::Right);
         }
-        self.edited = true;
         self.needs_redraw = true;
     }
     // region: Rendering
@@ -218,7 +222,7 @@ impl View {
     }
     //end region
     //region: text location movement
-    pub fn move_text_location(&mut self, direction: &Direction) {
+    pub fn move_text_location(&mut self, direction: Direction) {
         let Size { height, .. } = self.size;
 
         match direction {
@@ -286,23 +290,5 @@ impl View {
     }
     pub fn snap_to_valid_line(&mut self) {
         self.text_location.line_index = min(self.text_location.line_index, self.buffer.height());
-    }
-}
-
-impl Default for View {
-    fn default() -> Self {
-        
-        let mut size = Terminal::size().unwrap_or_default();
-
-        size.height = size.height.saturating_sub(2);
-
-        Self {
-            buffer: Buffer::default(),
-            needs_redraw: true,
-            size: size, // Terminal::size().unwrap_or_default(),
-            text_location: Location::default(), 
-            scroll_offset: Position::default(),        
-            edited: false,
-        }
     }
 }

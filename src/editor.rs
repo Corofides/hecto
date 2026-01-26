@@ -9,27 +9,26 @@ mod terminal;
 mod view;
 mod statusbar;
 
-use terminal::{Terminal, Size};
+use terminal::{Terminal};
 use view::{View};
 use statusbar::{StatusBar};
 
 use editorcommand::EditorCommand;
+
+
+#[derive(Default, Eq, PartialEq, Debug)]
+pub struct DocumentStatus {
+    total_lines: usize,
+    current_line_index: usize,
+    is_modified: bool,
+    file_name: Option<String>,
+}
 
 //#[derive(Default)]
 pub struct Editor {
     view: View,
     status_bar: StatusBar,
     should_quit: bool,
-}
-   
-impl Default for Editor {
-    fn default() -> Self {
-        Self {
-            view: View::default(),
-            status_bar: StatusBar::default(),
-            should_quit: false,
-        }
-    }
 }
 
 impl Editor {
@@ -40,31 +39,16 @@ impl Editor {
             current_hook(panic_info);
         }));
         Terminal::initialize()?;
-        let mut view = View::default();
-        let mut status_bar = StatusBar::default();
+        let mut view = View::new(2);
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
             view.load(file_name);
         }
-        status_bar.update_data(
-            String::from(view.get_title()),
-            view.get_line(),
-            view.get_line_count(),
-            false,
-        );
         Ok(Self {
             should_quit: false,
             view,
-            status_bar,
+            status_bar: StatusBar::new(1),
         })
-    }
-    pub fn update_status_bar(&mut self) {
-        self.status_bar.update_data(
-            String::from(self.view.get_title()), 
-            self.view.get_line(), 
-            self.view.get_line_count(),
-            self.view.has_edited(),
-        );
     }
     pub fn run(&mut self) {
         loop {
@@ -81,7 +65,8 @@ impl Editor {
                     }
                 }
             }
-            self.update_status_bar();
+            let status = self.view.get_status();
+            self.status_bar.update_status(status);
         }
     }
     #[allow(clippy::needless_pass_by_value)]
@@ -98,16 +83,17 @@ impl Editor {
                     self.should_quit = true;
                 } else {
                     self.view.handle_command(command);
+                    if let EditorCommand::Resize(size) = command {
+                        self.status_bar.resize(size);
+                    }
                 }
             }
         }
     }
     fn refresh_screen(&mut self) {
-        let Size { height, .. } = Terminal::size().expect("Size not found");
-
         let _ = Terminal::hide_caret();
         self.view.render();
-        self.status_bar.render(height - 2);
+        self.status_bar.render();
         let _ = Terminal::move_caret_to(self.view.caret_position());
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
