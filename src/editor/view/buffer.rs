@@ -1,13 +1,15 @@
 use std::fs::{File, read_to_string};
 use std::io::{Write, Error};
 
+use crate::editor::fileinfo::FileInfo;
+
 use super::line::Line;
 use super::Location;
 
 #[derive(Default)]
 pub struct Buffer {
-    pub file_name: Option<String>,
     pub lines: Vec<Line>,
+    pub file_info: FileInfo,
     pub dirty: bool,
 }
 
@@ -19,14 +21,14 @@ impl Buffer {
             lines.push(Line::from(value));
         }
         Ok(Self { 
-            file_name: Some(file_name.to_string()),
+            file_info: FileInfo::from(file_name),
             lines,
             dirty: false,
         })
     }
     pub fn save(&mut self) -> Result<(), Error> {
-        if let Some(file_name) = &self.file_name {
-            let mut file = File::create(file_name)?;
+        if let Some(path) = &self.file_info.path {
+            let mut file = File::create(path)?;
             for line in &self.lines {
                 writeln!(file, "{}", line.to_string())?;
             }

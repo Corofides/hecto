@@ -4,14 +4,12 @@ use self::line::Line;
 use super::{
     editorcommand::{Direction, EditorCommand},
     terminal::{Position, Terminal, Size},
-    DocumentStatus,
+    DocumentStatus, NAME, VERSION
 };
 mod buffer;
 use buffer::Buffer;
 mod line;
 
-const NAME: &str = env!("CARGO_PKG_NAME");
-const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[derive(Copy, Clone, Default)]
 pub struct Location {
@@ -25,6 +23,7 @@ pub struct View {
     size: Size,
     text_location: Location,
     scroll_offset: Position,
+    margin_bottom: usize,
 }
 
 impl View {
@@ -38,9 +37,18 @@ impl View {
             size: Size {
                 width: terminal_size.width,
                 height: terminal_size.height.saturating_sub(margin_bottom),
-            }, // Terminal::size().unwrap_or_default(),
+            },
+            margin_bottom,
             text_location: Location::default(), 
             scroll_offset: Position::default(),        
+        }
+    }
+    pub fn get_status(&self) -> DocumentStatus {
+        DocumentStatus {
+            total_lines: self.buffer.height(),
+            current_line_index: self.text_location.line_index,
+            file_name: format!("{}", self.buffer.file_info),
+            is_modified: self.buffer.dirty,
         }
     }
     pub fn handle_command(&mut self, command: EditorCommand) {
@@ -55,16 +63,12 @@ impl View {
             EditorCommand::Save => self.save(),
         }
     }
-    pub fn get_status(&self) -> DocumentStatus {
-        DocumentStatus {
-            total_lines: self.buffer.height(),
-            current_line_index: self.text_location.line_index,
-            file_name: self.buffer.file_name.clone(),
-            is_modified: self.buffer.dirty,
-        }
-    }
+    
     fn resize(&mut self, to: Size) {
-        self.size = to;
+        self.size = Size {
+            width: to.width,
+            height: to.height.saturating_sub(self.margin_bottom),
+        };
         self.scroll_text_location_into_view();
         self.needs_redraw = true;
     }
@@ -117,10 +121,9 @@ impl View {
     }
     // region: Rendering
     pub fn render(&mut self) {
-        if !self.needs_redraw {
+        if !self.needs_redraw || self.size.height == 0 {
             return;
         }
-
 
         let Size { width, height } = self.size;
         if height == 0 || width == 0 {
@@ -150,24 +153,18 @@ impl View {
     }
     fn build_welcome_message(width: usize) -> String {
         if width == 0 {
-            return " ".to_string();
+            return String::new();
         }
         
         let welcome_message = format!("{NAME} editor -- version {VERSION}");
 
         let len = welcome_message.len();
+        let remaining_width = width.saturating_sub(1);
 
-        if width <= len {
+        if remaining_width < len {
             "~" .to_string();
         }
-
-        #[allow(clippy::integer_division)]
-        let padding = (width.saturating_sub(len).saturating_sub(1)) / 2;
-        
-        let mut full_message = format!("~{}{}", " ".repeat(padding), welcome_message);
-        full_message.truncate(width);
-        full_message
-
+        format!("{:<1}{:^remaining_width$}", "~", welcome_message)
     }
     // end region
     // region: Scrolling

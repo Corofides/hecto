@@ -5,7 +5,7 @@ use crossterm::terminal::{
     EnableLineWrap, DisableLineWrap, SetTitle
 };
 use crossterm::cursor::{MoveTo, Hide, Show};
-use crossterm::style::Print;
+use crossterm::style::{Attribute, Print};
 use crossterm::{queue, Command};
 
 pub struct Terminal;
@@ -96,6 +96,18 @@ impl Terminal {
         Self::clear_line()?;
         Self::print(line_text)?;
         Ok(())
+    }
+    pub fn print_inverted_row(row: usize, line_text: &str) -> Result<(), Error> {
+        let width = Self::size()?.width;
+        Self::print_row(
+            row,
+            &format!(
+                "{}{:width$.width$}{}",
+                Attribute::Reverse,
+                line_text,
+                Attribute::Reset
+            ),
+        )
     }
     pub fn size() -> Result<Size, Error> {
         let (width_u16, height_u16) = size()?;

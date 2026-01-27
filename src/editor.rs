@@ -1,34 +1,29 @@
+mod documentstatus;
+mod fileinfo;
+mod editorcommand;
+mod terminal;
+mod view;
+mod statusbar;
+
 use crossterm::event::{ read, Event, KeyEvent, KeyEventKind };
 use std::{
     env, 
     io::Error,
     panic::{set_hook, take_hook}
 };
-mod editorcommand;
-mod terminal;
-mod view;
-mod statusbar;
-
 use terminal::{Terminal};
 use view::{View};
 use statusbar::{StatusBar};
-
+use documentstatus::DocumentStatus;
 use editorcommand::EditorCommand;
+const NAME: &str = env!("CARGO_PKG_NAME");
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-
-#[derive(Default, Eq, PartialEq, Debug)]
-pub struct DocumentStatus {
-    total_lines: usize,
-    current_line_index: usize,
-    is_modified: bool,
-    file_name: Option<String>,
-}
-
-//#[derive(Default)]
 pub struct Editor {
     view: View,
     status_bar: StatusBar,
     should_quit: bool,
+    title: String,
 }
 
 impl Editor {
@@ -39,27 +34,28 @@ impl Editor {
             current_hook(panic_info);
         }));
         Terminal::initialize()?;
-        let mut view = View::new(2);
+        let mut editor = Self {
+            should_quit: false,
+            view: View::new(2),
+            status_bar: StatusBar::new(1),
+            title: String::new(),
+        };
+
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
-            view.load(file_name);
+            editor.view.load(file_name);
         }
-        let mut status_bar = StatusBar::new(1);
-        let status = view.get_status();
+        editor.refresh_status();
+        Ok(editor)
+    }
+    pub fn refresh_status(&mut self) {
+        let status = self.view.get_status();
+        let title = format!("{} - {NAME}", status.file_name);
+        self.status_bar.update_status(status);
 
-        if let Some(file_name) = &status.file_name {
-            Terminal::set_title(&file_name)?;
-        } else {
-            Terminal::set_title("New Document")?;
+        if title != self.title && matches!(Terminal::set_title(&title), Ok(())) {
+            self.title = title;
         }
-
-        status_bar.update_status(status);
-
-        Ok(Self {
-            should_quit: false,
-            view,
-            status_bar,
-        })
     }
     pub fn run(&mut self) {
         loop {
@@ -76,8 +72,9 @@ impl Editor {
                     }
                 }
             }
-            let status = self.view.get_status();
-            self.status_bar.update_status(status);
+            //let status = self.view.get_status();
+            //self.status_bar.update_status(status);
+            self.refresh_status(); //this may need to be removed.
         }
     }
     #[allow(clippy::needless_pass_by_value)]
