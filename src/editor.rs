@@ -4,6 +4,8 @@ mod editorcommand;
 mod terminal;
 mod view;
 mod statusbar;
+mod messagebar;
+mod tooltipbar;
 
 use crossterm::event::{ read, Event, KeyEvent, KeyEventKind };
 use std::{
@@ -14,6 +16,7 @@ use std::{
 use terminal::{Terminal};
 use view::{View};
 use statusbar::{StatusBar};
+use messagebar::{MessageBar};
 use documentstatus::DocumentStatus;
 use editorcommand::EditorCommand;
 const NAME: &str = env!("CARGO_PKG_NAME");
@@ -22,6 +25,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub struct Editor {
     view: View,
     status_bar: StatusBar,
+    message_bar: MessageBar,
     should_quit: bool,
     title: String,
 }
@@ -38,6 +42,7 @@ impl Editor {
             should_quit: false,
             view: View::new(2),
             status_bar: StatusBar::new(1),
+            message_bar: MessageBar::new(0),
             title: String::new(),
         };
 
@@ -46,7 +51,12 @@ impl Editor {
             editor.view.load(file_name);
         }
         editor.refresh_status();
+        editor.refresh_message();
         Ok(editor)
+    }
+    pub fn refresh_message(&mut self) {
+        let message = String::from("HELP: Ctrl-S = save | Ctrl+Q = quit");
+        self.message_bar.update_message(message);
     }
     pub fn refresh_status(&mut self) {
         let status = self.view.get_status();
@@ -93,6 +103,7 @@ impl Editor {
                     self.view.handle_command(command);
                     if let EditorCommand::Resize(size) = command {
                         self.status_bar.resize(size);
+                        self.message_bar.resize(size);
                     }
                 }
             }
@@ -102,6 +113,7 @@ impl Editor {
         let _ = Terminal::hide_caret();
         self.view.render();
         self.status_bar.render();
+        self.message_bar.render();
         let _ = Terminal::move_caret_to(self.view.caret_position());
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
