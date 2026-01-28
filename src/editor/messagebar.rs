@@ -1,14 +1,16 @@
 use std::io::Error;
 
+use std::time::{Instant};
+
 use super::{
     terminal::{Size, Terminal},
     uicomponent::UIComponent,
 };
 
-#[derive(Default)]
 pub struct MessageBar {
     current_message: String,
     needs_redraw: bool,
+    pub instant: Instant,
 }
 
 impl MessageBar {
@@ -16,6 +18,18 @@ impl MessageBar {
         if new_message != self.current_message {
             self.current_message = new_message;
             self.mark_redraw(true);
+            self.instant = Instant::now();
+        }
+        
+    }
+}
+
+impl Default for MessageBar {
+    fn default() -> Self {
+        Self {
+            current_message: String::new(),
+            needs_redraw: false,
+            instant: Instant::now(),
         }
     }
 }
@@ -29,6 +43,6 @@ impl UIComponent for MessageBar {
     }
     fn set_size(&mut self, _: Size) {}
     fn draw(&mut self, origin: usize) -> Result<(), Error> {
-        Terminal::print_row(origin, &self.current_message)
+        Terminal::print_row(origin, &format!("{}", self.current_message))
     }
 }

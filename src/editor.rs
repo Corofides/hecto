@@ -7,7 +7,7 @@ mod statusbar;
 mod messagebar;
 mod uicomponent;
 
-use crossterm::event::{ read, Event, KeyEvent, KeyEventKind };
+use crossterm::event::{ read, poll, Event, KeyEvent, KeyEventKind };
 use std::{
     env, 
     io::Error,
@@ -21,6 +21,7 @@ use documentstatus::DocumentStatus;
 use editorcommand::EditorCommand;
 use uicomponent::UIComponent;
 use self::{terminal::Size};
+use std::time::{Instant, Duration};
 
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -93,15 +94,31 @@ impl Editor {
             if self.should_quit {
                 break;
             }
-            match read() {
-                Ok(event) => self.evaluate_event(event),
-                Err(err) => {
-                    #[cfg(debug_assertions)]
-                    {
-                        panic!("Could not read event: {err:?}");
+
+            let five_seconds = Duration::new(5, 0);
+            let duration_passed = Instant::now().duration_since(self.message_bar.instant);
+
+            if  duration_passed > five_seconds {
+               self 
+                   .message_bar
+                   .update_message("".to_string());
+
+            }
+
+            let has_event = poll(Duration::from_secs(0)).unwrap();
+
+            if has_event {
+                match read() {
+                    Ok(event) => self.evaluate_event(event),
+                    Err(err) => {
+                        #[cfg(debug_assertions)]
+                        {
+                            panic!("Could not read event: {err:?}");
+                        }
                     }
                 }
             }
+            
             //let status = self.view.get_status();
             //self.status_bar.update_status(status);
             self.refresh_status(); //this may need to be removed.
@@ -135,6 +152,7 @@ impl Editor {
 
         let _ = Terminal::hide_caret();
 
+        // Only render this if the message bar is visible
         self.message_bar
             .render(self.terminal_size.height.saturating_sub(1));
 
