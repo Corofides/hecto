@@ -52,7 +52,7 @@ impl View {
     pub fn load(&mut self, filename: &String) {
         if let Ok(buffer) = Buffer::load(filename) {
             self.buffer = buffer;
-            self.mark_redraw(true);
+            self.set_needs_redraw(true);
         }
     }
     pub fn save(&mut self) {
@@ -68,12 +68,12 @@ impl View {
     }
     fn delete(&mut self) {
         self.buffer.delete(self.text_location);
-        self.mark_redraw(true);
+        self.set_needs_redraw(true);
     }
     fn insert_newline(&mut self) {
         self.buffer.insert_newline(self.text_location);
         self.move_text_location(Direction::Right);
-        self.mark_redraw(true)
+        self.set_needs_redraw(true)
     }
     fn insert_char(&mut self, character: char) {
         let old_len = self
@@ -93,7 +93,7 @@ impl View {
         if grapheme_delta > 0 {
             self.move_text_location(Direction::Right);
         }
-        self.mark_redraw(true);
+        self.set_needs_redraw(true);
     }
     // region: Rendering
     fn render_line(at: usize, line_text: &str) -> Result<(), Error> {
@@ -129,7 +129,7 @@ impl View {
         };
 
         if offset_changed {
-            self.mark_redraw(true);
+            self.set_needs_redraw(true);
         }
     }
     pub fn scroll_horizontally(&mut self, to: usize) {
@@ -145,7 +145,7 @@ impl View {
         };
 
         if offset_changed {
-            self.mark_redraw(true);
+            self.set_needs_redraw(true);
         }
     }
     fn scroll_text_location_into_view(&mut self) {
@@ -239,7 +239,7 @@ impl View {
 }
 
 impl UIComponent for View {
-    fn mark_redraw(&mut self, value: bool) {
+    fn set_needs_redraw(&mut self, value: bool) {
         self.needs_redraw = value;
     }
     fn needs_redraw(&self) -> bool {

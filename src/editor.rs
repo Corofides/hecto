@@ -95,16 +95,6 @@ impl Editor {
                 break;
             }
 
-            let five_seconds = Duration::new(5, 0);
-            let duration_passed = Instant::now().duration_since(self.message_bar.instant);
-
-            if  duration_passed > five_seconds {
-               self 
-                   .message_bar
-                   .update_message("".to_string());
-
-            }
-
             let has_event = poll(Duration::from_secs(0)).unwrap();
 
             if has_event {
