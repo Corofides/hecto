@@ -5,7 +5,7 @@ mod terminal;
 mod view;
 mod statusbar;
 mod messagebar;
-mod tooltipbar;
+mod uicomponent;
 
 use crossterm::event::{ read, Event, KeyEvent, KeyEventKind };
 use std::{
@@ -19,14 +19,19 @@ use statusbar::{StatusBar};
 use messagebar::{MessageBar};
 use documentstatus::DocumentStatus;
 use editorcommand::EditorCommand;
+use uicomponent::UIComponent;
+use self::{terminal::Size};
+
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+#[derive(Default)]
 pub struct Editor {
     view: View,
     status_bar: StatusBar,
     message_bar: MessageBar,
     should_quit: bool,
+    terminal_size: Size,
     title: String,
 }
 
@@ -38,26 +43,41 @@ impl Editor {
             current_hook(panic_info);
         }));
         Terminal::initialize()?;
-        let mut editor = Self {
-            should_quit: false,
-            view: View::new(2),
-            status_bar: StatusBar::new(1),
-            message_bar: MessageBar::new(0),
-            title: String::new(),
-        };
-
+        let mut editor = Self::default();
+        let size = Terminal::size().unwrap_or_default();
+        editor.resize(size);
+        
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
             editor.view.load(file_name);
         }
+
+        editor
+            .message_bar
+            .update_message("HELP: Ctrl-S = save | Ctrl-q = quit".to_string());
+
         editor.refresh_status();
-        editor.refresh_message();
         Ok(editor)
     }
-    pub fn refresh_message(&mut self) {
-        let message = String::from("HELP: Ctrl-S = save | Ctrl+Q = quit");
-        self.message_bar.update_message(message);
+    fn resize(&mut self, size: Size) {
+        self.terminal_size = size;
+        self.view.resize(Size {
+            height: size.height.saturating_sub(2),
+            width: size.width,
+        });
+        self.message_bar.resize(Size {
+            height: 1,
+            width: size.width,
+        });
+        self.status_bar.resize(Size {
+            height: 1,
+            width: size.width,
+        });
     }
+    // pub fn refresh_message(&mut self) {
+    //     let message = String::from("HELP: Ctrl-S = save | Ctrl+Q = quit");
+    //     self.message_bar.update_message(message);
+    // }
     pub fn refresh_status(&mut self) {
         let status = self.view.get_status();
         let title = format!("{} - {NAME}", status.file_name);
@@ -102,18 +122,31 @@ impl Editor {
                 } else {
                     self.view.handle_command(command);
                     if let EditorCommand::Resize(size) = command {
-                        self.status_bar.resize(size);
-                        self.message_bar.resize(size);
+                        self.resize(size);
                     }
                 }
             }
         }
     }
     fn refresh_screen(&mut self) {
+        if self.terminal_size.height == 0 || self.terminal_size.width == 0 {
+            return;
+        }
+
         let _ = Terminal::hide_caret();
-        self.view.render();
-        self.status_bar.render();
-        self.message_bar.render();
+
+        self.message_bar
+            .render(self.terminal_size.height.saturating_sub(1));
+
+        if self.terminal_size.height > 1 {
+            self.status_bar
+                .render(self.terminal_size.height.saturating_sub(2));
+        }
+
+        if self.terminal_size.height > 2 {
+            self.view.render(0);
+        }
+
         let _ = Terminal::move_caret_to(self.view.caret_position());
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();

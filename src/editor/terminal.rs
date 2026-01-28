@@ -10,7 +10,7 @@ use crossterm::{queue, Command};
 
 pub struct Terminal;
 
-#[derive(Default, Copy, Clone)]
+#[derive(Default, Copy, Clone, Eq, PartialEq)]
 pub struct Size {
     pub width: usize,
     pub height: usize,

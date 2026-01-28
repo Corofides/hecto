@@ -1,30 +1,34 @@
+use std::io::Error;
+
 use super::{
-    terminal::{Size},
-    tooltipbar::TooltipBar,
+    terminal::{Size, Terminal},
+    uicomponent::UIComponent,
 };
 
-
-
+#[derive(Default)]
 pub struct MessageBar {
-    pub tooltip_bar: TooltipBar,
+    current_message: String,
+    needs_redraw: bool,
 }
 
 impl MessageBar {
-    pub fn new(margin_bottom: usize) -> Self {
-        Self {
-            tooltip_bar: TooltipBar::new(false, margin_bottom),
-        }
-    }
     pub fn update_message(&mut self, new_message: String) {
-        if new_message != self.tooltip_bar.current_message {
-            self.tooltip_bar.current_message = new_message;
-            self.tooltip_bar.flag_dirty();
+        if new_message != self.current_message {
+            self.current_message = new_message;
+            self.mark_redraw(true);
         }
     }
-    pub fn resize(&mut self, size: Size) {
-        self.tooltip_bar.resize(size);
+}
+
+impl UIComponent for MessageBar {
+    fn mark_redraw(&mut self, value: bool) {
+        self.needs_redraw = value;
     }
-    pub fn render(&mut self) {
-        self.tooltip_bar.render();
+    fn needs_redraw(&self) -> bool {
+        self.needs_redraw
+    }
+    fn set_size(&mut self, _: Size) {}
+    fn draw(&mut self, origin: usize) -> Result<(), Error> {
+        Terminal::print_row(origin, &self.current_message)
     }
 }

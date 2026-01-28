@@ -1,58 +1,59 @@
+use std::io::Error;
+
 use super::{
     terminal::{Size, Terminal},
+    uicomponent::UIComponent,
     DocumentStatus,
-    tooltipbar::TooltipBar,
 };
 
+#[derive(Default)]
 pub struct StatusBar {
-    pub tooltip_bar: TooltipBar,
     current_status: DocumentStatus,
+    needs_redraw: bool,
+    size: Size,
 }
 
 impl StatusBar {
-    pub fn new(margin_bottom: usize) -> Self {
-        Self {
-            current_status: DocumentStatus::default(),
-            tooltip_bar: TooltipBar::new(true, margin_bottom),
-        }
-    }
     pub fn update_status(&mut self, new_status: DocumentStatus) {
-        if new_status != self.current_status {
+        if self.current_status != new_status {
             self.current_status = new_status;
-            let message = self.render_message();
-            self.tooltip_bar.current_message = message;
-            self.tooltip_bar.flag_dirty();
+            self.mark_redraw(true);
         }
     }
-    fn render_message(&self) -> String {
-        if let Ok(size) = Terminal::size() {
-            let line_count = self.current_status.line_count_to_string();
-            let modified_indicator = self.current_status.modified_indicator_to_string();
+}
 
-            let beginning = format!(
-                "{} - {line_count} {modified_indicator}",
-                self.current_status.file_name
-            );
-
-            let position_indicator = self.current_status.position_indicator_to_string();
-            let remainder_len = size.width.saturating_sub(beginning.len());
-
-            let status = format!("{beginning}{position_indicator:>remainder_len$}");
-
-            if status.len() <= size.width {
-                return status;
-            } else {
-                return String::new();
-            };
-        }
-
-        String::new()
-
+impl UIComponent for StatusBar {
+    fn mark_redraw(&mut self, value: bool) {
+        self.needs_redraw = value;
     }
-    pub fn resize(&mut self, size: Size) {
-        self.tooltip_bar.resize(size);
+    fn needs_redraw(&self) -> bool {
+        self.needs_redraw
     }
-    pub fn render(&mut self) {
-        self.tooltip_bar.render();
+    fn set_size(&mut self, size: Size) {
+        self.size = size;
+    }
+    fn draw(&mut self, origin_y: usize) -> Result<(), Error> {
+
+        let line_count = self.current_status.line_count_to_string();
+        let modified_indicator = self.current_status.modified_indicator_to_string();
+
+        let beginning = format!(
+            "{} - {line_count} {modified_indicator}",
+            self.current_status.file_name
+        );
+
+        let position_indicator = self.current_status.position_indicator_to_string();
+        let remainder_len = self.size.width.saturating_sub(beginning.len());
+        let status = format!("{beginning}{position_indicator:>remainder_len$}");
+
+        let to_print = if status.len() <= self.size.width {
+            status
+        } else {
+            String::new()
+        };
+
+        Terminal::print_inverted_row(origin_y, &to_print)?;
+
+        Ok(())
     }
 }
