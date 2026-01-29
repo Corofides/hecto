@@ -48,12 +48,16 @@ impl View {
             EditorCommand::Save => self.save(),
         }
     }*/
-    pub fn handle_control_command(&mut self, command: ControlCommand) {
+    pub fn handle_control_command(&mut self, command: ControlCommand) -> Result<(), Error> {
         match command {
             ControlCommand::Move(direction) => self.move_text_location(direction),
-            ControlCommand::Save => self.save(),
+            ControlCommand::Save => {
+                return self.save();
+            },
             _ => {},
         }
+
+        Ok(())
     }
     pub fn handle_insertion_command(&mut self, command: InsertionCommand) {
         match command {
@@ -70,8 +74,8 @@ impl View {
             self.set_needs_redraw(true);
         }
     }
-    pub fn save(&mut self) {
-        let _ = self.buffer.save();
+    pub fn save(&mut self) -> Result<(), Error> {
+        self.buffer.save()
     }
     // endregion
     // region: Editing

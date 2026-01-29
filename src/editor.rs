@@ -53,12 +53,15 @@ impl Editor {
             editor.view.load(file_name);
         }
 
-        editor
-            .message_bar
-            .update_message("HELP: Ctrl-S = save | Ctrl-q = quit".to_string());
+        editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
 
         editor.refresh_status();
         Ok(editor)
+    }
+    fn update_message(&mut self, message: &str) {
+        self
+            .message_bar
+            .update_message(message.to_string());
     }
     fn resize(&mut self, size: Size) {
         self.terminal_size = size;
@@ -129,7 +132,15 @@ impl Editor {
                 if matches!(command, ControlCommand::Quit) {
                     self.should_quit = true;
                 } else {
-                    self.view.handle_control_command(command);
+                    let result = self.view.handle_control_command(command);
+                    if matches!(command, ControlCommand::Save) {
+                        if let Ok(_) = result {
+                            self.update_message("File saved successfully!");
+                        } else {
+                            self.update_message("Error writing file!");
+                        }
+                    }
+                    
                 }
             }
 
