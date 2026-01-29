@@ -18,10 +18,10 @@ use view::{View};
 use statusbar::{StatusBar};
 use messagebar::{MessageBar};
 use documentstatus::DocumentStatus;
-use editorcommand::EditorCommand;
+use editorcommand::{DisplayCommand, InsertionCommand, ControlCommand};
 use uicomponent::UIComponent;
 use self::{terminal::Size};
-use std::time::{Instant, Duration};
+use std::time::{Duration};
 
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -123,16 +123,38 @@ impl Editor {
         };
 
         if should_process {
-            if let Ok(command) = EditorCommand::try_from(event) {
+           
+            // Handle control commands associated with movement, saving, quiting, etc
+            if let Ok(command) = ControlCommand::try_from(&event) {
+                if matches!(command, ControlCommand::Quit) {
+                    self.should_quit = true;
+                } else {
+                    self.view.handle_control_command(command);
+                }
+            }
+
+            // Handle display commands currently just resize events.
+            if let Ok(command) = DisplayCommand::try_from(&event) {
+                let DisplayCommand::Resize(size) = command; 
+                self.resize(size);
+            }
+
+            // Handle Insertion Commands.
+            if let Ok(command) = InsertionCommand::try_from(&event) {
+                self.view.handle_insertion_command(command);
+            }
+
+
+            /*if let Ok(command) = EditorCommand::try_from(event) {
                 if matches!(command, EditorCommand::Quit) {
                     self.should_quit = true;
                 } else {
                     self.view.handle_command(command);
-                    if let EditorCommand::Resize(size) = command {
+                    if let DisplayCommand::Resize(size) = command {
                         self.resize(size);
                     }
                 }
-            }
+            } */
         }
     }
     fn refresh_screen(&mut self) {

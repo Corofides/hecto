@@ -3,7 +3,7 @@ use std::{cmp::min, io::Error};
 use self::line::Line;
 
 use super::{
-    editorcommand::{Direction, EditorCommand},
+    editorcommand::{Direction, InsertionCommand, ControlCommand},
     terminal::{Position, Terminal, Size},
     uicomponent::UIComponent,
     DocumentStatus, NAME, VERSION
@@ -37,15 +37,30 @@ impl View {
             is_modified: self.buffer.dirty,
         }
     }
-    pub fn handle_command(&mut self, command: EditorCommand) {
+    /*pub fn handle_command(&mut self, command: EditorCommand) {
         match command {
-            EditorCommand::Resize(_) | EditorCommand::Quit => {},
-            EditorCommand::Move(direction) => self.move_text_location(direction),
-            EditorCommand::Insert(character) => self.insert_char(character),
-            EditorCommand::Delete => self.delete(),
-            EditorCommand::Backspace => self.delete_backward(),
-            EditorCommand::Enter => self.insert_newline(),
+            //EditorCommand::Resize(_) | EditorCommand::Quit => {},
+            ControlCommand::Move(direction) => self.move_text_location(direction),
+            InsertionCommand::Insert(character) => self.insert_char(character),
+            InsertionCommand::Delete => self.delete(),
+            InsertionCommand::Backspace => self.delete_backward(),
+            InsertionCommand::Enter => self.insert_newline(),
             EditorCommand::Save => self.save(),
+        }
+    }*/
+    pub fn handle_control_command(&mut self, command: ControlCommand) {
+        match command {
+            ControlCommand::Move(direction) => self.move_text_location(direction),
+            ControlCommand::Save => self.save(),
+            _ => {},
+        }
+    }
+    pub fn handle_insertion_command(&mut self, command: InsertionCommand) {
+        match command {
+            InsertionCommand::Insert(character) => self.insert_char(character),
+            InsertionCommand::Delete => self.delete(),
+            InsertionCommand::Backspace => self.delete_backward(),
+            InsertionCommand::Enter => self.insert_newline(),
         }
     }
     // region: file i/o
