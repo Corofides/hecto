@@ -68,11 +68,16 @@ impl View {
         }
     }
     // region: file i/o
-    pub fn load(&mut self, filename: &String) {
-        if let Ok(buffer) = Buffer::load(filename) {
+    pub fn load(&mut self, filename: &String) -> Result<(), String> {
+
+        let Ok(buffer) = Buffer::load(filename) else {
+            return Err(format!("ERR: Could not open file: {filename}"));
+        };
+        //if let Ok(buffer) = Buffer::load(filename) {
             self.buffer = buffer;
             self.set_needs_redraw(true);
-        }
+        //}
+        Ok(())
     }
     pub fn save(&mut self) -> Result<(), Error> {
         self.buffer.save()

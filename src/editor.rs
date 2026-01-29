@@ -48,12 +48,17 @@ impl Editor {
         let size = Terminal::size().unwrap_or_default();
         editor.resize(size);
         
+        editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
+
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
-            editor.view.load(file_name);
+            let result = editor.view.load(file_name);
+
+            if let Err(err) = result {
+                editor.update_message(&err);
+            }
         }
 
-        editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
 
         editor.refresh_status();
         Ok(editor)
