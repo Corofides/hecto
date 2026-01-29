@@ -37,17 +37,6 @@ impl View {
             is_modified: self.buffer.dirty,
         }
     }
-    /*pub fn handle_command(&mut self, command: EditorCommand) {
-        match command {
-            //EditorCommand::Resize(_) | EditorCommand::Quit => {},
-            ControlCommand::Move(direction) => self.move_text_location(direction),
-            InsertionCommand::Insert(character) => self.insert_char(character),
-            InsertionCommand::Delete => self.delete(),
-            InsertionCommand::Backspace => self.delete_backward(),
-            InsertionCommand::Enter => self.insert_newline(),
-            EditorCommand::Save => self.save(),
-        }
-    }*/
     pub fn handle_control_command(&mut self, command: ControlCommand) -> Result<(), Error> {
         match command {
             ControlCommand::Move(direction) => self.move_text_location(direction),
@@ -259,6 +248,9 @@ impl View {
     }
     pub fn snap_to_valid_line(&mut self) {
         self.text_location.line_index = min(self.text_location.line_index, self.buffer.height());
+    }
+    pub fn has_edited(&self) -> bool {
+        self.buffer.dirty
     }
 }
 

@@ -34,6 +34,7 @@ pub struct Editor {
     should_quit: bool,
     terminal_size: Size,
     title: String,
+    quit_attempts: usize,
 }
 
 impl Editor {
@@ -47,6 +48,7 @@ impl Editor {
         let mut editor = Self::default();
         let size = Terminal::size().unwrap_or_default();
         editor.resize(size);
+        editor.quit_attempts = 3;
         
         editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
 
@@ -135,7 +137,19 @@ impl Editor {
             // Handle control commands associated with movement, saving, quiting, etc
             if let Ok(command) = ControlCommand::try_from(&event) {
                 if matches!(command, ControlCommand::Quit) {
-                    self.should_quit = true;
+                    
+                    self.quit_attempts -= 1; 
+                    
+                    if !self.view.has_edited() || self.quit_attempts == 0 {
+                        self.should_quit = true;
+                        return;
+                    }
+                    
+                    self.update_message(&format!(
+                            "WARNING! File has unsaved changes. Press Ctrl-Q {} more times to quit.", 
+                            self.quit_attempts
+                    ))
+
                 } else {
                     let result = self.view.handle_control_command(command);
                     if matches!(command, ControlCommand::Save) {
