@@ -1,6 +1,6 @@
 mod documentstatus;
 mod fileinfo;
-mod editorcommand;
+mod command;
 mod terminal;
 mod view;
 mod statusbar;
@@ -16,15 +16,23 @@ use std::{
 use terminal::{Terminal};
 use view::{View};
 use statusbar::{StatusBar};
-use messagebar::{MessageBar};
 use documentstatus::DocumentStatus;
-use editorcommand::{DisplayCommand, InsertionCommand, ControlCommand};
 use uicomponent::UIComponent;
-use self::{terminal::Size};
 use std::time::{Duration};
+
+use self::{
+    command::{
+        Command::{self, Edit, Move, System},
+        System::{Quit, Resize, Save},
+    },
+    messagebar::MessageBar,
+    terminal::Size,
+};
 
 const NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+const QUIT_TIMES: u8 = 3;
 
 #[derive(Default)]
 pub struct Editor {
@@ -34,7 +42,7 @@ pub struct Editor {
     should_quit: bool,
     terminal_size: Size,
     title: String,
-    quit_attempts: usize,
+    quit_times: u8,
 }
 
 impl Editor {
@@ -48,19 +56,15 @@ impl Editor {
         let mut editor = Self::default();
         let size = Terminal::size().unwrap_or_default();
         editor.resize(size);
-        editor.quit_attempts = 3;
         
         editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
 
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
-            let result = editor.view.load(file_name);
-
-            if let Err(err) = result {
-                editor.update_message(&err);
+            if editor.view.load(file_name).is_err() {
+                editor.update_message("ERR: Could not open file: {file_name}");
             }
         }
-
 
         editor.refresh_status();
         Ok(editor)
@@ -68,7 +72,7 @@ impl Editor {
     fn update_message(&mut self, message: &str) {
         self
             .message_bar
-            .update_message(message.to_string());
+            .update_message(message);
     }
     fn resize(&mut self, size: Size) {
         self.terminal_size = size;
@@ -124,7 +128,6 @@ impl Editor {
             self.refresh_status(); //this may need to be removed.
         }
     }
-    #[allow(clippy::needless_pass_by_value)]
     pub fn evaluate_event(&mut self, event: Event) {
         let should_process = match &event {
             Event::Key(KeyEvent { kind, .. }) => kind == &KeyEventKind::Press,
@@ -133,58 +136,49 @@ impl Editor {
         };
 
         if should_process {
-           
-            // Handle control commands associated with movement, saving, quiting, etc
-            if let Ok(command) = ControlCommand::try_from(&event) {
-                if matches!(command, ControlCommand::Quit) {
-                    
-                    self.quit_attempts -= 1; 
-                    
-                    if !self.view.has_edited() || self.quit_attempts == 0 {
-                        self.should_quit = true;
-                        return;
-                    }
-                    
-                    self.update_message(&format!(
-                            "WARNING! File has unsaved changes. Press Ctrl-Q {} more times to quit.", 
-                            self.quit_attempts
-                    ))
-
-                } else {
-                    let result = self.view.handle_control_command(command);
-                    if matches!(command, ControlCommand::Save) {
-                        if let Ok(_) = result {
-                            self.update_message("File saved successfully!");
-                        } else {
-                            self.update_message("Error writing file!");
-                        }
-                    }
-                    
-                }
+            if let Ok(command) = Command::try_from(event) {
+                self.process_command(command);
             }
+        }
+    }
+    fn process_command(&mut self, command: Command) {
+        match command {
+            System(Quit) => self.handle_quit(),
+            System(Resize(size)) => self.resize(size),
+            _ => self.reset_quit_times(),
+        }
 
-            // Handle display commands currently just resize events.
-            if let Ok(command) = DisplayCommand::try_from(&event) {
-                let DisplayCommand::Resize(size) = command; 
-                self.resize(size);
-            }
+        match command {
+            System(Quit | Resize(_)) => {},
+            System(Save) => self.handle_save(),
+            Edit(edit_command) => self.view.handle_edit_command(edit_command),
+            Move(move_command) => self.view.handle_move_command(move_command),
+        }
+    }
+    fn handle_save(&mut self) {
+        if self.view.save().is_ok() {
+            self.message_bar.update_message("File saved successfully.");
+        } else {
+            self.message_bar.update_message("Error writing file!");
+        }
+    }
+    #[allow(clippy::arithmetic_side_effects)]
+    fn handle_quit(&mut self) {
+        if !self.view.get_status().is_modified || self.quit_times + 1 == QUIT_TIMES {
+            self.should_quit = true;
+        } else if self.view.get_status().is_modified {
+            self.message_bar.update_message(&format!(
+                "WARNING! File has unsaved changes. Press Ctrl-Q {} more times to quit.",
+                QUIT_TIMES - self.quit_times - 1
+            ))
+        }
 
-            // Handle Insertion Commands.
-            if let Ok(command) = InsertionCommand::try_from(&event) {
-                self.view.handle_insertion_command(command);
-            }
-
-
-            /*if let Ok(command) = EditorCommand::try_from(event) {
-                if matches!(command, EditorCommand::Quit) {
-                    self.should_quit = true;
-                } else {
-                    self.view.handle_command(command);
-                    if let DisplayCommand::Resize(size) = command {
-                        self.resize(size);
-                    }
-                }
-            } */
+        self.quit_times += 1;
+    }
+    fn reset_quit_times(&mut self) {
+        if self.quit_times > 0 {
+            self.quit_times = 0;
+            self.message_bar.update_message("");
         }
     }
     fn refresh_screen(&mut self) {

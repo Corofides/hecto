@@ -1,7 +1,7 @@
 # Testing regular text
 Hello, world! This is a test.
 
-Testing the new commands!
+Testing the new commands again
 
 This should now be in the file!
 And this.
