@@ -9,7 +9,7 @@ use super::{
 #[derive(Default, PartialEq)]
 pub struct CommandPrompt {
     prompt: String,
-    command: String,
+    pub command: String,
 }
 
 impl CommandPrompt {
@@ -41,6 +41,9 @@ impl CommandBar {
             row: origin_y,
             col: self.current_command.prompt.len() + 1 + self.cursor_offset,
         }
+    }
+    pub fn get_command(&self) -> &str {
+        &self.current_command.command
     }
     pub fn handle_edit_command(&mut self, command: Edit) {
         match command {

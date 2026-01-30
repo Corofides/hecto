@@ -21,7 +21,7 @@ pub struct Location {
 
 #[derive(Default)]
 pub struct View {
-    buffer: Buffer,
+    pub buffer: Buffer,
     needs_redraw: bool,
     size: Size,
     text_location: Location,

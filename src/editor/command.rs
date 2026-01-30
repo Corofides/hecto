@@ -1,7 +1,7 @@
 use crossterm::event::{
     Event,
     KeyCode::{
-        Backspace, Char, Delete, Down, End, Enter, Home, Left, PageDown, PageUp, Right, Tab, Up
+        Backspace, Esc, Char, Delete, Down, End, Enter, Home, Left, PageDown, PageUp, Right, Tab, Up
     },
     KeyEvent, KeyModifiers
 };
@@ -82,6 +82,7 @@ pub enum System {
     Save,
     Resize(Size),
     Quit,
+    Cancel,
 }
 
 impl TryFrom<KeyEvent> for System {
@@ -99,9 +100,13 @@ impl TryFrom<KeyEvent> for System {
                 _ => Err(format!("Unsupported Ctrl+{code:?} combination")),
             }
         } else {
-            Err(format!(
-                "Unsupported key code {code:?} or modifier {modifiers:?}"
-            ))
+            match code {
+                (Esc) => Ok(Self::Cancel),
+                _ => Err(format!(
+                    "Unsupported key code {code:?} or modifier {modifiers:?}"
+                ))
+            }
+            
         }
     }
 }

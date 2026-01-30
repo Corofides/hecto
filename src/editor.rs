@@ -23,9 +23,11 @@ use std::time::{Duration};
 
 use self::{
     command::{
+        Edit as EditEnum,
         Command::{self, Edit, Move, System},
-        System::{Quit, Resize, Save},
+        System::{Quit, Resize, Save, Cancel},
     },
+    fileinfo::FileInfo,
     messagebar::MessageBar,
     commandbar::{CommandBar, CommandPrompt},
     terminal::Size,
@@ -158,15 +160,28 @@ impl Editor {
                 self.add_save_prompt();
                 //self.handle_save()
             },
+            System(Cancel) => {
+                self.update_message("Save aborted");
+                self.show_command_prompt = false;
+            },
             Edit(edit_command) => {
                 if self.show_command_prompt {
-                    self.command_bar.handle_edit_command(edit_command);
-                    return;
+                    match edit_command {
+                        EditEnum::InsertNewLine => {
+                            let file_name = self.command_bar.get_command();
+                            self.view.buffer.save_as(file_name);
+                        },
+                        _ => {
+                            self.command_bar.handle_edit_command(edit_command);
+                            return;
+                        },
+                    }
                 }
 
                 self.view.handle_edit_command(edit_command)
             }
             Move(move_command) => {
+
                 if self.show_command_prompt {
                     self.command_bar.handle_move_command(move_command);
                     return;
