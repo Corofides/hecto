@@ -158,7 +158,14 @@ impl Editor {
                 self.add_save_prompt();
                 //self.handle_save()
             },
-            Edit(edit_command) => self.view.handle_edit_command(edit_command),
+            Edit(edit_command) => {
+                if self.show_command_prompt {
+                    self.command_bar.handle_edit_command(edit_command);
+                    return;
+                }
+
+                self.view.handle_edit_command(edit_command)
+            }
             Move(move_command) => self.view.handle_move_command(move_command),
         }
     }
@@ -201,15 +208,19 @@ impl Editor {
         }
 
         let _ = Terminal::hide_caret();
+        let status_bar_position = self
+            .terminal_size
+            .height
+            .saturating_sub(1);
 
         // Only render this if the message bar is visible
         //
         if self.show_command_prompt {
             self.command_bar
-                .render(self.terminal_size.height.saturating_sub(1));
+                .render(status_bar_position);
         } else {
             self.message_bar
-                .render(self.terminal_size.height.saturating_sub(1)); 
+                .render(status_bar_position);
         }
         
         if self.terminal_size.height > 1 {
@@ -220,8 +231,12 @@ impl Editor {
         if self.terminal_size.height > 2 {
             self.view.render(0);
         }
-
-        let _ = Terminal::move_caret_to(self.view.caret_position());
+        
+        if self.show_command_prompt {
+            let _ = Terminal::move_caret_to(self.command_bar.caret_position(status_bar_position));
+        } else {
+            let _ = Terminal::move_caret_to(self.view.caret_position());
+        }
         let _ = Terminal::show_caret();
         let _ = Terminal::execute();
     }
