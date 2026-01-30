@@ -166,7 +166,14 @@ impl Editor {
 
                 self.view.handle_edit_command(edit_command)
             }
-            Move(move_command) => self.view.handle_move_command(move_command),
+            Move(move_command) => {
+                if self.show_command_prompt {
+                    self.command_bar.handle_move_command(move_command);
+                    return;
+                }
+
+                self.view.handle_move_command(move_command);
+            }
         }
     }
     fn add_save_prompt(&mut self) {
