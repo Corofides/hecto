@@ -1,4 +1,5 @@
 use std::{cmp::min, io::Error};
+use std::path::PathBuf;
 
 use self::line::Line;
 
@@ -70,6 +71,12 @@ impl View {
     }
     pub fn save(&mut self) -> Result<(), Error> {
         self.buffer.save()
+    }
+    pub fn set_file(&mut self, file_name: &str) {
+        self.buffer.set_file(file_name);
+    }
+    pub fn get_file(&mut self) -> &Option<PathBuf> {
+        self.buffer.get_file()
     }
     // endregion
     // region: Editing

@@ -101,7 +101,7 @@ impl TryFrom<KeyEvent> for System {
             }
         } else {
             match code {
-                (Esc) => Ok(Self::Cancel),
+                Esc => Ok(Self::Cancel),
                 _ => Err(format!(
                     "Unsupported key code {code:?} or modifier {modifiers:?}"
                 ))

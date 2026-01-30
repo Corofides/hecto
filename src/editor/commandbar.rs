@@ -92,15 +92,11 @@ impl CommandBar {
     }
     
     pub fn handle_move_command(&mut self, command: Move) {
-
-        let Size {height, ..} = self.size;
-
         match command {
             Move::Left => self.move_left(),
             Move::Right => self.move_right(),
             _ => {},
         }
-        //self.scroll_text_location_into_view();
     }
     pub fn move_left(&mut self) {
         if self.cursor_offset > 0 {

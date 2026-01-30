@@ -27,7 +27,6 @@ use self::{
         Command::{self, Edit, Move, System},
         System::{Quit, Resize, Save, Cancel},
     },
-    fileinfo::FileInfo,
     messagebar::MessageBar,
     commandbar::{CommandBar, CommandPrompt},
     terminal::Size,
@@ -157,19 +156,27 @@ impl Editor {
         match command {
             System(Quit | Resize(_)) => {},
             System(Save) => {
-                self.add_save_prompt();
-                //self.handle_save()
+                if self.view.get_file().is_none() {
+                    self.add_save_prompt();
+                    return;
+                }
+
+                self.handle_save()
             },
             System(Cancel) => {
-                self.update_message("Save aborted");
-                self.show_command_prompt = false;
+                if self.show_command_prompt {
+                    self.update_message("Save aborted");
+                    self.show_command_prompt = false;
+                }
             },
             Edit(edit_command) => {
                 if self.show_command_prompt {
                     match edit_command {
                         EditEnum::InsertNewLine => {
                             let file_name = self.command_bar.get_command();
-                            self.view.buffer.save_as(file_name);
+                            self.view.set_file(file_name);
+                            self.show_command_prompt = false;
+                            self.handle_save();
                         },
                         _ => {
                             self.command_bar.handle_edit_command(edit_command);

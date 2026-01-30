@@ -1,5 +1,6 @@
 use std::fs::{File, read_to_string};
 use std::io::{Write, Error};
+use std::path::PathBuf;
 
 use crate::editor::fileinfo::FileInfo;
 
@@ -36,9 +37,11 @@ impl Buffer {
         }
         Ok(())
     }
-    pub fn save_as(&mut self, file_name: &str) -> Result<(), Error> {
+    pub fn set_file(&mut self, file_name: &str) {
         self.file_info = FileInfo::from(file_name);
-        self.save()
+    }
+    pub fn get_file(&mut self) -> &Option<PathBuf> {
+        &self.file_info.path
     }
     pub fn delete(&mut self, at: Location) {
         if let Some(line) = self.lines.get(at.line_index) {
