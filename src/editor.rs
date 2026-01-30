@@ -5,6 +5,7 @@ mod terminal;
 mod view;
 mod statusbar;
 mod messagebar;
+mod commandbar;
 mod uicomponent;
 
 use crossterm::event::{ read, poll, Event, KeyEvent, KeyEventKind };
@@ -26,6 +27,7 @@ use self::{
         System::{Quit, Resize, Save},
     },
     messagebar::MessageBar,
+    commandbar::{CommandBar, CommandPrompt},
     terminal::Size,
 };
 
@@ -38,11 +40,13 @@ const QUIT_TIMES: u8 = 3;
 pub struct Editor {
     view: View,
     status_bar: StatusBar,
+    command_bar: CommandBar,
     message_bar: MessageBar,
     should_quit: bool,
     terminal_size: Size,
     title: String,
     quit_times: u8,
+    show_command_prompt: bool,
 }
 
 impl Editor {
@@ -150,10 +154,20 @@ impl Editor {
 
         match command {
             System(Quit | Resize(_)) => {},
-            System(Save) => self.handle_save(),
+            System(Save) => {
+                self.add_save_prompt();
+                //self.handle_save()
+            },
             Edit(edit_command) => self.view.handle_edit_command(edit_command),
             Move(move_command) => self.view.handle_move_command(move_command),
         }
+    }
+    fn add_save_prompt(&mut self) {
+        self.show_command_prompt = true;
+
+        let new_command_prompt = CommandPrompt::new("Save As:");
+
+        self.command_bar.update_command(new_command_prompt);
     }
     fn handle_save(&mut self) {
         if self.view.save().is_ok() {
@@ -189,9 +203,15 @@ impl Editor {
         let _ = Terminal::hide_caret();
 
         // Only render this if the message bar is visible
-        self.message_bar
-            .render(self.terminal_size.height.saturating_sub(1));
-
+        //
+        if self.show_command_prompt {
+            self.command_bar
+                .render(self.terminal_size.height.saturating_sub(1));
+        } else {
+            self.message_bar
+                .render(self.terminal_size.height.saturating_sub(1)); 
+        }
+        
         if self.terminal_size.height > 1 {
             self.status_bar
                 .render(self.terminal_size.height.saturating_sub(2));
