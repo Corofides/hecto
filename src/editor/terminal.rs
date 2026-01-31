@@ -7,29 +7,8 @@ use crossterm::terminal::{
 use crossterm::cursor::{MoveTo, Hide, Show};
 use crossterm::style::{Attribute, Print};
 use crossterm::{queue, Command};
-
+use super::{Position, Size};
 pub struct Terminal;
-
-#[derive(Default, Copy, Clone, Eq, PartialEq)]
-pub struct Size {
-    pub width: usize,
-    pub height: usize,
-}
-
-#[derive(Copy, Clone, Default)]
-pub struct Position {
-    pub col: usize,
-    pub row: usize,
-}
-
-impl Position {
-    pub const fn saturating_sub(self, other: Self) -> Self {
-        Self {
-            row: self.row.saturating_sub(other.row),
-            col: self.col.saturating_sub(other.col),
-        }
-    }
-}
 
 impl Terminal {
     pub fn terminate() -> Result<(), Error> {

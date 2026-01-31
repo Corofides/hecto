@@ -1,10 +1,9 @@
 use std::fs::{File, read_to_string};
 use std::io::{Write, Error};
-use std::path::PathBuf;
 
-use crate::editor::fileinfo::FileInfo;
+use super::Line;
+use super::FileInfo;
 
-use super::line::Line;
 use super::Location;
 
 #[derive(Default)]
@@ -27,21 +26,26 @@ impl Buffer {
             dirty: false,
         })
     }
-    pub fn save(&mut self) -> Result<(), Error> {
-        if let Some(path) = &self.file_info.path {
-            let mut file = File::create(path)?;
+    pub fn save_to_file(&self, file_info: &FileInfo) -> Result<(), Error> {
+        if let Some(file_path) = &file_info.get_path() {
+            let mut file = File::create(file_path)?;
             for line in &self.lines {
-                writeln!(file, "{}", line.to_string())?;
+                writeln!(file, "{line}")?;
             }
-            self.dirty = false;
         }
         Ok(())
     }
-    pub fn set_file(&mut self, file_name: &str) {
-        self.file_info = FileInfo::from(file_name);
+    pub fn save_as(&mut self, file_name: &str) -> Result<(), Error> {
+        let file_info = FileInfo::from(file_name);
+        self.save_to_file(&file_info)?;
+        self.file_info = file_info;
+        self.dirty = false;
+        Ok(())
     }
-    pub fn get_file(&mut self) -> &Option<PathBuf> {
-        &self.file_info.path
+    pub fn save(&mut self) -> Result<(), Error> {
+        self.save_to_file(&self.file_info)?;
+        self.dirty = false;
+        Ok(())
     }
     pub fn delete(&mut self, at: Location) {
         if let Some(line) = self.lines.get(at.line_index) {
@@ -84,6 +88,9 @@ impl Buffer {
     }
     pub fn is_empty(&self) -> bool {
         self.lines.is_empty()
+    }
+    pub const fn is_file_loaded(&self) -> bool {
+        self.file_info.has_path()
     }
     pub fn height(&self) -> usize {
         self.lines.len()

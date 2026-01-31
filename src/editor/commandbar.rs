@@ -1,112 +1,37 @@
-use std::io::Error;
+use std::{cmp::min, io::Error};
 
-use super::{
-    command::{Edit, Move},
-    terminal::{Position, Size, Terminal},
-    uicomponent::UIComponent,
-};
-
-#[derive(Default, PartialEq)]
-pub struct CommandPrompt {
-    prompt: String,
-    pub command: String,
-}
-
-impl CommandPrompt {
-    pub fn new(prompt: &str) -> Self {
-        Self {
-            prompt: String::from(prompt),
-            command: String::new(),
-        }
-    }
-}
+use super::{command::Edit, Line, Size, Terminal, UIComponent};
 
 #[derive(Default)]
 pub struct CommandBar {
-    current_command: CommandPrompt,
+    prompt: String,
+    value: Line,
     needs_redraw: bool,
     size: Size,
-    cursor_offset: usize,
 }
 
 impl CommandBar {
-    pub fn update_command(&mut self, new_command: CommandPrompt) {
-        if self.current_command != new_command {
-            self.current_command = new_command;
-            self.set_needs_redraw(true);
-        }
-    }
-    pub fn caret_position(&self, origin_y: usize) -> Position {
-        Position {
-            row: origin_y,
-            col: self.current_command.prompt.len() + 1 + self.cursor_offset,
-        }
-    }
-    pub fn get_command(&self) -> &str {
-        &self.current_command.command
-    }
     pub fn handle_edit_command(&mut self, command: Edit) {
         match command {
-            Edit::Insert(character) => {
-                let CommandPrompt { prompt, command } = &self.current_command;
-                self.cursor_offset += 1;
-
-                let new_command = format!("{}{}", &command, character);
-                self.update_command(CommandPrompt {
-                    prompt: prompt.to_string(),
-                    command: new_command,
-                });
-            },
-            Edit::Delete => { 
-                if self.cursor_offset >= self.current_command.command.len() {
-                    return;
-                }
-
-                let CommandPrompt { prompt, command } = &self.current_command;
-
-                let mut command = command.to_string();
-                command.remove(self.cursor_offset);
-                
-                self.update_command(CommandPrompt {
-                    prompt: prompt.to_string(),
-                    command,
-                });
-                
-            },
-            Edit::DeleteBackward => {
-                if self.current_command.command.len() == 0 {
-                    return;
-                }
-
-                let CommandPrompt { prompt, command } = &self.current_command;
-                let new_command = &command[0..command.len() - 1];
-                self.cursor_offset -= 1;
-                self.update_command(CommandPrompt {
-                    prompt: prompt.to_string(),
-                    command: new_command.to_string(),
-                })
-                // self.delete_backward(),
-            },
-            Edit::InsertNewLine => {},
+            Edit::Insert(character) => self.value.append_char(character),
+            Edit::Delete | Edit::InsertNewLine => {},
+            Edit::DeleteBackward => self.value.delete_last(),
         }
+        self.set_needs_redraw(true);
     }
-    
-    pub fn handle_move_command(&mut self, command: Move) {
-        match command {
-            Move::Left => self.move_left(),
-            Move::Right => self.move_right(),
-            _ => {},
-        }
+    pub fn caret_position_col(&self) -> usize {
+        let max_width = self
+            .prompt
+            .len()
+            .saturating_add(self.value.grapheme_count());
+
+        min(max_width, self.size.width)
     }
-    pub fn move_left(&mut self) {
-        if self.cursor_offset > 0 {
-            self.cursor_offset -= 1;
-        }
+    pub fn value(&self) -> String {
+        self.value.to_string()
     }
-    pub fn move_right(&mut self) {
-        if self.cursor_offset < self.current_command.command.len() {
-            self.cursor_offset += 1;
-        }
+    pub fn set_prompt(&mut self, prompt: &str) {
+        self.prompt = prompt.to_string();
     }
 }
 
@@ -120,11 +45,25 @@ impl UIComponent for CommandBar {
     fn set_size(&mut self, size: Size) {
         self.size = size;
     }
-    fn draw(&mut self, origin_y: usize) -> Result<(), Error> {
+    fn draw(&mut self, origin: usize) -> Result<(), Error> {
+        let area_for_value = self.size.width.saturating_sub(self.prompt.len());
+        let value_end = self.value.width();
+        let value_start = value_end.saturating_sub(area_for_value);
 
-        let to_print = format!("{} {}", self.current_command.prompt, self.current_command.command);
-        Terminal::print_inverted_row(origin_y, &to_print)?;
+        let message = format!(
+            "{}{}",
+            self.prompt,
+            self.value.get_visible_graphemes(value_start..value_end)
+        );
 
-        Ok(())
+        let to_print = if message.len() <= self.size.width {
+            message
+        } else {
+            String::new()
+        };
+
+        Terminal::print_row(origin, &to_print)
     }
+    
 }
+

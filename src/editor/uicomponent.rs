@@ -1,6 +1,6 @@
 use std::io::Error;
 
-use super::terminal::Size;
+use super::Size;
 
 pub trait UIComponent {
     fn set_needs_redraw(&mut self, value: bool);
@@ -10,9 +10,9 @@ pub trait UIComponent {
         self.set_needs_redraw(true);
     }
     fn set_size(&mut self, size: Size);
-    fn render(&mut self, origin_y: usize) {
+    fn render(&mut self, origin_row: usize) {
         if self.needs_redraw() {
-            match self.draw(origin_y) {
+            match self.draw(origin_row) {
                 Ok(()) => self.set_needs_redraw(false),
                 Err(err) => {
                     #[cfg(debug_assertions)]
@@ -23,5 +23,5 @@ pub trait UIComponent {
             }
         }
     }
-    fn draw(&mut self, origin_y: usize) -> Result<(), Error>;
+    fn draw(&mut self, origin_row: usize) -> Result<(), Error>;
 }

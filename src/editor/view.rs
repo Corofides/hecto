@@ -1,17 +1,13 @@
 use std::{cmp::min, io::Error};
-use std::path::PathBuf;
-
-use self::line::Line;
 
 use super::{
     command::{Edit, Move},
-    terminal::{Position, Terminal, Size},
-    uicomponent::UIComponent,
-    DocumentStatus, NAME, VERSION
+    DocumentStatus, Line, Position, Size, Terminal, UIComponent, NAME, VERSION
 };
 mod buffer;
 use buffer::Buffer;
-mod line;
+mod fileinfo;
+use fileinfo::FileInfo;
 
 
 #[derive(Copy, Clone, Default)]
@@ -62,6 +58,9 @@ impl View {
         }
         self.scroll_text_location_into_view();
     }
+    pub const fn is_file_loaded(&self) -> bool {
+        self.buffer.is_file_loaded()
+    }
     // region: file i/o
     pub fn load(&mut self, filename: &String) -> Result<(), Error> {
         let buffer = Buffer::load(filename)?;
@@ -72,12 +71,10 @@ impl View {
     pub fn save(&mut self) -> Result<(), Error> {
         self.buffer.save()
     }
-    pub fn set_file(&mut self, file_name: &str) {
-        self.buffer.set_file(file_name);
+    pub fn save_as(&mut self, file_name: &str) -> Result<(), Error> {
+        self.buffer.save_as(file_name)
     }
-    pub fn get_file(&mut self) -> &Option<PathBuf> {
-        self.buffer.get_file()
-    }
+    
     // endregion
     // region: Editing
     fn delete_backward(&mut self) {
@@ -254,16 +251,16 @@ impl UIComponent for View {
         self.size = size;
         self.scroll_text_location_into_view();
     }
-    fn draw(&mut self, origin_y: usize) -> Result<(), Error> {
+    fn draw(&mut self, origin_row: usize) -> Result<(), Error> {
         let Size { height, width } = self.size;
-        let end_y = origin_y.saturating_add(height);
+        let end_y = origin_row.saturating_add(height);
 
         #[allow(clippy::integer_division)]
         let top_third = height / 3;
         let scroll_top = self.scroll_offset.row;
-        for current_row in origin_y..end_y {
+        for current_row in origin_row..end_y {
             let line_idx = current_row
-                .saturating_add(origin_y)
+                .saturating_add(origin_row)
                 .saturating_sub(scroll_top);
 
             if let Some(line) = self.buffer.lines.get(line_idx) {
