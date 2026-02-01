@@ -23,23 +23,29 @@ pub struct TextFragment {
     grapheme: String,
     rendered_width: GraphemeWidth,
     replacement: Option<char>,
+    byte_index: usize,
 }
 
 #[derive(Default)]
 pub struct Line {
+    text: String,
     fragments: Vec<TextFragment>,
 }
 
 impl Line {
     pub fn from(line_str: &str) -> Self {
         let fragments = Self::str_to_fragment(line_str);
-        Self { fragments }
+        Self { 
+            text: line_str.to_string(),
+            fragments
+        }
         
     }
     fn str_to_fragment(line_str: &str) -> Vec<TextFragment> {
         line_str
-            .graphemes(true)
-            .map(|grapheme| {
+            .grapheme_indices(true)
+            .map(|grapheme_indice| {
+                let (index, grapheme)  = grapheme_indice;
                 let (replacement, rendered_width) = Self::replacement_character(grapheme)
                     .map_or_else(
                         || {
@@ -52,13 +58,12 @@ impl Line {
                         },
                         |replacement| (Some(replacement), GraphemeWidth::Half),
                     );
-                
                 TextFragment {
                     grapheme: grapheme.to_string(),
                     rendered_width,
                     replacement,
+                    byte_index: index,
                 }
-
             })
             .collect()
     }
@@ -89,13 +94,8 @@ impl Line {
         }
     }
     pub fn delete(&mut self, at: usize) {
-        let mut result = String::new();
-
-        for (index, fragment) in self.fragments.iter().enumerate() {
-            if index != at {
-                result.push_str(&fragment.grapheme);
-            }
-        }
+        let mut result = &mut self.text;
+        result.remove(at);
 
         self.fragments = Self::str_to_fragment(&result);
     }
@@ -108,18 +108,8 @@ impl Line {
         self.fragments = Self::str_to_fragment(&concat);
     }
     pub fn insert_char(&mut self, character: char, at: usize) {
-        let mut result = String::new();
-
-        for (index, fragment) in self.fragments.iter().enumerate() {
-            if index == at {
-                result.push(character);
-            }
-            result.push_str(&fragment.grapheme);
-        }
-
-        if at >= self.fragments.len() {
-            result.push(character);
-        }
+        let mut result = &mut self.text; //String::new();
+        result.insert(at, character);
 
         self.fragments = Self::str_to_fragment(&result);
     }
@@ -132,7 +122,11 @@ impl Line {
         }
 
         let remainder = self.fragments.split_off(at);
+        
+        let start_index = remainder[0].byte_index;
+
         Self {
+            text: self.text[start_index..].to_string(),
             fragments: remainder,
         }
     }
