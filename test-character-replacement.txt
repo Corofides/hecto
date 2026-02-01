@@ -3,9 +3,6 @@ Hello, world! This is a test.
 
 Testing the new commands again
 
-This should now be in the file!
-And this.
-
 # Testing tabs
 Here	is	a	tab	separated	line.
 

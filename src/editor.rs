@@ -33,8 +33,11 @@ use self::{
     command::{
         Command::{self, Edit, Move, System},
         Edit::InsertNewLine,
-        System::{Quit, Resize, Save, Dismiss},
+        System::{Quit, Resize, Save, Dismiss, Find},
     },
+    commandbar::{
+        CommandType
+    }
 };
 
 const NAME: &str = env!("CARGO_PKG_NAME");
@@ -66,7 +69,7 @@ impl Editor {
         let size = Terminal::size().unwrap_or_default();
         editor.resize(size);
         
-        editor.update_message("HELP: Ctrl-S = save | Ctrl-q = quit");
+        editor.update_message("HELP: Ctrl - F = find | Ctrl-S = save | Ctrl-q = quit");
 
         let args: Vec<String> = env::args().collect();
         if let Some(file_name) = args.get(1) {
@@ -174,18 +177,32 @@ impl Editor {
                     self.handle_save();
                 }
             }
+            System(Find) => {
+                if self.command_bar.is_none() {
+                    self.handle_find();
+                }
+            }
             System(Dismiss) => {
-                if self.command_bar.is_some() {
+                if let Some(command_bar) = &self.command_bar {
+                    let message = match command_bar.get_command_type() {
+                        CommandType::SearchTerm => "Search aborted.",
+                        CommandType::FileName => "Save aborted.",
+                    };
                     self.dismiss_prompt();
-                    self.message_bar.update_message("Save aborted.");
+                    self.message_bar.update_message(message);
                 }
             },
             Edit(edit_command) => {
                 if let Some(command_bar) = &mut self.command_bar {
+                    let command_type = command_bar.get_command_type();
                     if matches!(edit_command, InsertNewLine) {
-                        let file_name = command_bar.value();
-                        self.dismiss_prompt();
-                        self.save(Some(&file_name));
+                        if matches!(command_type, CommandType::FileName) {
+                            let file_name = command_bar.value();
+                            self.dismiss_prompt();
+                            self.save(Some(&file_name));
+                        } else {
+                            self.dismiss_prompt();
+                        }
                     } else {
                         command_bar.handle_edit_command(edit_command);
                     }
@@ -204,9 +221,17 @@ impl Editor {
         self.command_bar = None;
         self.message_bar.set_needs_redraw(true);
     }
-    fn show_prompt(&mut self) {
+    fn show_prompt(&mut self, command_type: CommandType) {
         let mut command_bar = CommandBar::default();
-        command_bar.set_prompt("Save as: ");
+        command_bar.set_command_type(command_type);
+
+        let prompt_string = match command_bar.get_command_type() {
+            CommandType::SearchTerm => "Search: ",
+            CommandType::FileName => "Save as: ",
+        };
+
+        command_bar.set_prompt(prompt_string);
+
         command_bar.resize(Size {
             height: 1,
             width: self.terminal_size.width,
@@ -218,8 +243,11 @@ impl Editor {
         if self.view.is_file_loaded() {
             self.save(None);
         } else {
-            self.show_prompt();
+            self.show_prompt(CommandType::FileName);
         }
+    }
+    fn handle_find(&mut self) {
+        self.show_prompt(CommandType::SearchTerm);
     }
     fn save(&mut self, file_name: Option<&str>) {
         let result = if let Some(name) = file_name {
