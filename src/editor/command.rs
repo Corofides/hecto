@@ -82,7 +82,7 @@ pub enum System {
     Resize(Size),
     Quit,
     Dismiss,
-    Find,
+    Search,
 }
 
 impl TryFrom<KeyEvent> for System {
@@ -96,7 +96,7 @@ impl TryFrom<KeyEvent> for System {
         if modifiers == KeyModifiers::CONTROL {
             match code {
                 Char('q') => Ok(Self::Quit),
-                Char('f') => Ok(Self::Find),
+                Char('f') => Ok(Self::Search),
                 Char('s') => Ok(Self::Save),
                 _ => Err(format!("Unsupported Ctrl+{code:?} combination")),
             }
