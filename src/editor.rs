@@ -35,9 +35,6 @@ use self::{
         Edit::InsertNewLine,
         System::{Quit, Resize, Save, Dismiss, Search},
     },
-    commandbar::{
-        CommandType
-    }
 };
 
 const NAME: &str = env!("CARGO_PKG_NAME");
@@ -146,10 +143,10 @@ impl Editor {
             self.view.render(0);
         }
 
-        let new_caret_pos = self.in_prompt() {
+        let new_caret_pos = if self.in_prompt() {
             Position {
                 row: bottom_row_bar,
-                col: command_bar.caret_position_col(),
+                col: self.command_bar.caret_position_col(),
             }
         } else {
             self.view.caret_position()
@@ -198,7 +195,7 @@ impl Editor {
         }
         
     }
-    fn process_command_no_prompt(&mut self, command Command) {
+    fn process_command_no_prompt(&mut self, command: Command) {
         if matches!(command, System(Quit)) {
             self.handle_quit_command();
             return;
@@ -210,7 +207,7 @@ impl Editor {
             System(Search) => self.set_prompt(PromptType::Search),
             System(Save) => self.handle_save_command(),
             Edit(edit_command) => self.view.handle_edit_command(edit_command),
-            Move(move_command) => self.view.handle_move_command(move_comment),
+            Move(move_command) => self.view.handle_move_command(move_command),
         }
     }
     // region resize command handling
@@ -223,16 +220,16 @@ impl Editor {
         let bar_size = Size {
             height: 1,
             width: size.width,
-        }
+        };
         self.message_bar.resize(bar_size);
         self.status_bar.resize(bar_size);
         self.command_bar.resize(bar_size);
     }
     // end region
     // region quit command handling
-    #[allow(clippy:arithmetic_side_effects)]
+    #[allow(clippy::arithmetic_side_effects)]
     fn handle_quit_command(&mut self) {
-        if !self.view.get_status().is_modified || self.quit_time + 1 == QUIT_TIMES {
+        if !self.view.get_status().is_modified || self.quit_times + 1 == QUIT_TIMES {
             self.should_quit = true;
         } else if self.view.get_status().is_modified {
             self.update_message(&format!(
@@ -259,7 +256,7 @@ impl Editor {
     }
     fn process_command_during_save(&mut self, command: Command) {
         match command {
-            System(Quit | Resize(_) | Search | Save | Move(_)) => {},
+            System(Quit | Resize(_) | Search | Save ) | Move(_) => {},
             System(Dismiss) => {
                 self.set_prompt(PromptType::None);
                 self.update_message("Save aborted.");
@@ -310,7 +307,7 @@ impl Editor {
             PromptType::Save => self.command_bar.set_prompt("Save as: "),
             PromptType::Search => self.command_bar.set_prompt("Search: "),
         }
-        self.command_bar.clear_value();
+        self.command_bar.clear_prompt();
         self.prompt_type = prompt_type;
     }
     // end region

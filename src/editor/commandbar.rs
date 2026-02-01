@@ -3,19 +3,11 @@ use std::{cmp::min, io::Error};
 use super::{command::Edit, Line, Size, Terminal, UIComponent};
 
 #[derive(Default)]
-pub enum CommandType {
-    #[default]
-    FileName,
-    SearchTerm,
-}
-
-#[derive(Default)]
 pub struct CommandBar {
     prompt: String,
     value: Line,
     needs_redraw: bool,
     size: Size,
-    command_type: CommandType,
 }
 
 impl CommandBar {
@@ -40,12 +32,11 @@ impl CommandBar {
     }
     pub fn set_prompt(&mut self, prompt: &str) {
         self.prompt = prompt.to_string();
+        self.set_needs_redraw(true);
     }
-    pub fn set_command_type(&mut self, command_type: CommandType) {
-        self.command_type = command_type;
-    }
-    pub fn get_command_type(&self) -> &CommandType {
-        &self.command_type
+    pub fn clear_prompt(&mut self) {
+        self.value = Line::default();
+        self.set_needs_redraw(true);
     }
 }
 
