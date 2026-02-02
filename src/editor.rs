@@ -316,7 +316,7 @@ impl Editor {
         match prompt_type {
             PromptType::None => self.message_bar.set_needs_redraw(true),
             PromptType::Save => self.command_bar.set_prompt("Save as: "),
-            PromptType::Search => self.command_bar.set_prompt("Search: "),
+            PromptType::Search => self.command_bar.set_prompt("Search (Esc to cancel): "),
         }
         self.command_bar.clear_prompt();
         self.prompt_type = prompt_type;
