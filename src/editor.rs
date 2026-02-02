@@ -236,7 +236,7 @@ impl Editor {
                 "WARNING: File has unsaved changes. Press Ctrl-Q {} more times to quit!",
                 QUIT_TIMES - self.quit_times - 1
             ));
-            self.quit_times -= 1;
+            self.quit_times += 1;
         }
     }
     fn reset_quit_times(&mut self) {
@@ -287,8 +287,19 @@ impl Editor {
     fn process_command_during_search(&mut self, command: Command) {
         match command {
             System(Quit | Resize(_) | Search | Save) | Move(_) => {},
-            System(Dismiss) | Edit(InsertNewLine) => self.set_prompt(PromptType::None),
-            Edit(edit_command) => self.command_bar.handle_edit_command(edit_command),
+            System(Dismiss) => {
+                self.set_prompt(PromptType::None);
+                self.view.abort_find();
+            },
+            Edit(InsertNewLine) => {
+                self.set_prompt(PromptType::None);
+                self.view.commit_find();
+            },
+            Edit(edit_command) => {
+                self.command_bar.handle_edit_command(edit_command);
+                let search_prompt = self.command_bar.value();
+                self.view.find(&search_prompt);
+            },
         }
     }
     // end region

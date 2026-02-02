@@ -22,6 +22,7 @@ pub struct View {
     needs_redraw: bool,
     size: Size,
     text_location: Location,
+    find_location: Option<Location>,
     scroll_offset: Position,
 }
 
@@ -73,6 +74,18 @@ impl View {
     }
     pub fn save_as(&mut self, file_name: &str) -> Result<(), Error> {
         self.buffer.save_as(file_name)
+    }
+    pub fn find(&mut self, string: &str) {
+        self.find_location = self.buffer.find(string);
+    }
+    pub fn abort_find(&mut self) {
+        self.find_location = None
+    }
+    pub fn commit_find(&mut self) {
+        if let Some(location) = self.find_location {
+            self.text_location = location;
+        }
+        self.find_location = None;
     }
     
     // endregion
@@ -167,6 +180,7 @@ impl View {
     }
     fn scroll_text_location_into_view(&mut self) {
         let Position { row, col } = self.text_location_to_position();
+
         self.scroll_vertically(row);
         self.scroll_horizontally(col);
     }
@@ -176,10 +190,18 @@ impl View {
         self.text_location_to_position().saturating_sub(self.scroll_offset)
     }
     pub fn text_location_to_position(&self) -> Position {
-        let row = self.text_location.line_index;
-        let col = self.buffer.lines.get(row).map_or(0, |line| {
+        let mut row = self.text_location.line_index;
+        let mut col = self.buffer.lines.get(row).map_or(0, |line| {
             line.width_until(self.text_location.grapheme_index)
         });
+
+        if let Some(find_location) = self.find_location {
+            row = find_location.line_index;
+            col = self.buffer.lines.get(row).map_or(0, |line| {
+                line.width_until(find_location.grapheme_index)
+            });
+        }
+
         Position { col, row }
     }
     //end region
@@ -260,8 +282,8 @@ impl UIComponent for View {
         let scroll_top = self.scroll_offset.row;
         for current_row in origin_row..end_y {
             let line_idx = current_row
-                .saturating_add(origin_row)
-                .saturating_sub(scroll_top);
+                .saturating_sub(origin_row)
+                .saturating_add(scroll_top);
 
             if let Some(line) = self.buffer.lines.get(line_idx) {
                 let left = self.scroll_offset.col;

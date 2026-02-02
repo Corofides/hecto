@@ -95,4 +95,23 @@ impl Buffer {
     pub fn height(&self) -> usize {
         self.lines.len()
     }
+    pub fn find(&self, string: &str) -> Option<Location> {
+        let line_index = self.lines
+            .iter()
+            .position(|line| {
+                let position = line.find(string);
+                position.is_some()
+            });
+
+        if let Some(line_index) = line_index {
+            let grapheme_index = self.lines[line_index].find(string).unwrap();
+
+            return Some(Location {
+                line_index,
+                grapheme_index,
+            });
+        }
+
+        None
+    }
 }

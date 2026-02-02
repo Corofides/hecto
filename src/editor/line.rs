@@ -180,6 +180,9 @@ impl Line {
     pub fn width(&self) -> usize {
         self.width_until(self.grapheme_count())
     }
+    pub fn find(&self, string: &str) -> Option<usize> {
+        self.string.find(string)
+    }
 }
 
 impl fmt::Display for Line {
