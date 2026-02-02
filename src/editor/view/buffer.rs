@@ -26,6 +26,17 @@ impl Buffer {
             dirty: false,
         })
     }
+    pub fn search(&self, query: &str) -> Option<Location> {
+        for (line_index, line) in self.lines.iter().enumerate() {
+            if let Some(grapheme_index) = line.search(query) {
+                return Some(Location {
+                    grapheme_index,
+                    line_index,
+                });
+            }
+        }
+        None
+    }
     pub fn save_to_file(&self, file_info: &FileInfo) -> Result<(), Error> {
         if let Some(file_path) = &file_info.get_path() {
             let mut file = File::create(file_path)?;
@@ -94,24 +105,5 @@ impl Buffer {
     }
     pub fn height(&self) -> usize {
         self.lines.len()
-    }
-    pub fn find(&self, string: &str) -> Option<Location> {
-        let line_index = self.lines
-            .iter()
-            .position(|line| {
-                let position = line.find(string);
-                position.is_some()
-            });
-
-        if let Some(line_index) = line_index {
-            let grapheme_index = self.lines[line_index].find(string).unwrap();
-
-            return Some(Location {
-                line_index,
-                grapheme_index,
-            });
-        }
-
-        None
     }
 }
