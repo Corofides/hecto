@@ -11,6 +11,7 @@ use fileinfo::FileInfo;
 
 struct SearchInfo {
     prev_location: Location,
+    last_location: Option<Location>,
 }
 
 #[derive(Copy, Clone, Default)]
@@ -83,6 +84,7 @@ impl View {
     pub fn enter_search(&mut self) {
         self.search_info = Some(SearchInfo {
             prev_location: self.text_location,
+            last_location: None,
         });
     }
     pub fn exit_search(&mut self) {
@@ -99,7 +101,10 @@ impl View {
         if query.is_empty() {
             return;
         }
-        if let Some(location) = self.buffer.search(query) {
+
+        let search_location = self.search_info.as_ref().unwrap().prev_location; //.clone();
+
+        if let Some(location) = self.buffer.search(query, search_location) {
             self.text_location = location;
             self.scroll_text_location_into_view();
         }
