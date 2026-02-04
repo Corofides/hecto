@@ -196,10 +196,17 @@ impl Line {
             0
         }
     }
-    pub fn search(&self, query: &str) -> Option<usize> {
-        self.string
+    pub fn search(&self, query: &str, from: usize) -> Option<usize> {
+
+        if from >= self.string.len() {
+            return None;
+        }
+
+        let substring = &self.string[from..];
+
+        substring
             .find(query)
-            .map(|byte_idx| self.byte_idx_to_grapheme_idx(byte_idx))
+            .map(|byte_idx| self.byte_idx_to_grapheme_idx(from + byte_idx))
     }
     
 }

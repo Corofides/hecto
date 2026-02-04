@@ -35,12 +35,13 @@ impl Buffer {
         while index < total_lines {
             let current_line_index = (index + line_index) % total_lines;
             let line = &self.lines[current_line_index];
-            if let Some(grapheme_index) = line.search(query) {
+            if let Some(grapheme_index) = line.search(query, grapheme_index) {
                 return Some(Location {
                     grapheme_index,
                     line_index: current_line_index,
                 })
             }
+            grapheme_index = 0;
             index += 1;
         }
         /* for (line_index, line) in self.lines.iter().enumerate() {
