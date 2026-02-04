@@ -3,7 +3,6 @@ use std::io::{Write, Error};
 
 use super::Line;
 use super::FileInfo;
-
 use super::Location;
 
 #[derive(Default)]
@@ -26,33 +25,32 @@ impl Buffer {
             dirty: false,
         })
     }
-    pub fn search(&self, query: &str, from: &Location) -> Option<Location> {
+    pub fn search(&self, query: &str, from: Location) -> Option<Location> {
+        for (line_idx, line) in self.lines.iter().enumerate().skip(from.line_idx) {
+            let from_grapheme_idx = if line_idx == from.line_idx {
+                from.grapheme_idx
+            } else {
+                0
+            };
 
-        let Location { line_index, grapheme_index } = from;
-        let total_lines = self.height();
-        let mut index = 0;
-        let mut grapheme_position: usize = grapheme_index.clone();
-
-        while index < total_lines {
-            let current_line_index = (index + line_index) % total_lines;
-            let line = &self.lines[current_line_index];
-            if let Some(grapheme_index) = line.search(query, grapheme_position) {
+            if let Some(grapheme_idx) = line.search(query, from_grapheme_idx) {
                 return Some(Location {
-                    grapheme_index,
-                    line_index: current_line_index,
-                })
-            }
-            grapheme_position = 0;
-            index += 1;
-        }
-        /* for (line_index, line) in self.lines.iter().enumerate() {
-            if let Some(grapheme_index) = line.search(query) {
-                return Some(Location {
-                    grapheme_index,
-                    line_index,
+                    grapheme_idx,
+                    line_idx,
                 });
             }
-        } */
+        }
+
+
+        for (line_idx, line) in self.lines.iter().enumerate().take(from.line_idx) {
+            if let Some(grapheme_idx) = line.search(query, 0) {
+                return Some(Location {
+                    grapheme_idx,
+                    line_idx,
+                });
+            }
+        }
+
         None
     }
     pub fn save_to_file(&self, file_info: &FileInfo) -> Result<(), Error> {
@@ -77,41 +75,41 @@ impl Buffer {
         Ok(())
     }
     pub fn delete(&mut self, at: Location) {
-        if let Some(line) = self.lines.get(at.line_index) {
-            if at.grapheme_index >= line.grapheme_count() && self.height() > at.line_index.saturating_add(1) {
-                let next_line = self.lines.remove(at.line_index.saturating_add(1));
+        if let Some(line) = self.lines.get(at.line_idx) {
+            if at.grapheme_idx >= line.grapheme_count() && self.height() > at.line_idx.saturating_add(1) {
+                let next_line = self.lines.remove(at.line_idx.saturating_add(1));
 
                 #[allow(clippy::indexing_slicing)]
-                self.lines[at.line_index].append(&next_line);
+                self.lines[at.line_idx].append(&next_line);
                 self.dirty = true;
-            } else if at.grapheme_index < line.grapheme_count() {
+            } else if at.grapheme_idx < line.grapheme_count() {
                 #[allow(clippy::indexing_slicing)]
-                self.lines[at.line_index].delete(at.grapheme_index);
+                self.lines[at.line_idx].delete(at.grapheme_idx);
                 self.dirty = true;
             }
         }
     }
     pub fn insert_char(&mut self, character: char, at: Location) {
-        if at.line_index > self.height() {
+        if at.line_idx > self.height() {
             return;
         }
 
-        if at.line_index == self.height() {
+        if at.line_idx == self.height() {
             self.lines.push(Line::from(&character.to_string()));
             self.dirty = true;
-        } else if let Some(line) = self.lines.get_mut(at.line_index) {
-            line.insert_char(character, at.grapheme_index);
+        } else if let Some(line) = self.lines.get_mut(at.line_idx) {
+            line.insert_char(character, at.grapheme_idx);
             self.dirty = true;
         }
     }
     pub fn insert_newline(&mut self, at: Location) {
-        if at.line_index == self.height() {
+        if at.line_idx == self.height() {
             self.lines.push(Line::default());
             self.dirty = true;
-        } else if let Some(line) = self.lines.get_mut(at.line_index) {
-            let new = line.split(at.grapheme_index);
+        } else if let Some(line) = self.lines.get_mut(at.line_idx) {
+            let new = line.split(at.grapheme_idx);
 
-            self.lines.insert(at.line_index.saturating_add(1), new);
+            self.lines.insert(at.line_idx.saturating_add(1), new);
             self.dirty = true;
         }
     }
