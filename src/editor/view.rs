@@ -12,6 +12,7 @@ use fileinfo::FileInfo;
 struct SearchInfo {
     prev_location: Location,
     last_location: Option<Location>,
+    last_search: String,
 }
 
 #[derive(Copy, Clone, Default)]
@@ -49,6 +50,21 @@ impl View {
     }
     pub fn handle_move_command(&mut self, command: Move) {
 
+        if self.search_info.is_some() {
+            match command {
+                (Move::Down | Move::Right) => {
+                    if self.search_info.as_ref().unwrap().last_location.is_none() {
+                        return;
+                    }
+
+                    let last_search = &self.search_info.as_ref().unwrap().last_search.clone();
+                    self.search(last_search);
+                },
+                _ => {},
+            }
+            return;
+        }
+
         let Size {height, ..} = self.size;
 
         match command {
@@ -85,6 +101,7 @@ impl View {
         self.search_info = Some(SearchInfo {
             prev_location: self.text_location,
             last_location: None,
+            last_search: String::new(),
         });
     }
     pub fn exit_search(&mut self) {
@@ -102,12 +119,37 @@ impl View {
             return;
         }
 
-        let search_location = self.search_info.as_ref().unwrap().prev_location; //.clone();
+        let SearchInfo { prev_location, last_location, last_search } = self.search_info.as_ref().unwrap();
 
-        if let Some(location) = self.buffer.search(query, search_location) {
+        let search_location = if let Some(last_location) = last_location {
+
+            let has_changed = query == last_search;
+
+            if !has_changed { 
+                prev_location
+            } else {
+                &Location {
+                    line_index: last_location.line_index.clone(),
+                    grapheme_index: last_location.grapheme_index + 1,
+                }
+            }
+        } else {
+            prev_location
+        };
+
+
+        let mut search_info = SearchInfo {
+            prev_location: *prev_location,
+            last_location: *last_location,
+            last_search: String::from(query),
+        };
+
+        if let Some(location) = self.buffer.search(query, &search_location) {
+            search_info.last_location = Some(location.clone());
             self.text_location = location;
             self.scroll_text_location_into_view();
-        }
+            self.search_info = Some(search_info);
+        };
     }
     // endregion
     // region: Editing

@@ -286,7 +286,8 @@ impl Editor {
     // region search command & prompt handling
     fn process_command_during_search(&mut self, command: Command) {
         match command {
-            System(Quit | Resize(_) | Search | Save) | Move(_) => {},
+            System(Quit | Resize(_) | Search | Save) => {},
+            Move(move_command) => self.view.handle_move_command(move_command),
             System(Dismiss) => {
                 self.set_prompt(PromptType::None);
                 self.view.dismiss_search();

@@ -26,22 +26,23 @@ impl Buffer {
             dirty: false,
         })
     }
-    pub fn search(&self, query: &str, from: Location) -> Option<Location> {
+    pub fn search(&self, query: &str, from: &Location) -> Option<Location> {
 
-        let Location { mut line_index, mut grapheme_index } = from;
+        let Location { line_index, grapheme_index } = from;
         let total_lines = self.height();
         let mut index = 0;
+        let mut grapheme_position: usize = grapheme_index.clone();
 
         while index < total_lines {
             let current_line_index = (index + line_index) % total_lines;
             let line = &self.lines[current_line_index];
-            if let Some(grapheme_index) = line.search(query, grapheme_index) {
+            if let Some(grapheme_index) = line.search(query, grapheme_position) {
                 return Some(Location {
                     grapheme_index,
                     line_index: current_line_index,
                 })
             }
-            grapheme_index = 0;
+            grapheme_position = 0;
             index += 1;
         }
         /* for (line_index, line) in self.lines.iter().enumerate() {
