@@ -26,117 +26,71 @@ impl Buffer {
             dirty: false,
         })
     }
-    pub fn search(&self, query: &str, from: Location, direction: SearchDirection) -> Option<Location> {
+    pub fn search_forward(&self, query: &str, from: Location) -> Option<Location> {
+        if query.is_empty() {
+            return None;
+        }
 
-        let mut search_index = 0;
-        let buffer_size = self.lines.len();
-        let mut searched_zero = false;
+        let mut is_first = true;
 
-        while search_index < buffer_size {
+        for line_idx in 0..self.lines.len() {
+            let line_idx = (line_idx + from.line_idx) % self.lines.len();
 
-            let mut line_idx = from.line_idx;
-
-            match direction {
-                SearchDirection::Forward => {
-                    line_idx = (line_idx.saturating_add(search_index)) % buffer_size;
-                },
-                SearchDirection::Backward => {
-                    if searched_zero {
-                        line_idx = buffer_size;
-                    }
-
-                    line_idx = line_idx - search_index; // will always be 0 or greater on the first
-                                                        // pass.
-                }
+            let from_grapheme_idx = if line_idx == from.line_idx {
+                from_grapheme_idx
+            } else {
+                0
             }
 
-            if line_idx == 0 {
-                searched_zero = true;
-            }
-
-            let line = &self.lines[line_idx];
-            let mut has_match = false;
-            let mut match_index = 0;
-
-            for (grapheme_idx, ..) in line.search(query) {
-                let from_grapheme_idx = if line_idx == from.line_idx {
-                    from.grapheme_idx
-                } else {
-                    match direction {
-                        SearchDirection::Forward => {
-                            0
-                        },
-                        SearchDirection::Backward => {
-                            line.len()
-                        },
-                    }
-                    // 0 // or if backwards the end of the line.
-                };
-
-                match direction {
-                    SearchDirection::Forward => {
-                        if grapheme_idx >= from_grapheme_idx {
-                            has_match = true;
-                            match_index = grapheme_idx;
-                            break;
-                        }
-                    },
-                    SearchDirection::Backward => {
-                        if grapheme_idx < from_grapheme_idx {
-                            has_match = true;
-                            match_index = grapheme_idx;
-                            // no break because we need to find the last one.
-                        }
-                    }
-                }
-                
-            }
-
-            if has_match {
-                return Some(Location {
-                    grapheme_idx: match_index,
+            if let Some(grapheme_idx) = self.lines[line_idx].search_forward(query, from_grapheme_idx) {
+                return Some(Location{
+                    grapheme_idx,
                     line_idx,
                 });
             }
+        }
 
-            search_index += 1;
+        None
+    }
+    pub fn search_backward(&self, query: &str, from: Location) -> Option<Location> {
 
+        for index in 0..self.lines.len() {
+            
+            let mut line_idx = from.line_idx;
+
+            if index > line_idx {
+                line_idx += self.lines.len();
+            }
+
+            line_idx -= index;
+
+            let from_grapheme_idx = if line_idx == from.line_idx {
+                from.grapheme_idx
+            } else {
+                line.grapheme_count()
+            };
+
+            if let Some(grapheme_idx) = line.search_backward(query, from_grapheme_idx) {
+                return Some(Location {
+                    grapheme_idx,
+                    line_idx,
+                })
+            }
         }
 
         None
 
-        // for (line_idx, line) in self.lines.iter().enumerate().skip(from.line_idx) {
-        //     let from_grapheme_idx = if line_idx == from.line_idx {
-        //         from.grapheme_idx
-        //     } else {
-        //         0
-        //     };
-
-        //     if let Some(grapheme_idx) = line.search(query, from_grapheme_idx) {
-        //         return Some(Location {
-        //             grapheme_idx,
-        //             line_idx,
-        //         });
-        //     }
-        // }
-
-
-        // for (line_idx, line) in self.lines.iter().enumerate().take(from.line_idx) {
-        //     if let Some(grapheme_idx) = line.search(query, 0) {
-        //         return Some(Location {
-        //             grapheme_idx,
-        //             line_idx,
-        //         });
-        //     }
-        // }
-
-        // None
     }
     pub fn save_to_file(&self, file_info: &FileInfo) -> Result<(), Error> {
         if let Some(file_path) = &file_info.get_path() {
             let mut file = File::create(file_path)?;
             for line in &self.lines {
                 writeln!(file, "{line}")?;
+            }
+        } else {
+            #[cfg(debug_assertions)]
+            {
+                panic!("Attempting to save with no file present.");
             }
         }
         Ok(())
@@ -169,6 +123,8 @@ impl Buffer {
         }
     }
     pub fn insert_char(&mut self, character: char, at: Location) {
+        debug_assert!(at.line_idx <= self.height());
+
         if at.line_idx > self.height() {
             return;
         }
