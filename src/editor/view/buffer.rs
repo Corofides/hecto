@@ -4,6 +4,7 @@ use std::io::{Write, Error};
 use super::Line;
 use super::FileInfo;
 use super::Location;
+use super::SearchDirection;
 
 #[derive(Default)]
 pub struct Buffer {
@@ -25,33 +26,111 @@ impl Buffer {
             dirty: false,
         })
     }
-    pub fn search(&self, query: &str, from: Location) -> Option<Location> {
-        for (line_idx, line) in self.lines.iter().enumerate().skip(from.line_idx) {
-            let from_grapheme_idx = if line_idx == from.line_idx {
-                from.grapheme_idx
-            } else {
-                0
-            };
+    pub fn search(&self, query: &str, from: Location, direction: SearchDirection) -> Option<Location> {
 
-            if let Some(grapheme_idx) = line.search(query, from_grapheme_idx) {
+        let mut search_index = 0;
+        let buffer_size = self.lines.len();
+        let mut searched_zero = false;
+
+        while search_index < buffer_size {
+
+            let mut line_idx = from.line_idx;
+
+            match direction {
+                SearchDirection::Forward => {
+                    line_idx = (line_idx.saturating_add(search_index)) % buffer_size;
+                },
+                SearchDirection::Backward => {
+                    if searched_zero {
+                        line_idx = buffer_size;
+                    }
+
+                    line_idx = line_idx - search_index; // will always be 0 or greater on the first
+                                                        // pass.
+                }
+            }
+
+            if line_idx == 0 {
+                searched_zero = true;
+            }
+
+            let line = &self.lines[line_idx];
+            let mut has_match = false;
+            let mut match_index = 0;
+
+            for (grapheme_idx, ..) in line.search(query) {
+                let from_grapheme_idx = if line_idx == from.line_idx {
+                    from.grapheme_idx
+                } else {
+                    match direction {
+                        SearchDirection::Forward => {
+                            0
+                        },
+                        SearchDirection::Backward => {
+                            line.len()
+                        },
+                    }
+                    // 0 // or if backwards the end of the line.
+                };
+
+                match direction {
+                    SearchDirection::Forward => {
+                        if grapheme_idx >= from_grapheme_idx {
+                            has_match = true;
+                            match_index = grapheme_idx;
+                            break;
+                        }
+                    },
+                    SearchDirection::Backward => {
+                        if grapheme_idx < from_grapheme_idx {
+                            has_match = true;
+                            match_index = grapheme_idx;
+                            // no break because we need to find the last one.
+                        }
+                    }
+                }
+                
+            }
+
+            if has_match {
                 return Some(Location {
-                    grapheme_idx,
+                    grapheme_idx: match_index,
                     line_idx,
                 });
             }
-        }
 
+            search_index += 1;
 
-        for (line_idx, line) in self.lines.iter().enumerate().take(from.line_idx) {
-            if let Some(grapheme_idx) = line.search(query, 0) {
-                return Some(Location {
-                    grapheme_idx,
-                    line_idx,
-                });
-            }
         }
 
         None
+
+        // for (line_idx, line) in self.lines.iter().enumerate().skip(from.line_idx) {
+        //     let from_grapheme_idx = if line_idx == from.line_idx {
+        //         from.grapheme_idx
+        //     } else {
+        //         0
+        //     };
+
+        //     if let Some(grapheme_idx) = line.search(query, from_grapheme_idx) {
+        //         return Some(Location {
+        //             grapheme_idx,
+        //             line_idx,
+        //         });
+        //     }
+        // }
+
+
+        // for (line_idx, line) in self.lines.iter().enumerate().take(from.line_idx) {
+        //     if let Some(grapheme_idx) = line.search(query, 0) {
+        //         return Some(Location {
+        //             grapheme_idx,
+        //             line_idx,
+        //         });
+        //     }
+        // }
+
+        // None
     }
     pub fn save_to_file(&self, file_info: &FileInfo) -> Result<(), Error> {
         if let Some(file_path) = &file_info.get_path() {

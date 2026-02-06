@@ -23,6 +23,13 @@ pub struct View {
     search_info: Option<SearchInfo>,
 }
 
+#[derive(Default, PartialEq)]
+pub enum SearchDirection {
+    #[default]
+    Forward,
+    Backward,
+}
+
 impl View {
     pub fn get_status(&self) -> DocumentStatus {
         DocumentStatus {
@@ -95,17 +102,17 @@ impl View {
         if let Some(search_info) = &mut self.search_info {
             search_info.query = Line::from(query);
         }
-        self.search_from(self.text_location);
+        self.search_from(self.text_location, SearchDirection::default());
     }
 
-    fn search_from(&mut self, from: Location) {
+    fn search_from(&mut self, from: Location, direction: SearchDirection) {
         if let Some(search_info) = self.search_info.as_ref() {
             let query = &search_info.query;
             if query.is_empty() {
                 return;
             }
 
-            if let Some(location) = self.buffer.search(query, from) {
+            if let Some(location) = self.buffer.search(query, from, direction) {
                 self.text_location = location;
                 self.center_text_location();
             }
@@ -115,6 +122,13 @@ impl View {
                 panic!("Attempting to search_from without search_info");
             }
         }
+    }
+    pub fn search_previous(&mut self) {
+        let location = Location {
+            line_idx: self.text_location.line_idx,
+            grapheme_idx: self.text_location.grapheme_idx,
+        };
+        self.search_from(location, SearchDirection::Backward);
     }
     pub fn search_next(&mut self) {
         let step_right;
@@ -137,7 +151,7 @@ impl View {
             line_idx: self.text_location.line_idx,
             grapheme_idx: self.text_location.grapheme_idx.saturating_add(step_right),
         };
-        self.search_from(location);
+        self.search_from(location, SearchDirection::default());
     }
     // endregion
     // region: Editing

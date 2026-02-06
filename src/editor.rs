@@ -33,7 +33,7 @@ use self::{
     command::{
         Command::{self, Edit, Move, System},
         Edit::InsertNewLine,
-        Move::{Down, Right},
+        Move::{Up, Down, Left, Right},
         System::{Quit, Resize, Save, Dismiss, Search},
     },
 };
@@ -301,6 +301,7 @@ impl Editor {
                 self.view.search(&query);
             },
             Move(Right | Down) => self.view.search_next(),
+            Move(Left | Up) => self.view.search_previous(),
             System(Quit | Resize(_) | Search | Save) | Move(_) => {},
 
         }
