@@ -56,12 +56,11 @@ impl Buffer {
             let mut line_idx = from.line_idx;
 
             if index > line_idx {
-                line_idx += self.lines.len() - 1;
+                line_idx += self.lines.len();
             }
 
             line_idx -= index;
 
-            debug_assert!(line_idx < self.lines.len());
             let line = &self.lines[line_idx];
 
             let from_grapheme_idx = if line_idx == from.line_idx {

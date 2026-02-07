@@ -157,11 +157,8 @@ impl Editor {
         } else {
             self.view.caret_position()
         };
-        debug_assert!(new_caret_pos.row <= self.terminal_size.width);
-        debug_assert!(
-            new_caret_pos.col <= self.terminal_size.height, 
-            "new_caret_pos.col > self.terminal_size.height: {}: {}", new_caret_pos.col, self.terminal_size.height
-        );
+        debug_assert!(new_caret_pos.col <= self.terminal_size.width);
+        debug_assert!(new_caret_pos.row <= self.terminal_size.height);
         
         let _ = Terminal::move_caret_to(new_caret_pos);
         let _ = Terminal::show_caret();
