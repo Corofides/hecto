@@ -48,8 +48,13 @@ impl Line {
         }
     }
     fn str_to_fragments(line_str: &str) -> Vec<TextFragment> {
-        line_str
-            .grapheme_indices(true)
+
+        let mut fixed_string = String::from(line_str);
+
+        fixed_string = fixed_string.replace('\u{200D}', "");
+
+        fixed_string 
+            .grapheme_indices(false)
             .map(|(byte_idx, grapheme)| {
                 let (replacement, rendered_width) = Self::get_replacement_character(grapheme)
                     .map_or_else(
@@ -57,7 +62,10 @@ impl Line {
                             let unicode_width = grapheme.width();
                             let rendered_width = match unicode_width {
                                 0 | 1 => GraphemeWidth::Half,
-                                _ => GraphemeWidth::Full,
+                                2 => GraphemeWidth::Full,
+                                _ => {
+                                    GraphemeWidth::Full
+                                }
                             };
                             (None, rendered_width)
                         },
