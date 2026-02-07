@@ -109,7 +109,7 @@ impl View {
         let query = self
             .search_info
             .as_ref()
-            .and_then(|search_info| search_info.query_as_ref());
+            .and_then(|search_info| search_info.query.as_ref());
 
         debug_assert!(
             query.is_some(),
@@ -125,7 +125,7 @@ impl View {
             } else if direction == SearchDirection::Forward {
                 self.buffer.search_forward(query, from)
             } else {
-                self.buffer.search_backwards(query, from)
+                self.buffer.search_backward(query, from)
             }
         }) {
             self.text_location = location;

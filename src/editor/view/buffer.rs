@@ -4,7 +4,6 @@ use std::io::{Write, Error};
 use super::Line;
 use super::FileInfo;
 use super::Location;
-use super::SearchDirection;
 
 #[derive(Default)]
 pub struct Buffer {
@@ -31,16 +30,14 @@ impl Buffer {
             return None;
         }
 
-        let mut is_first = true;
-
         for line_idx in 0..self.lines.len() {
             let line_idx = (line_idx + from.line_idx) % self.lines.len();
 
             let from_grapheme_idx = if line_idx == from.line_idx {
-                from_grapheme_idx
+                from.grapheme_idx
             } else {
                 0
-            }
+            };
 
             if let Some(grapheme_idx) = self.lines[line_idx].search_forward(query, from_grapheme_idx) {
                 return Some(Location{
@@ -59,10 +56,13 @@ impl Buffer {
             let mut line_idx = from.line_idx;
 
             if index > line_idx {
-                line_idx += self.lines.len();
+                line_idx += self.lines.len() - 1;
             }
 
             line_idx -= index;
+
+            debug_assert!(line_idx < self.lines.len());
+            let line = &self.lines[line_idx];
 
             let from_grapheme_idx = if line_idx == from.line_idx {
                 from.grapheme_idx

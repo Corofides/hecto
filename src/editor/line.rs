@@ -102,7 +102,7 @@ impl Line {
         }
     }
     pub fn delete(&mut self, at: usize) {
-        debug_assert!(at <= self.grapheme.count());
+        debug_assert!(at <= self.grapheme_count());
         if let Some(fragment) = self.fragments.get(at) {
             let start = fragment.start_byte_idx;
             let end = fragment
@@ -197,7 +197,7 @@ impl Line {
             .map_or_else(|| {
                 #[cfg(debug_assertions)]
                 {
-                    panic!("Fragment not found for byte index: {byte_ids:?}");
+                    panic!("Fragment not found for byte index: {byte_idx:?}");
                 }
                 #[cfg(not(debug_assertions))]
                 {
@@ -206,7 +206,7 @@ impl Line {
             }, |grapheme_idx| grapheme_idx)
     }
     fn grapheme_idx_to_byte_idx(&self, grapheme_idx: GraphemeIdx) -> ByteIdx {
-        debug_assert!(grapheme_idx <= self.grapheme_count);
+        debug_assert!(grapheme_idx <= self.grapheme_count());
         if grapheme_idx == 0 || self.grapheme_count() == 0 {
             return 0;
         }
@@ -243,7 +243,7 @@ impl Line {
             return None;
         }
 
-        let end_byte_index = if from.grapheme_idx == self.grapheme_count() {
+        let end_byte_index = if from_grapheme_idx == self.grapheme_count() {
             self.string.len()
         } else {
             self.grapheme_idx_to_byte_idx(from_grapheme_idx)
@@ -252,7 +252,7 @@ impl Line {
         self.string
             .get(..end_byte_index)
             .and_then(|substr| substr.match_indices(query).last())
-            .map(|(index, _)| self.byte_to_grapheme_idx(index))
+            .map(|(index, _)| self.byte_idx_to_grapheme_idx(index))
 
     }
         
