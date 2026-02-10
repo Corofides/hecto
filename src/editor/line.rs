@@ -3,6 +3,8 @@ use std::{
     ops::{Deref, Range},
 };
 
+use super::annotatedstring::AnnotatedString;
+
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 
@@ -35,6 +37,7 @@ pub struct TextFragment {
 #[derive(Default, Clone)]
 pub struct Line {
     fragments: Vec<TextFragment>,
+    //annotated_string: AnnotatedString,
     string: String,
 }
 
@@ -45,6 +48,7 @@ impl Line {
         Self { 
             fragments,
             string: String::from(line_str),
+            //annotated_string: AnnotatedString::new(line_str),
         }
     }
     fn str_to_fragments(line_str: &str) -> Vec<TextFragment> {
@@ -230,6 +234,20 @@ impl Line {
                     0
                 }
             }, |fragment| fragment.start_byte_idx)
+    }
+    pub fn get_annotated_visible_substr(&self, range: Range<GraphemeIdx>, query: &str) -> AnnotatedString {
+        let sub_str = self.get_visible_graphemes(range);
+
+        let annotated_string = AnnotatedString::new(&sub_str);
+        let search_results = self.search(&query);
+        
+        annotated_string
+    }
+    pub fn search(&self, query: &str) -> Vec<GraphemeIdx> {
+        self.string
+            .match_indices(query)
+            .map(|(index, _)| self.byte_idx_to_grapheme_idx(index))
+            .collect()
     }
     pub fn search_forward(&self, query: &str, from_grapheme_idx: GraphemeIdx) -> Option<GraphemeIdx> {
         debug_assert!(from_grapheme_idx <= self.grapheme_count());

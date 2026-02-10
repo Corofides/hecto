@@ -2,7 +2,8 @@ use std::{cmp::min, io::Error};
 
 use super::{
     command::{Edit, Move},
-    Col, Row, DocumentStatus, Line, Position, Size, Terminal, UIComponent, NAME, VERSION
+    Col, Row, DocumentStatus, Line, Position, Size, Terminal, UIComponent, NAME, VERSION,
+    annotatedstring::{AnnotatedString},
 };
 mod buffer;
 use buffer::Buffer;
@@ -185,7 +186,9 @@ impl View {
     }
     // region: Rendering
     fn render_line(at: usize, line_text: &str) -> Result<(), Error> {
+
         Terminal::print_row(at, line_text)
+        
     }
     fn build_welcome_message(width: usize) -> String {
         if width == 0 {
@@ -352,7 +355,19 @@ impl UIComponent for View {
             if let Some(line) = self.buffer.lines.get(line_idx) {
                 let left = self.scroll_offset.col;
                 let right = self.scroll_offset.col.saturating_add(width);
+               
+                if let Some(search_info) = &self.search_info {
+                    if let Some(query) = &search_info.query {
+                        // let query = search_info.query.unwrap();
+                        let annotated_string = &line.get_annotated_visible_substr(left..right, &query);
+                        
+                        Self::render_line(current_row, annotated_string.get_display_string())?;
+                        continue;
+                    } 
+                }
+
                 Self::render_line(current_row, &line.get_visible_graphemes(left..right))?;
+
             } else if current_row == top_third && self.buffer.is_empty() {
                 Self::render_line(current_row, &Self::build_welcome_message(width))?;
             } else {

@@ -7,8 +7,10 @@ use crossterm::terminal::{
 use crossterm::cursor::{MoveTo, Hide, Show};
 use crossterm::style::{Attribute, Print};
 use crossterm::{queue, Command};
-use super::{Position, Size};
-pub struct Terminal;
+use super::{Position, Size, AnnotatedString};
+
+pub struct Terminal {
+}
 
 impl Terminal {
     pub fn terminate() -> Result<(), Error> {
@@ -74,6 +76,12 @@ impl Terminal {
         Self::move_caret_to(Position { col: 0, row: row, })?;
         Self::clear_line()?;
         Self::print(line_text)?;
+        Ok(())
+    }
+    pub fn print_annotated_row(row: usize, annotated_string: &AnnotatedString) -> Result<(), Error> {
+        Self::move_caret_to(Position { col: 0, row: row, })?;
+        Self::clear_line()?;
+        Self::print(annotated_string.get_display_string())?;
         Ok(())
     }
     pub fn print_inverted_row(row: usize, line_text: &str) -> Result<(), Error> {

@@ -9,6 +9,7 @@ mod messagebar;
 mod uicomponent;
 mod size;
 mod position;
+mod annotatedstring;
 
 use crossterm::event::{ read, poll, Event, KeyEvent, KeyEventKind };
 use std::{
@@ -27,6 +28,7 @@ use terminal::{Terminal};
 use view::{View};
 use statusbar::{StatusBar};
 use uicomponent::UIComponent;
+use annotatedstring::AnnotatedString;
 use std::time::{Duration};
 
 use self::{
