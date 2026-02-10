@@ -185,6 +185,9 @@ impl View {
         self.set_needs_redraw(true);
     }
     // region: Rendering
+    fn render_annotated_string(at: usize, annotated_string: AnnotatedString) -> Result<(), Error> {
+        Terminal::print_annotated_row(at, &annotated_string)
+    }
     fn render_line(at: usize, line_text: &str) -> Result<(), Error> {
 
         Terminal::print_row(at, line_text)
@@ -359,9 +362,9 @@ impl UIComponent for View {
                 if let Some(search_info) = &self.search_info {
                     if let Some(query) = &search_info.query {
                         // let query = search_info.query.unwrap();
-                        let annotated_string = &line.get_annotated_visible_substr(left..right, &query);
+                        let annotated_string = line.get_annotated_visible_substr(left..right, &query);
                         
-                        Self::render_line(current_row, annotated_string.get_display_string())?;
+                        Self::render_annotated_string(current_row, annotated_string)?;
                         continue;
                     } 
                 }

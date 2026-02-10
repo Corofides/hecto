@@ -81,7 +81,13 @@ impl Terminal {
     pub fn print_annotated_row(row: usize, annotated_string: &AnnotatedString) -> Result<(), Error> {
         Self::move_caret_to(Position { col: 0, row: row, })?;
         Self::clear_line()?;
-        Self::print(annotated_string.get_display_string())?;
+
+        let annotated_fragments = annotated_string.get_annotated_fragments();
+
+        for fragment in annotated_fragments {
+            Self::print(&fragment.string)?;
+        }
+        //Self::print(annotated_string.get_display_string())?;
         Ok(())
     }
     pub fn print_inverted_row(row: usize, line_text: &str) -> Result<(), Error> {

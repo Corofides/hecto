@@ -3,7 +3,7 @@ use std::{
     ops::{Deref, Range},
 };
 
-use super::annotatedstring::AnnotatedString;
+use super::annotatedstring::{AnnotatedString, AnnotationType, Annotation};
 
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
@@ -237,9 +237,43 @@ impl Line {
     }
     pub fn get_annotated_visible_substr(&self, range: Range<GraphemeIdx>, query: &str) -> AnnotatedString {
         let sub_str = self.get_visible_graphemes(range);
+        //let sub_str_fragments = Self::string_to_fragments();
 
-        let annotated_string = AnnotatedString::new(&sub_str);
+        let mut annotated_string = AnnotatedString::new(&sub_str);
         let search_results = self.search(&query);
+
+        let mut last_index = 0;
+
+        // currently crashes: think this is because the search_results are across the entire string
+        // not just the substr.
+        /* for annotation in search_results {
+
+            // let annotation = self.grapheme_idx_to_byte_idx(annotation);
+            if last_index < annotation {
+                annotated_string.add_annotation(Annotation::new(
+                    last_index,
+                    annotation,
+                    AnnotationType::None
+                ));
+            }
+
+            annotated_string.add_annotation(Annotation::new(
+                annotation, 
+                annotation + query.len(), 
+                AnnotationType::Highlight
+            ));
+            
+            last_index = annotation + query.len();
+        } */
+
+        //debug_assert!(sub_str.len()  0);
+        if last_index < sub_str.len().saturating_sub(1) {
+            annotated_string.add_annotation(Annotation::new(
+                last_index,
+                (sub_str.len() - last_index).saturating_sub(1), //query.len() - 1,
+                AnnotationType::None
+            ));
+        }
         
         annotated_string
     }
