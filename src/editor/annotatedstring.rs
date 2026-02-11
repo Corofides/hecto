@@ -1,5 +1,5 @@
 
-#[derive(Default, Clone, Copy)]
+#[derive(Default, Clone, Copy, Debug)]
 pub enum AnnotationType {
     #[default]
     None,
@@ -21,7 +21,7 @@ impl AnnotatedFragment {
     }
 }
 
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Debug)]
 pub struct Annotation {
     pub start_byte_idx: usize,
     pub end_byte_idx: usize,
@@ -55,7 +55,11 @@ impl AnnotatedString {
     pub fn get_annotated_fragments(&self) -> Vec<AnnotatedFragment> {
         let mut annotated_fragments = vec![];
 
+        //debug_assert!(false, "{:?}", self.annotations);
+
         for annotation in &self.annotations {
+            debug_assert!(annotation.start_byte_idx < self.string.len());
+            debug_assert!(annotation.end_byte_idx != 77, "{:?}", annotation);
             annotated_fragments.push(AnnotatedFragment::new(
                 &self.string[annotation.start_byte_idx..=annotation.end_byte_idx],
                 annotation.annotation_type,
@@ -66,6 +70,12 @@ impl AnnotatedString {
     }
 
     pub fn add_annotation(&mut self, annotation: Annotation) {
+        debug_assert!(annotation.start_byte_idx < self.string.len());
+        debug_assert!(
+            annotation.end_byte_idx >= annotation.start_byte_idx,
+            "{}, {}",
+            annotation.start_byte_idx, annotation.end_byte_idx,
+        );
         self.annotations.push(annotation);
     }
     pub fn get_display_string(&self) -> &str {

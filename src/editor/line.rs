@@ -11,7 +11,7 @@ use unicode_width::UnicodeWidthStr;
 type GraphemeIdx = usize;
 type ByteIdx = usize;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum GraphemeWidth {
     Half,
     Full,
@@ -26,7 +26,7 @@ impl GraphemeWidth {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct TextFragment {
     grapheme: String,
     rendered_width: GraphemeWidth,
@@ -243,44 +243,59 @@ impl Line {
         let search_results = self.search(&query);
 
         let mut last_index = 0;
+        
+        //debug_assert!(query.len() < 1, "{}, {:?}, {:?}", self.fragments.len(),search_results,  self.fragments);
 
+        //start should be 49.
         // currently crashes: think this is because the search_results are across the entire string
         // not just the substr.
-        /* for annotation in search_results {
+        for annotation in search_results {
 
-            // let annotation = self.grapheme_idx_to_byte_idx(annotation);
+            debug_assert!(false, "{:?}", self.fragments[annotation]);
+
+
+            let annotation_byte_idx = self.grapheme_idx_to_byte_idx(annotation);
+            // annotation is a grapheme_idx
+            // last_index is a grapheme_idx
             if last_index < annotation {
+
                 annotated_string.add_annotation(Annotation::new(
                     last_index,
-                    annotation,
+                    annotation_byte_idx,
                     AnnotationType::None
                 ));
+                // debug_assert!(annotation == 23, "{:?}", search_results);
             }
 
+            // we add an annotation to take care of the current bit.
             annotated_string.add_annotation(Annotation::new(
-                annotation, 
-                annotation + query.len(), 
+                annotation_byte_idx, 
+                annotation_byte_idx + query.len(), 
                 AnnotationType::Highlight
             ));
             
             last_index = annotation + query.len();
-        } */
+        }
+
+        //debug_assert!(false, "{}, {}", last_index, sub_str.len().saturating_sub(1));
 
         //debug_assert!(sub_str.len()  0);
         if last_index < sub_str.len().saturating_sub(1) {
             annotated_string.add_annotation(Annotation::new(
                 last_index,
-                (sub_str.len() - last_index).saturating_sub(1), //query.len() - 1,
+                sub_str.len().saturating_sub(1), // - last_index).saturating_sub(1), //query.len() - 1,
                 AnnotationType::None
             ));
         }
+
+        // debug_assert!(false, "{:?}, {}", annotated_string.annotations, annotated_string.string.len());
         
         annotated_string
     }
     pub fn search(&self, query: &str) -> Vec<GraphemeIdx> {
         self.string
             .match_indices(query)
-            .map(|(index, _)| self.byte_idx_to_grapheme_idx(index))
+            .map(|(index, _)| index) //self.byte_idx_to_grapheme_idx(index))
             .collect()
     }
     pub fn search_forward(&self, query: &str, from_grapheme_idx: GraphemeIdx) -> Option<GraphemeIdx> {
