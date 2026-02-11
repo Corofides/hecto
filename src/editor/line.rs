@@ -251,7 +251,7 @@ impl Line {
         // not just the substr.
         for annotation in search_results {
 
-            debug_assert!(false, "{:?}", self.fragments[annotation]);
+            //debug_assert!(false, "{:?}", self.fragments[annotation]);
 
 
             let annotation_byte_idx = self.grapheme_idx_to_byte_idx(annotation);

@@ -76,6 +76,7 @@ impl AnnotatedString {
             "{}, {}",
             annotation.start_byte_idx, annotation.end_byte_idx,
         );
+
         self.annotations.push(annotation);
     }
     pub fn get_display_string(&self) -> &str {
