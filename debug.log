@@ -1,2 +1,901 @@
-18:01:08 [DEBUG] (1) hecto: this is a test entry
-18:01:08 [DEBUG] (1) hecto::editor: Start the editor
+17:58:59 [DEBUG] (1) hecto: this is a test entry
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:00 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:00 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:00 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:02 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:02 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:02 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:05 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:05 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:05 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:06 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:06 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:06 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:07 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:07 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:07 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:08 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:08 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:08 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:12 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:12 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:13 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:13 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:13 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:13 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:13 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:15 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:15 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:15 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:16 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:16 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:16 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:17 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:17 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:17 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:26 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:26 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:26 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:28 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:28 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:28 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:28 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:28 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 0: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 0 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 1: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 4 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 2: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 8 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 3: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 12 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 4: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 16 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 5: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 20 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 6: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 24 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 7: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 28 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 8: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 32 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 9: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 36 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 10: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 40 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 11: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 44 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 12: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 48 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 13: TextFragment { grapheme: "n", rendered_width: Half, replacement: None, start_byte_idx: 49 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 14: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 50 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 15: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 51 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 16: TextFragment { grapheme: "d", rendered_width: Half, replacement: None, start_byte_idx: 52 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 17: TextFragment { grapheme: "l", rendered_width: Half, replacement: None, start_byte_idx: 53 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 18: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 54 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 19: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 55 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 20: TextFragment { grapheme: "a", rendered_width: Half, replacement: None, start_byte_idx: 56 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 21: TextFragment { grapheme: "f", rendered_width: Half, replacement: None, start_byte_idx: 57 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 22: TextFragment { grapheme: "t", rendered_width: Half, replacement: None, start_byte_idx: 58 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 23: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 59 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 24: TextFragment { grapheme: "r", rendered_width: Half, replacement: None, start_byte_idx: 60 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 25: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 61 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 26: TextFragment { grapheme: "e", rendered_width: Half, replacement: None, start_byte_idx: 62 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 27: TextFragment { grapheme: "m", rendered_width: Half, replacement: None, start_byte_idx: 63 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 28: TextFragment { grapheme: "o", rendered_width: Half, replacement: None, start_byte_idx: 64 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 29: TextFragment { grapheme: "j", rendered_width: Half, replacement: None, start_byte_idx: 65 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 30: TextFragment { grapheme: "i", rendered_width: Half, replacement: None, start_byte_idx: 66 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 31: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 67 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 32: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 68 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 33: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 72 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 34: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 76 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 35: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 80 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 36: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 84 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 37: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 88 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 38: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 92 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 39: TextFragment { grapheme: "🤝", rendered_width: Full, replacement: None, start_byte_idx: 96 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 40: TextFragment { grapheme: "🧑", rendered_width: Full, replacement: None, start_byte_idx: 100 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Fragment 41: TextFragment { grapheme: " ", rendered_width: Half, replacement: None, start_byte_idx: 104 }
+17:59:29 [DEBUG] (1) hecto::editor::line: Annotation: 13
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 0
+17:59:29 [DEBUG] (1) hecto::editor::terminal: Print Annotated Row: 1

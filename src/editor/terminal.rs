@@ -79,6 +79,7 @@ impl Terminal {
         Ok(())
     }
     pub fn print_annotated_row(row: usize, annotated_string: &AnnotatedString) -> Result<(), Error> {
+        log::debug!("Print Annotated Row: {}", row);
         Self::move_caret_to(Position { col: 0, row: row, })?;
         Self::clear_line()?;
 
