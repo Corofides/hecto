@@ -5,9 +5,11 @@ use crossterm::terminal::{
     EnableLineWrap, DisableLineWrap, SetTitle
 };
 use crossterm::cursor::{MoveTo, Hide, Show};
-use crossterm::style::{Attribute, Print};
+use crossterm::style::{ResetColor, Attribute, Print, Color, SetForegroundColor, SetBackgroundColor};
 use crossterm::{queue, Command};
 use super::{Position, Size, AnnotatedString};
+use crate::editor::annotatedstring::AnnotationType;
+
 
 pub struct Terminal {
 }
@@ -72,6 +74,9 @@ impl Terminal {
     pub fn print(string: &str) -> Result<(), Error> {
         Self::queue_command(Print(string))
     }
+    pub fn reset_color() -> Result<(), Error> {
+        Self::queue_command(ResetColor)
+    }
     pub fn print_row(row: usize, line_text: &str) -> Result<(), Error> {
         Self::move_caret_to(Position { col: 0, row: row, })?;
         Self::clear_line()?;
@@ -86,9 +91,35 @@ impl Terminal {
         let annotated_fragments = annotated_string.get_annotated_fragments();
 
         for fragment in annotated_fragments {
+            let colors = match fragment.annotation_type {
+                AnnotationType::Highlight => Some((Color::Rgb {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                }, Color::Rgb {
+                    r: 255,
+                    g: 255,
+                    b: 0,
+                })),
+                AnnotationType::None => None/*(Color::Rgb {
+                    r: 255,
+                    g: 255,
+                    b: 255,
+                }, Color::Rgb {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                })*/
+            };
+
+            if let Some((foreground_color, background_color)) = colors {
+                Self::queue_command(SetForegroundColor(foreground_color));
+                Self::queue_command(SetBackgroundColor(background_color));
+            }
             Self::print(&fragment.string)?;
+            Self::queue_command(ResetColor);
         }
-        //Self::print(annotated_string.get_display_string())?;
+
         Ok(())
     }
     pub fn print_inverted_row(row: usize, line_text: &str) -> Result<(), Error> {

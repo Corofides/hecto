@@ -90,7 +90,9 @@ impl View {
         });
     }
     pub fn exit_search(&mut self) {
+        //Terminal::reset_color().unwrap();
         self.search_info = None;
+        self.set_needs_redraw(true);
     }
     pub fn dismiss_search(&mut self) {
         if let Some(search_info) = &self.search_info {
@@ -98,7 +100,9 @@ impl View {
             self.scroll_offset = search_info.prev_scroll_offset;
             self.scroll_text_location_into_view();
         }
+        //Terminal::reset_color().unwrap();
         self.search_info = None;
+        self.set_needs_redraw(true);
     }
     pub fn search(&mut self, query: &str) {
         if let Some(search_info) = &mut self.search_info {

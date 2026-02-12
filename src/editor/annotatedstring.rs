@@ -59,7 +59,6 @@ impl AnnotatedString {
 
         for annotation in &self.annotations {
             debug_assert!(annotation.start_byte_idx < self.string.len());
-            debug_assert!(annotation.end_byte_idx != 77, "{:?}", annotation);
             annotated_fragments.push(AnnotatedFragment::new(
                 &self.string[annotation.start_byte_idx..=annotation.end_byte_idx],
                 annotation.annotation_type,

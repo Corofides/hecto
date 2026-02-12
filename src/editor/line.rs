@@ -256,7 +256,7 @@ impl Line {
             if last_index < annotation_byte_idx {
                 annotated_string.add_annotation(Annotation::new(
                     last_index,
-                    annotation_byte_idx,
+                    annotation_byte_idx - 1,
                     AnnotationType::None
                 ));
             }
@@ -264,7 +264,7 @@ impl Line {
             // we add an annotation to take care of the current bit.
             annotated_string.add_annotation(Annotation::new(
                 annotation_byte_idx, 
-                annotation_byte_idx + query.len(),
+                annotation_byte_idx + query.len() - 1,
                 AnnotationType::Highlight
             ));
             
