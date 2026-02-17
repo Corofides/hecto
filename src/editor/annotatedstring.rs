@@ -38,7 +38,7 @@ impl Annotation {
     }
 }
 
-#[derive(Default, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct AnnotatedString {
     pub string: String,
     pub annotations: Vec<Annotation>,

@@ -271,7 +271,7 @@ impl Line {
             last_index = annotation_byte_idx + query.len();
         }
 
-        if last_index < sub_str.len().saturating_sub(1) {
+        if last_index < sub_str.len()/* .saturating_sub(1) */ {
             annotated_string.add_annotation(Annotation::new(
                 last_index,
                 sub_str.len().saturating_sub(1), // - last_index).saturating_sub(1), //query.len() - 1,

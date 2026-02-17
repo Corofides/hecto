@@ -84,7 +84,7 @@ impl Terminal {
         Ok(())
     }
     pub fn print_annotated_row(row: usize, annotated_string: &AnnotatedString) -> Result<(), Error> {
-        log::debug!("Print Annotated Row: {}", row);
+        log::debug!("Print Annotated Row: {:?}", annotated_string);
         Self::move_caret_to(Position { col: 0, row: row, })?;
         Self::clear_line()?;
 
@@ -101,15 +101,7 @@ impl Terminal {
                     g: 255,
                     b: 0,
                 })),
-                AnnotationType::None => None/*(Color::Rgb {
-                    r: 255,
-                    g: 255,
-                    b: 255,
-                }, Color::Rgb {
-                    r: 0,
-                    g: 0,
-                    b: 0,
-                })*/
+                AnnotationType::None => None
             };
 
             if let Some((foreground_color, background_color)) = colors {
